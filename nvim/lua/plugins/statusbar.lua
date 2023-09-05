@@ -1,4 +1,3 @@
---- lualine ----------------------------------------------------------------
 require('lualine').setup({
     options = {
         icons_enabled = true,
@@ -9,7 +8,7 @@ require('lualine').setup({
             statusline = {},
             winbar = {},
         },
-        ignore_focus = {},
+        ignore_focus = { 'neo-tree' },
         always_divide_middle = true,
         globalstatus = false,
         refresh = {

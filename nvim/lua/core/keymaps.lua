@@ -1,25 +1,23 @@
-local options = { silent = true }
+--- Neo Tree ------------------------------------------------------------------
+vim.keymap.set('n', '<leader>fo', ':Neotree toggle<cr>', { desc = 'Neotree toggle', silent = true })
+vim.keymap.set('n', '<leader>gs', ':Neotree bottom git_status<cr>', { desc = 'Git status', silent = true })
 
---- navigate vim panes better -----------------------------------------------
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', options)
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', options)
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', options)
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', options)
+--- navigate vim panes better -------------------------------------------------
+vim.keymap.set('n', '<c-k>', ':wincmd k<CR>', { desc = 'Up window', silent = true })
+vim.keymap.set('n', '<c-j>', ':wincmd j<CR>', { desc = 'Down window', silent = true })
+vim.keymap.set('n', '<c-h>', ':wincmd h<CR>', { desc = 'Left window', silent = true })
+vim.keymap.set('n', '<c-l>', ':wincmd l<CR>', { desc = 'Right window', silent = true })
 
-options["desc"] = "Hide highlight"
-vim.keymap.set('n', '<leader>H', ':nohlsearch<CR>', options)
+vim.keymap.set('n', '<leader>H', ':nohlsearch<CR>', { desc = 'Hide highlight', silent = true })
 
---- show / hide the line number for each line -------------------------------
-options["desc"] = "Toggle line numbers"
-vim.keymap.set('n', '<leader>n', ':set<Space>nu!<CR>', options)
+--- show / hide the line number for each line ---------------------------------
+vim.keymap.set('n', '<leader>n', ':set<Space>nu!<CR>', { desc = 'Toggle line numbers', silent = true })
 
---- teleport ----------------------------------------------------------------
+--- teleport ------------------------------------------------------------------
+--[[
 local builtin = require('telescope.builtin')
-options["desc"] = "Find files"
-vim.keymap.set('n', '<leader>ff', builtin.find_files, options)
-options["desc"] = "Live grep"
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, options)
-options["desc"] = "Buffers"
-vim.keymap.set('n', '<leader>fb', builtin.buffers, options)
-options["desc"] = "Fuzzy in buffer"
-vim.keymap.set('n', '<leader>fz', builtin.current_buffer_fuzzy_find, options)
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files', silent = true })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep', silent = true })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Buffers', silent = true })
+vim.keymap.set('n', '<leader>fz', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzy in buffer', silent = true })
+--]]

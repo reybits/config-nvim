@@ -17,23 +17,27 @@ vim.g.maplocalleader = ' '
 require("lazy").setup({
     -- Gruvbox colortheme (must have)
     {
-        "ellisonleao/gruvbox.nvim",
+        'ellisonleao/gruvbox.nvim',
         priority = 1000,
-		config = function()
-			vim.o.termguicolors = true
-			vim.cmd([[colorscheme gruvbox]])
-		end,
+        config = function()
+            vim.o.termguicolors = true
+            vim.cmd([[colorscheme gruvbox]])
+        end,
     },
 
     {
-        "nvim-lualine/lualine.nvim",
+        'nvim-lualine/lualine.nvim',
         dependencies = {
-            "nvim-tree/nvim-web-devicons",
+            'nvim-tree/nvim-web-devicons',
         },
     },
 
+    { 'nvim-treesitter/nvim-treesitter', },
+    { 'tpope/vim-fugitive', },
+    { 'terrortylor/nvim-comment' },
+
     {
-        "folke/which-key.nvim",
+        'folke/which-key.nvim',
         event = "VeryLazy",
         init = function()
             vim.o.timeout = true
@@ -47,12 +51,12 @@ require("lazy").setup({
     },
 
     {
-        "nvim-neo-tree/neo-tree.nvim",
+        'nvim-neo-tree/neo-tree.nvim',
         branch = "v3.x",
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
+            'nvim-lua/plenary.nvim',
+            'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+            'MunifTanjim/nui.nvim',
         }
     },
 
@@ -63,28 +67,38 @@ require("lazy").setup({
         dependencies = {
             'nvim-lua/plenary.nvim',
 
-			-- Fuzzy Finder Algorithm which requires local dependencies to be built.
-			-- Only load if `make` is available. Make sure you have the system
-			-- requirements installed.
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				-- NOTE: If you are having trouble with this installation,
-				--       refer to the README for telescope-fzf-native for more instructions.
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
-			},
+            -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+            -- Only load if `make` is available. Make sure you have the system
+            -- requirements installed.
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                -- NOTE: If you are having trouble with this installation,
+                --       refer to the README for telescope-fzf-native for more instructions.
+                build = "make",
+                cond = function()
+                    return vim.fn.executable("make") == 1
+                end,
+            },
         }
     },
 
     {
-        'nvim-treesitter/nvim-treesitter',
-    },
-
-    -- Git plugin for Vim
-    {
-        "tpope/vim-fugitive",
+        'williamboman/mason.nvim',
+        dependencies = {
+            -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
+            {
+                "jay-babu/mason-null-ls.nvim",
+                event = { "BufReadPre", "BufNewFile" },
+                dependencies = {
+                    "williamboman/mason.nvim",
+                    "jose-elias-alvarez/null-ls.nvim",
+                },
+                config = function()
+                    -- require("your.null-ls.config") -- require your null-ls config here (example below)
+                end,
+            },
+            -- 'jayp0521/mason-nvim-dap.nvim',
+	    },
     },
 
     {
@@ -92,49 +106,48 @@ require("lazy").setup({
         dependencies = {
             -- Automatically install LSPs to stdpath for neovim
             {
-                "williamboman/mason.nvim",
+                'williamboman/mason.nvim',
                 config = true,
             },
 
-            "williamboman/mason-lspconfig.nvim",
+            'williamboman/mason-lspconfig.nvim',
 
             -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             {
-                "j-hui/fidget.nvim",
+                'j-hui/fidget.nvim',
                 tag = "legacy",
                 event = "LspAttach",
                 opts = {},
             },
 
             -- Additional lua configuration, makes nvim stuff amazing!
-            "folke/neodev.nvim",
+            'folke/neodev.nvim',
         },
     },
 
     -- Autocompletion
     {
-        "hrsh7th/nvim-cmp",
+        'hrsh7th/nvim-cmp',
         dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/cmp-nvim-lsp", -- Adds LSP completion capabilities
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/nvim-cmp",
+            'neovim/nvim-lspconfig',
+            'hrsh7th/cmp-nvim-lsp', -- Adds LSP completion capabilities
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/nvim-cmp',
 
             -- vsni
-            "hrsh7th/cmp-vsnip",
-            "hrsh7th/vim-vsnip",
+            'hrsh7th/cmp-vsnip',
+            'hrsh7th/vim-vsnip',
 
             -- luasnip
-            -- "L3MON4D3/LuaSnip",
-            -- "saadparwaiz1/cmp_luasnip",
+            -- 'L3MON4D3/LuaSnip',
+            -- 'saadparwaiz1/cmp_luasnip',
 
-            -- "rafamadriz/friendly-snippets", -- Adds a number of user-friendly snippets
+            -- 'rafamadriz/friendly-snippets', -- Adds a number of user-friendly snippets
         },
     },
 
-    --{ "folke/neoconf.nvim", cmd = "Neoconf" },
-    --{ "folke/neodev.nvim", },
+    --{ 'folke/neoconf.nvim', cmd = "Neoconf" },
 })

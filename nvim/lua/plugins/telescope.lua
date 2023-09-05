@@ -65,8 +65,8 @@ pcall(require("telescope").load_extension, "fzf")
 -- See `:help telescope.builtin`
 local builtin = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "[?] Recently opened files", silent = true })
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Existing buffers", silent = true })
+vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "[?] Recently opened files", silent = true })
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, { desc = "[/] Fuzzily search in current buffer", silent = true })
 vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search [G]it [F]iles", silent = true })
 vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles", silent = true })

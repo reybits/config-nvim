@@ -33,7 +33,7 @@ return {
             ["<leader>s"] = { name = "Search" },
             ["<leader>u"] = { name = "UI" },
             ["<leader>w"] = { name = "Window" },
-            ["<leader>x"] = { name = "Diagnostics/Quickfix" },
+            ["<leader>x"] = { name = "Diagnostics" },
         },
     },
     config = function(_, opts)

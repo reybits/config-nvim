@@ -14,12 +14,12 @@ return {
         { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers list" },
         { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers list" },
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
-        { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find all files" },
-        { "<leader><space>", function()
+        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+        { "<leader>ff", function()
                 require("telescope.builtin").find_files({
                     cwd = require("telescope.utils").buffer_dir(),
                 })
-            end, desc = "Find project files" },
+            end, desc = "Find files (cwd)" },
 
         -- add a keymap to browse plugin files
         { "<leader>fP", function()

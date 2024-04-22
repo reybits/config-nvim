@@ -22,7 +22,7 @@ return {
         --     }
         -- )
 
-        vim.keymap.set("n", "<leader>cl", function()
+        vim.keymap.set("n", "<leader>ol", function()
             lint.try_lint()
         end, { desc = "Trigger Linter" })
     end,

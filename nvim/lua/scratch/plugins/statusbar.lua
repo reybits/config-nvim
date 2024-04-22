@@ -43,7 +43,7 @@ return {
         lualine.setup({
             options = {
                 globalstatus = false,
-                disabled_filetypes = { "NvimTree", "NeogitStatus" },
+                disabled_filetypes = { "NvimTree", "NeogitStatus", "starter" },
             },
             -- stylua: ignore
             sections = {

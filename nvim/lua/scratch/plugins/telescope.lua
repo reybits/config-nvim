@@ -11,15 +11,15 @@ return {
     },
     -- stylua: ignore
     keys = {
-        { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers list" },
-        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers list" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find recent files" },
-        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+        { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "[TSCP] Buffers List" },
+        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "[TSCP] Buffers List" },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "[TSCP] Find Recent Files" },
+        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "[TSCP] Find Files" },
         { "<leader>ff", function()
                 require("telescope.builtin").find_files({
                     cwd = require("telescope.utils").buffer_dir(),
                 })
-            end, desc = "Find files (cwd)" },
+            end, desc = "[TSCP] Find Files (cwd)" },
 
         -- add a keymap to browse plugin files
         { "<leader>fP", function()
@@ -28,10 +28,10 @@ return {
                 })
             end, desc = "Find plugin file" },
 
-        { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
-        { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Grep string" },
+        { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "[TSCP] Live Grep" },
+        { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "[TSCP] Grep String" },
 
-        { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find TODO" },
+        { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "[TSCP] Find TODO/INFO/..." },
     },
     config = function()
         local telescope = require("telescope")

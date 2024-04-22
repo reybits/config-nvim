@@ -6,13 +6,13 @@ return {
     },
     -- stylua: ignore
     keys = {
-        { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Toggle (Trouble)" },
-        { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace diags (Trouble)" },
-        { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document diags (Trouble)" },
-        { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix list (Trouble)" },
-        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location list (Trouble)" },
-        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location list (Trouble)" },
-        { "gr", function() require("trouble").toggle("lsp_references") end, desc = "References list (Trouble)" },
+        { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "[TRBL] Toggle" },
+        { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "[TRBL] Workspace Diags" },
+        { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "[TRBL] Document Diags" },
+        { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "[TRBL] Quickfix List" },
+        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "[TRBL] Location List" },
+        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "[TRBL] Location List" },
+        { "gr", function() require("trouble").toggle("lsp_references") end, desc = "[TRBL] References List" },
     },
     opts = {
         use_diagnostic_signs = true,

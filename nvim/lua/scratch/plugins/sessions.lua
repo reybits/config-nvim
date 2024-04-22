@@ -51,7 +51,7 @@ return {
 
                 -- stylua: ignore
                 print("Session save " .. (vim.g.minisessions_disable and "disabled" or "enabled"))
-            end, { desc = "Toggle store Session" })
+            end, { desc = "Toggle Store Session" })
         end,
     },
 }

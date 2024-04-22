@@ -16,8 +16,8 @@ return {
         -- stylua: ignore
         on_attach = function(_)
             local map = vim.keymap.set;
-            map("n", "<leader>gd", "<cmd>Gitsigns diffthis<cr>", { desc = "Diff buffer" })
-            map("n", "<leader>gi", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle blame Inline" })
+            map("n", "<leader>gd", "<cmd>Gitsigns diffthis<cr>", { desc = "Diff Buffer" })
+            map("n", "<leader>gi", "<cmd>Gitsigns toggle_current_line_blame<cr>", { desc = "Toggle Blame Inline" })
         end,
     },
 }

@@ -21,10 +21,10 @@ return {
 
         map("n", "]]", function()
             illuminate.goto_next_reference(true)
-        end, { desc = "Goto next reference" })
+        end, { desc = "Goto Next Reference" })
 
         map("n", "[[", function()
             illuminate.goto_prev_reference(true)
-        end, { desc = "Goto prev reference" })
+        end, { desc = "Goto Prev Reference" })
     end,
 }

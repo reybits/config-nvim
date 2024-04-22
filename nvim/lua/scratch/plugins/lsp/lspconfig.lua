@@ -19,38 +19,48 @@ return {
                 local map = vim.keymap.set
                 local opts = { buffer = ev.buf, silent = true }
 
-                opts.desc = "Goto Declaration"
+                opts.desc = "[LSP] Switch Source/Header"
+                map("n", "gs", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
+
+                opts.desc = "[LSP] Goto Declaration"
                 map("n", "gD", vim.lsp.buf.declaration, opts)
 
-                opts.desc = "Goto Definition"
+                opts.desc = "[LSP] Goto Definition"
                 map("n", "gd", vim.lsp.buf.definition, opts)
 
-                opts.desc = "Goto Type Definition"
-                map("n", "<space>D", vim.lsp.buf.type_definition, opts)
-
-                opts.desc = "Goto Implementation"
+                opts.desc = "[LSP] Goto Implementation"
                 map("n", "gi", vim.lsp.buf.implementation, opts)
 
-                opts.desc = "Symbol Info"
+                opts.desc = "[LSP] Goto Type Definition"
+                map("n", "<leader>cd", vim.lsp.buf.type_definition, opts)
+
+                opts.desc = "[LSP] Symbol Info"
                 map("n", "K", vim.lsp.buf.hover, opts)
 
-                opts.desc = "Signature Info"
-                map("n", "<c-k>", vim.lsp.buf.signature_help, opts)
+                opts.desc = "[LSP] Signature Info"
+                map("n", "<leader>ck", vim.lsp.buf.signature_help, opts)
 
-                -- opts.desc = "Show Referencies"
-                -- map("n", "gr", vim.lsp.buf.references, opts)
+                -- instead of use Trouble
+                -- opts.desc = "[LSP] Referencies List"
+                -- map("n", "<leader>sr", vim.lsp.buf.references, opts)
 
-                opts.desc = "Rename All Referencies"
-                map("n", "<space>R", vim.lsp.buf.rename, opts)
+                opts.desc = "[LSP] Rename Referencies"
+                map("n", "<leader>cR", vim.lsp.buf.rename, opts)
 
-                opts.desc = "Show Code Action"
-                map({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+                opts.desc = "[LSP] Show Code Action"
+                map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 
-                -- map("n", "<space>f", function() vim.lsp.buf.format({ async = true }) end, opts)
+                -- opts.desc = "[LSP] Buffer Format"
+                -- map("n", "<leader>bf", function() vim.lsp.buf.format({ async = true }) end, opts)
 
-                -- map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-                -- map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-                -- map("n", "<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+                -- opts.desc = "[LSP] Add Workspace Folder"
+                -- map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+
+                -- opts.desc = "[LSP] Remove Workspace Folder"
+                -- map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+
+                -- opts.desc = "[LSP] List Workspace Folders"
+                -- map("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
             end,
         })
 

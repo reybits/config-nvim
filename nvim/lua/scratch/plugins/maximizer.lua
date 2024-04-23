@@ -3,6 +3,6 @@ return {
     lazy = true,
     -- stylua: ignore
     keys = {
-        { "<leader>wm", "<cmd>MaximizerToggle<cr>", desc = "Maximize window" },
+        { "<leader>wz", "<cmd>MaximizerToggle<cr>", desc = "Maximize Window" },
     },
 }

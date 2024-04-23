@@ -3,6 +3,7 @@ return {
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "stevearc/dressing.nvim",
     },
     config = function()
         local mason = require("mason")
@@ -44,6 +45,7 @@ return {
                 -- "codelldb", -- (DAP) C, C++, Rust
                 -- "cpplint", -- (Linter) C, C++
                 "shellcheck", -- (Linter) BASH
+                -- "luacheck", -- (Linter) Lua
             },
         })
     end,

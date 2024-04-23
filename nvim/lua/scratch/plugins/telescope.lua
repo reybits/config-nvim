@@ -1,7 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.6",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",

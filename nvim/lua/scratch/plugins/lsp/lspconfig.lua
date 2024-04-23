@@ -5,7 +5,6 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         { "folke/neodev.nvim", opts = {} },
         -- { "antosha417/nvim-lsp-file-operations", config = true },
-        "SmiteshP/nvim-navic",
     },
     config = function()
         local lspconfig = require("lspconfig")
@@ -71,8 +70,6 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local navic = require("nvim-navic")
-
         local capabilities = cmp_nvim_lsp.default_capabilities()
         capabilities.offsetEncoding = { "utf-16" }
 
@@ -80,22 +77,12 @@ return {
             function(server_name)
                 lspconfig[server_name].setup({
                     capabilities = capabilities,
-                    on_attach = function(client, bufnr)
-                        if
-                            client.server_capabilities.documentSymbolProvider
-                        then
-                            navic.attach(client, bufnr)
-                        end
-                    end,
                 })
             end,
 
             ["lua_ls"] = function()
                 lspconfig["lua_ls"].setup({
                     capabilities = capabilities,
-                    on_attach = function(client, bufnr)
-                        navic.attach(client, bufnr)
-                    end,
                     settings = {
                         diagnostics = {
                             globals = { "vim" },

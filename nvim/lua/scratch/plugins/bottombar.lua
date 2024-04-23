@@ -3,7 +3,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "SmiteshP/nvim-navic",
+        {
+            "SmiteshP/nvim-navic",
+            dependencies = {
+                "neovim/nvim-lspconfig",
+            },
+        },
     },
     config = function()
         local lualine = require("lualine")
@@ -60,6 +65,13 @@ return {
         end
 
         local navic = require("nvim-navic")
+        navic.setup({
+            lsp = {
+                auto_attach = true,
+                preference = nil,
+            },
+            highlight = false,
+        })
 
         lualine.setup({
             options = {
@@ -91,7 +103,6 @@ return {
                         separator = "",
                         padding = { left = 1, right = 0 },
                     },
-                    -- { "filename" },
                     { better_fn }
                 },
                 lualine_x = {
@@ -160,35 +171,14 @@ return {
                         separator = "",
                         padding = { left = 1, right = 0 },
                     },
-                    -- { "filename" },
-                    -- { better_fn_inactive }
                 },
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = {
-                    --[[
-                    { "location",
-                        fmt = function(str)
-                            return str:gsub("%s+", "")
-                        end,
-                        separator = " ",
-                        padding = { left = 0, right = 0 },
-                    },
-                    --]]
-                },
+                lualine_z = {},
             },
             tabline = {
                 lualine_a = { "filename" },
-                lualine_b = {
-                    {
-                        function()
-                            return navic.get_location()
-                        end,
-                        cond = function()
-                            return navic.is_available()
-                        end,
-                    },
-                },
+                lualine_b = { "navic" },
                 lualine_z = { "tabs" },
             },
         })

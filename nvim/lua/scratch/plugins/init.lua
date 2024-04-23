@@ -1,8 +1,10 @@
 return {
     -- lua functions that many plugins use
-    {
-        "nvim-lua/plenary.nvim",
-    },
+    { "nvim-lua/plenary.nvim", lazy = true },
+
+    -- UI Component Library for Neovim.
+    -- May be I use this UI toolset in the feature.
+    -- { "MunifTanjim/nui.nvim", lazy = true },
 
     -- measure startuptime
     {
@@ -13,24 +15,11 @@ return {
         end,
     },
 
-    --[[ {
+    --[[
+    -- Neovim plugin to manage global and project-local settings.
+    {
         "folke/neoconf.nvim",
         cmd = "Neoconf"
     },
-
-    {
-        "folke/neodev.nvim",
-        -- opts = {}
-
-        config = function()
-            -- dont run neodev.setup
-            vim.lsp.start({
-                name = "lua-language-server",
-                cmd = { "lua-language-server" },
-                before_init = require("neodev.lsp").before_init,
-                root_dir = vim.fn.getcwd(),
-                settings = { Lua = {} },
-            })
-        end,
-    }, ]]
+    --]]
 }

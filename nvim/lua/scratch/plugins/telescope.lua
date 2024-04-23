@@ -30,6 +30,11 @@ return {
 
         { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "[TSCP] Live Grep" },
         { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "[TSCP] Grep String" },
+        { "<leader>sW", function()
+                require("telescope.builtin").find_files({
+                    cwd = require("telescope.utils").buffer_dir(),
+                })
+            end, desc = "[TSCP] Grep String (cwd)" },
 
         { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "[TSCP] Find TODO/INFO/..." },
     },

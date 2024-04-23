@@ -110,4 +110,29 @@ M.cmp_format = function(_, item)
     return item
 end
 
+--- simple dumper --------------------------------------------------------------
+M.dump = function(o, depth)
+    if type(o) == "table" then
+        local s = "{ "
+        for k, v in pairs(o) do
+            if type(k) ~= "number" then
+                k = '"' .. k .. '"'
+            end
+            s = s .. "[" .. k .. "] = " .. M.dump(v, depth - 1) .. ","
+        end
+        return s .. "} "
+    end
+
+    return tostring(o)
+end
+
+--- check v for nil ------------------------------------------------------------
+M.safe = function(v, d)
+    if v ~= nil then
+        return v
+    end
+
+    return d ~= nil and d or ""
+end
+
 return M

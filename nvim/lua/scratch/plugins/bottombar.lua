@@ -3,6 +3,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
+        "SmiteshP/nvim-navic",
     },
     config = function()
         local lualine = require("lualine")
@@ -20,7 +21,7 @@ return {
                     self.options
                 ),
                 modified = highlight.create_component_highlight_group(
-                    { fg = "#C00000" },
+                    { fg = "#F05050" },
                     "filename_status_modified",
                     self.options
                 ),
@@ -57,6 +58,8 @@ return {
                 self.options.color = ""
             end
         end
+
+        local navic = require("nvim-navic")
 
         lualine.setup({
             options = {
@@ -173,6 +176,20 @@ return {
                     },
                     --]]
                 },
+            },
+            tabline = {
+                lualine_a = { "filename" },
+                lualine_b = {
+                    {
+                        function()
+                            return navic.get_location()
+                        end,
+                        cond = function()
+                            return navic.is_available()
+                        end,
+                    },
+                },
+                lualine_z = { "tabs" },
             },
         })
     end,

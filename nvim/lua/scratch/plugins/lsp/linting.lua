@@ -7,6 +7,7 @@ return {
             -- c = { "cpplint" },
             -- cpp = { "cpplint" },
             bash = { "shellcheck" },
+            -- lua = { "luacheck" },
             javascript = { "quick_lint_js" },
             typecript = { "quick_lint_js" },
         }
@@ -22,8 +23,8 @@ return {
         --     }
         -- )
 
-        vim.keymap.set("n", "<leader>ol", function()
+        vim.keymap.set("n", "<leader>cl", function()
             lint.try_lint()
-        end, { desc = "Trigger Linter" })
+        end, { desc = "Run Code Linter" })
     end,
 }

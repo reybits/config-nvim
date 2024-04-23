@@ -29,9 +29,15 @@ return {
             end, desc = "Find plugin file" },
 
         { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "[TSCP] Live Grep" },
+        { "<leader>sG", function()
+                require("telescope.builtin").live_grep({
+                    cwd = require("telescope.utils").buffer_dir(),
+                })
+            end, desc = "[TSCP] Live Grep (cwd)" },
+
         { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "[TSCP] Grep String" },
         { "<leader>sW", function()
-                require("telescope.builtin").find_files({
+                require("telescope.builtin").grep_string({
                     cwd = require("telescope.utils").buffer_dir(),
                 })
             end, desc = "[TSCP] Grep String (cwd)" },

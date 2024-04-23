@@ -1,14 +1,33 @@
 return {
     "RRethy/vim-illuminate",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
         local illuminate = require("illuminate")
         illuminate.configure({
             filetypes_denylist = {
+                "DiffviewFiles",
+                "DressingInput",
+                "DressingSelect",
+                "Jaq",
+                "NeogitCommitMessage",
+                "NvimTree",
+                "Outline",
+                "TelescopePrompt",
+                "Trouble",
+                "alpha",
                 "dirbuf",
                 "dirvish",
                 "fugitive",
                 "fugitiveblame",
+                "harpoon",
+                "lazy",
+                "lir",
+                "mason",
+                "neo-tree",
+                "netrw",
+                "qf",
+                "spectre_panel",
+                "toggleterm",
             },
         })
 

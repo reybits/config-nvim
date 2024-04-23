@@ -16,7 +16,7 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             indent = {
                 char = "│", -- "┋",
@@ -32,7 +32,7 @@ return {
     {
         "echasnovski/mini.indentscope",
         version = false,
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             -- Which character to use for drawing scope indicator
             symbol = "╎", -- "┋", "│",

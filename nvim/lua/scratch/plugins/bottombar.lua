@@ -7,22 +7,19 @@ return {
         local lualine = require("lualine")
         local lazy_status = require("lazy.status")
 
-        local better_filename = require("lualine.components.filename"):extend()
         local highlight = require("lualine.highlight")
 
-        function better_filename:init(options)
-            better_filename.super.init(self, options)
+        local better_fn = require("lualine.components.filename"):extend()
+        function better_fn:init(options)
+            better_fn.super.init(self, options)
             self.status_colors = {
                 saved = highlight.create_component_highlight_group(
-                    -- with background color
-                    -- { bg = "#228B22" },
-                    -- or without background color
-                    {},
+                    {}, -- { bg = "#228B22", fg = "#ffff00" },
                     "filename_status_saved",
                     self.options
                 ),
                 modified = highlight.create_component_highlight_group(
-                    { bg = "#C70039" },
+                    { fg = "#C00000" },
                     "filename_status_modified",
                     self.options
                 ),
@@ -32,12 +29,32 @@ return {
             end
         end
 
-        function better_filename:update_status()
-            local data = better_filename.super.update_status(self)
+        function better_fn:update_status()
+            local data = better_fn.super.update_status(self)
             local color = vim.bo.modified and self.status_colors.modified
                 or self.status_colors.saved
             data = highlight.component_format_highlight(color) .. data
             return data
+        end
+
+        local better_fn_inactive = better_fn:extend()
+        function better_fn_inactive:init(options)
+            better_fn_inactive.super.init(self, options)
+            self.status_colors = {
+                saved = highlight.create_component_highlight_group(
+                    {},
+                    "filename_status_saved",
+                    self.options
+                ),
+                modified = highlight.create_component_highlight_group(
+                    { fg = "#700000" },
+                    "filename_status_modified",
+                    self.options
+                ),
+            }
+            if self.options.color == nil then
+                self.options.color = ""
+            end
         end
 
         lualine.setup({
@@ -71,7 +88,7 @@ return {
                         padding = { left = 1, right = 0 },
                     },
                     -- { "filename" },
-                    { better_filename }
+                    { better_fn }
                 },
                 lualine_x = {
                     "diff",
@@ -139,11 +156,13 @@ return {
                         separator = "",
                         padding = { left = 1, right = 0 },
                     },
-                    { "filename" },
+                    -- { "filename" },
+                    -- { better_fn_inactive }
                 },
                 lualine_x = {},
                 lualine_y = {},
                 lualine_z = {
+                    --[[
                     { "location",
                         fmt = function(str)
                             return str:gsub("%s+", "")
@@ -151,6 +170,7 @@ return {
                         separator = " ",
                         padding = { left = 0, right = 0 },
                     },
+                    --]]
                 },
             },
         })

@@ -24,8 +24,11 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    vim.fn["vsnip#anonymous"](args.body)
-                    -- vim.snippet.expand(args.body) -- native snippets (Neovim v0.10+)
+                    if vim.fn.has("nvim-0.10") then
+                        vim.snippet.expand(args.body) -- native snippets (Neovim v0.10+)
+                    else
+                        vim.fn["vsnip#anonymous"](args.body)
+                    end
                 end,
             },
             mapping = cmp.mapping.preset.insert({

@@ -8,6 +8,7 @@ return {
         "folke/todo-comments.nvim",
         "folke/trouble.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-telescope/telescope-ui-select.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -122,9 +123,25 @@ return {
                     -- "smart_case" or "ignore_case" or "respect_case" the default case_mode is "smart_case"
                     case_mode = "smart_case",
                 },
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown({
+                        previewer = false,
+                        initial_mode = "normal",
+                        sorting_strategy = "ascending",
+                        layout_strategy = "horizontal",
+                        layout_config = {
+                            horizontal = {
+                                width = 0.5,
+                                height = 0.4,
+                                preview_width = 0.6,
+                            },
+                        },
+                    }),
+                },
             },
         })
 
         telescope.load_extension("fzf")
+        telescope.load_extension("ui-select")
     end,
 }

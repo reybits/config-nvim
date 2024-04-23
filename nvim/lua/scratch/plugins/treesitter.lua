@@ -1,7 +1,7 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPre", "BufNewFile" },
+        event = { "BufReadPost", "BufNewFile" },
         build = ":TSUpdate",
         config = function()
             local treesitter = require("nvim-treesitter.configs")
@@ -16,8 +16,10 @@ return {
                 autotag = {
                     enable = true,
                 },
-                -- ignore_install = {},
+                ignore_install = {},
+                modules = {},
                 auto_install = true,
+                sync_install = false,
                 ensure_installed = {
                     "bash",
                     "c",
@@ -30,6 +32,7 @@ return {
                     "json",
                     "lua",
                     "markdown",
+                    "markdown_inline",
                     "python",
                     "query",
                     "regex",

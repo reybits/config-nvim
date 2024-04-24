@@ -62,7 +62,6 @@ return {
                 layout_config = {
                     width = 0.96,
                     height = 0.96,
-                    prompt_position = "bottom",
                     preview_cutoff = 120,
                 },
                 path_display = { "truncate" },

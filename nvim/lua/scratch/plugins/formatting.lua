@@ -7,6 +7,7 @@ return {
     cmd = { "ConformInfo", "FormatEnable", "FormatDisable" },
     keys = {
         {
+            mode = { "n", "v" },
             "<leader>bf",
             function()
                 -- require("conform").format({ async = true, lsp_fallback = true })
@@ -29,13 +30,73 @@ return {
                 css = { "prettier" },
                 html = { "prettier" },
                 javascript = { "prettier" },
-                java = { "astyle" },
+                java = { "java" },
                 json = { "prettier" },
                 lua = { "stylua" },
                 objc = { "clang-format" },
                 python = { "isort", "black" },
                 sh = { "shfmt" },
                 typescript = { "prettier" },
+                gml = { "gml" },
+            },
+            formatters = {
+                java = {
+                    command = "astyle",
+                    inherit = false,
+                    args = {
+                        "--style=java",
+                        "--indent=spaces=4",
+                        "--convert-tabs",
+                        "--attach-closing-while",
+                        "--indent-after-parens",
+                        "--indent-col1-comments",
+                        "--pad-oper",
+                        "--pad-comma",
+                        "--pad-header",
+                        "--unpad-brackets",
+                        "--unpad-paren",
+                        "--squeeze-lines=1",
+                        "--squeeze-ws",
+                        "--break-closing-braces",
+                        "--break-one-line-headers",
+                        "--add-braces",
+                        "--attach-return-type",
+                        "--max-code-length=100",
+                        "--break-after-logical",
+                        "--preserve-date",
+                        "--quiet",
+                        "--lineend=linux",
+                    },
+                },
+                gml = {
+                    command = "astyle",
+                    inherit = false,
+                    args = {
+                        -- "--style=java",
+                        "--style=break",
+                        "--indent=spaces=4",
+                        "--convert-tabs",
+                        "--attach-closing-while",
+                        "--indent-after-parens",
+                        "--indent-col1-comments",
+                        "--pad-oper",
+                        "--pad-comma",
+                        "--pad-header",
+                        "--unpad-brackets",
+                        "--unpad-paren",
+                        -- "--delete-empty-lines", -- ?
+                        "--squeeze-lines=1",
+                        "--squeeze-ws", -- ?
+                        "--break-closing-braces",
+                        "--break-one-line-headers",
+                        "--add-braces",
+                        "--max-code-length=100",
+                        "--break-after-logical",
+                        "--preserve-date",
+                        "--quiet",
+                        "--lineend=windows", -- default for GameMaker
+                    },
+                },
             },
             format_on_save = function(bufnr)
                 -- Disable with a global or buffer-local variable

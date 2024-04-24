@@ -73,8 +73,50 @@ return {
             highlight = false,
         })
 
+        local fmt_mode = function(str)
+            return str:sub(1, 1)
+        end
+
+        local fmt_sections = function(str)
+            return str:len() > 0 and "s:" .. str or ""
+        end
+
+        local fmt_location = function(str)
+            return str:gsub("%s+", "")
+        end
+
+        local fmt_progress = function(str)
+            local percent = 0
+            if str == "Top" then
+                percent = 0
+            elseif str == "Bot" then
+                percent = 100
+            else
+                percent = str:gsub("%%", "")
+            end
+
+            local list =
+                { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
+            local idx = 1 + math.floor((#list - 1) * percent / 100)
+            -- print(str .. " -> " .. idx)
+            return list[idx]
+        end
+
+        local fmt_buffer_name = function(str)
+            local names = { "NvimTree", "Neogit" }
+            for _, name in ipairs(names) do
+                local len = name:len()
+                if str:sub(1, len) == name then
+                    return name
+                end
+            end
+            return ""
+        end
+
         lualine.setup({
             options = {
+                section_separators = { left = "", right = "" },
+                component_separators = { left = "", right = "" },
                 globalstatus = false,
                 disabled_filetypes = {
                     "NvimTree",
@@ -87,9 +129,7 @@ return {
             sections = {
                 lualine_a = {
                     { "mode",
-                        fmt = function(str)
-                            return str:sub(1, 1)
-                        end,
+                        fmt = fmt_mode,
                         padding = { left = 1, right = 0 }
                     },
                 },
@@ -97,8 +137,7 @@ return {
                     "branch",
                 },
                 lualine_c = {
-                    {
-                        "filetype",
+                    { "filetype",
                         icon_only = true,
                         separator = "",
                         padding = { left = 1, right = 0 },
@@ -126,37 +165,17 @@ return {
                 },
                 lualine_z = {
                     { "selectioncount",
-                        fmt = function(str)
-                            return str:len() > 0
-                                and "s:" .. str
-                                or ""
-                        end,
+                        fmt = fmt_sections,
                         separator = " ",
                         padding = { left = 0, right = 0 },
                     },
                     { "location",
-                        fmt = function(str)
-                            return str:gsub("%s+", "")
-                        end,
+                        fmt = fmt_location,
                         separator = " ",
                         padding = { left = 0, right = 0 },
                     },
                     { "progress",
-                        fmt = function(str)
-                            local percent = 0
-                            if str == "Top" then
-                                percent = 0
-                            elseif str == "Bot" then
-                                percent = 100
-                            else
-                                percent = str:gsub("%%", "")
-                            end
-
-                            local list = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
-                            local idx = 1 + math.floor((#list - 1) * percent / 100)
-                            -- print(str .. " -> " .. idx)
-                            return list[idx]
-                        end,
+                        fmt = fmt_progress,
                         padding = { left = 0, right = 1 },
                     },
                 },
@@ -171,13 +190,19 @@ return {
                         separator = "",
                         padding = { left = 1, right = 0 },
                     },
+                    { better_fn },
                 },
                 lualine_x = {},
                 lualine_y = {},
                 lualine_z = {},
             },
+            -- stylua: ignore
             tabline = {
-                lualine_a = { "filename" },
+                lualine_a = {
+                    { "filename",
+                        fmt = fmt_buffer_name,
+                    },
+                },
                 lualine_b = { "navic" },
                 lualine_z = { "tabs" },
             },

@@ -18,6 +18,9 @@ return {
         "nvim-telescope/telescope.nvim", -- optional
     },
     config = true,
+    opts = {
+        graph_style = "unicode",
+    },
     -- stylua: ignore
     keys = {
         { "<leader>gG", "<cmd>Neogit cwd=%:p:h<cr>", desc = "Neogit (cwd)" },

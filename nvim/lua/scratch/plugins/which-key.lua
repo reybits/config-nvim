@@ -29,6 +29,7 @@ return {
             ["<leader>c"] = { name = "Code" },
             ["<leader>f"] = { name = "File" },
             ["<leader>g"] = { name = "Git" },
+            ["<leader>gh"] = { name = "Hunks" },
             ["<leader>o"] = { name = "Options" },
             ["<leader>s"] = { name = "Search" },
             ["<leader>u"] = { name = "UI" },

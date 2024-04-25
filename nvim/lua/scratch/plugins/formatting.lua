@@ -71,6 +71,7 @@ return {
                     inherit = false,
                     args = {
                         "--style=break",
+                        "--mode=js",
                         "--indent=spaces=4",
                         "--convert-tabs",
                         "--attach-closing-while",

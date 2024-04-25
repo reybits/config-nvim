@@ -1,12 +1,4 @@
 return {
-    "JafarDakhan/vim-gml",
+    "FrienD-BY/gml-support",
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-        vim.filetype.add({
-            extension = {
-                yy = "json",
-                yyp = "json",
-            },
-        })
-    end,
 }

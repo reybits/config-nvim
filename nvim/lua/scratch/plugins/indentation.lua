@@ -10,6 +10,7 @@ local exclude_filetypes = {
     "notify",
     "toggleterm",
     "lazyterm",
+    "aerial",
 }
 
 return {

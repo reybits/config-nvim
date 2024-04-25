@@ -1,10 +1,24 @@
 return {
     -- lua functions that many plugins use
-    { "nvim-lua/plenary.nvim", lazy = true },
+    {
+        "nvim-lua/plenary.nvim",
+        lazy = true,
+    },
 
+    -- Neovim plugin for locking a buffer to a window.
+    {
+        "stevearc/stickybuf.nvim",
+        opts = {},
+    },
+
+    --[[
     -- UI Component Library for Neovim.
     -- May be I use this UI toolset in the feature.
-    -- { "MunifTanjim/nui.nvim", lazy = true },
+    {
+        "MunifTanjim/nui.nvim",
+        lazy = true
+    },
+    --]]
 
     -- measure startuptime
     {

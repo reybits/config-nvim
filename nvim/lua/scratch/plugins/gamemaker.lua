@@ -1,4 +1,5 @@
 return {
     "FrienD-BY/gml-support",
-    event = { "BufReadPost", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile" },
+    ft = { "gml", "yy", "yyp" },
 }

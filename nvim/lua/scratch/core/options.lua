@@ -3,7 +3,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
- -- netrw: tree style
+-- netrw: tree style
 vim.g.netrw_liststyle = 3
 
 --- Disalble providers ---------------------------------------------------------

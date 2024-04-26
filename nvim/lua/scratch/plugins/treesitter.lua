@@ -11,14 +11,14 @@ return {
             local treesitter = require("nvim-treesitter.configs")
             treesitter.setup({
                 highlight = {
-                    enable = false,
+                    enable = true,
                 },
+                -- Indentation based on treesitter for the = operator.
+                -- This is an experimental feature.
+                -- Therefore I disable it at all.
                 indent = {
                     enable = false,
                     -- disable = { "c", "cpp" },
-                },
-                autotag = {
-                    enable = true,
                 },
                 ignore_install = {},
                 modules = {},

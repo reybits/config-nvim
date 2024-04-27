@@ -56,7 +56,7 @@ return {
 
             vim.g.minisessions_disable = false
             -- stylua: ignore
-            vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+            vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
             vim.api.nvim_create_user_command("SessionsList", function()
                 session.select()

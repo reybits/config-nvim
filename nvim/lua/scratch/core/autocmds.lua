@@ -53,3 +53,13 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set( "n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
+
+--- highlight when yanking (copying) text --------------------------------------
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight when yanking (copying) text",
+    group = augroup("highlight-yank"),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})

@@ -24,8 +24,8 @@ map("v", "P", '"_dP')
 map("n", "<right>", ":tabnext<cr>", opts)
 map("n", "<left>", ":tabprevious<cr>", opts)
 
-map("n", "<up>", "<nop>", opts)
-map("n", "<down>", "<nop>", opts)
+map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", opts)
+map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", opts)
 
 -- Alias to <esc>
 map("i", "jk", "<esc>", opts)

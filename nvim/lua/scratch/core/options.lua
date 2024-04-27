@@ -26,6 +26,7 @@ opt.completeopt = "menuone,noselect" -- Set completeopt to have a better complet
 
 opt.mouse = "a" -- Empty to disable, "a" to enable mouse mode
 opt.cursorline = true
+opt.showmode = false
 
 opt.undofile = true -- Save undo history
 
@@ -62,10 +63,13 @@ opt.list = true
 opt.listchars = {
     tab = "→ ",
     -- eol = '¶',
-    nbsp = "·",
+    nbsp = "␣",
     trail = "·",
     extends = "»",
 }
+
+-- preview substitutions live, as you type!
+opt.inccommand = "split"
 
 -- opt.shiftround = true -- Use multiple of shiftwidth when indenting with '<' and '>'
 opt.expandtab = true -- Expand <Tab> to spaces in Insert mode

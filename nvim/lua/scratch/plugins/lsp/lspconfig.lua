@@ -23,7 +23,8 @@ return {
             })
 
         vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+            -- stylua: ignore
+            group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
             callback = function(args)
                 -- Buffer local mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -85,10 +86,10 @@ return {
                     -- map("n", "<leader>bf", function() vim.lsp.buf.format({ async = true }) end, opts)
 
                     -- opts.desc = "Add Workspace Folder"
-                    -- map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+                    -- map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
 
                     -- opts.desc = "Remove Workspace Folder"
-                    -- map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+                    -- map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
 
                     -- opts.desc = "List Workspace Folders"
                     -- map("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)

@@ -26,3 +26,7 @@ map("n", "<left>", ":tabprevious<cr>", opts)
 
 map("n", "<up>", "<nop>", opts)
 map("n", "<down>", "<nop>", opts)
+
+-- Alias to <esc>
+map("i", "jk", "<esc>", opts)
+map("i", "kj", "<esc>", opts)

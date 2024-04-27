@@ -22,6 +22,11 @@ return {
                 })
             end, desc = "Find Files (cwd)" },
 
+        { "<leader>fc", function ()
+                require("telescope.builtin").find_files({
+                    cwd = vim.fn.stdpath("config")
+                })
+            end, desc = "Find Neovim Files" },
 
         -- add a keymap to browse plugin files
         { "<leader>fP", function()
@@ -31,6 +36,7 @@ return {
             end, desc = "Find plugin file" },
 
         { "<leader>bs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
+        { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
 
         { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
         { "<leader>sG", function()
@@ -47,6 +53,9 @@ return {
             end, desc = "Grep String (cwd)" },
 
         { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
+
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
+        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
     },
     config = function()
         local telescope = require("telescope")

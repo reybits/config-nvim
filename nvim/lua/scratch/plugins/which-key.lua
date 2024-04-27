@@ -27,6 +27,7 @@ return {
         defaults = {
             ["<leader>b"] = { name = "Buffer" },
             ["<leader>c"] = { name = "Code" },
+            ["<leader>d"] = { name = "Debug" },
             ["<leader>f"] = { name = "File" },
             ["<leader>g"] = { name = "Git" },
             ["<leader>gh"] = { name = "Hunks" },

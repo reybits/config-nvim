@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { import = "scratch.plugins" },
     { import = "scratch.plugins.lsp" },
+    { import = "scratch.plugins.dap" },
 }, {
     checker = {
         enabled = true, -- automatically check for plugin updates

@@ -3,6 +3,7 @@ return {
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "jay-babu/mason-nvim-dap.nvim",
         "stevearc/dressing.nvim",
     },
     config = function()
@@ -47,6 +48,26 @@ return {
                 -- "cpplint", -- (Linter) C, C++
                 "shellcheck", -- (Linter) BASH
                 -- "luacheck", -- (Linter) Lua
+            },
+        })
+
+        -- local codelldb_path = vim.fn.stdpath("data") .. "/mason/bin/codelldb"
+        local mason_dap = require("mason-nvim-dap")
+        mason_dap.setup({
+            automatic_installation = true,
+            ensure_installed = {
+                "codelldb",
+            },
+            handlers = {
+                function(config)
+                    -- all sources with no handler get passed here
+
+                    -- Keep original functionality
+                    mason_dap.default_setup(config)
+                end,
+                codelldb = function(config)
+                    mason_dap.default_setup(config) -- don't forget this!
+                end,
             },
         })
     end,

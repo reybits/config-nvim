@@ -99,8 +99,6 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            vim.opt.cursorline = true -- enable cursor line
-
             require("dashboard").setup({
                 theme = "hyper",
                 config = {
@@ -116,40 +114,54 @@ return {
                         action = "Telescope find_files preview={hide_on_startup=true} cwd=",
                     },
                     mru = {
-                        limit = 25,
-                        icon = " ",
-                        label = "Recent Files List",
-                        cwd_only = false,
+                        limit = 10,
+                        icon = "", -- " ",
+                        label = "Most Recent Files (current dir)",
+                        cwd_only = true,
                     },
                     shortcut = {
                         {
-                            icon = " ", -- "󱉯  "
+                            icon = " ", -- " 󱉯 "
                             desc = "Sessions",
                             group = "Number", --"@property",
                             action = "SessionsList",
                             key = "s",
                         },
                         {
-                            icon = "󱉯 ", -- "  "
-                            desc = "Last Session",
+                            icon = " ", -- "󱉯  "
+                            desc = "Restore",
                             group = "Number", --"@property",
                             action = "SessionReadLast",
                             key = "r",
                         },
                         {
-                            icon = "󰉺 ", --   ",
+                            icon = "󰡦 ", -- " 󰉺  ",
                             desc = "Files",
                             group = "Label",
                             action = "Telescope find_files preview={hide_on_startup=true}",
                             key = "f",
                         },
                         {
-                            icon = " ", -- " 󰊳 ",
-                            desc = "Lazy",
-                            group = "@property",
-                            action = "Lazy",
-                            key = "l",
+                            icon = "󰔠 ", -- "󱑍  ",
+                            desc = "Recent",
+                            group = "Label",
+                            action = "Telescope oldfiles preview={hide_on_startup=true}",
+                            key = "o",
                         },
+                        {
+                            icon = "󱘢 ", -- " ",
+                            desc = "Grep",
+                            group = "Label",
+                            action = "Telescope live_grep",
+                            key = "g",
+                        },
+                        -- {
+                        --     icon = " ", -- " 󰊳 ",
+                        --     desc = "Lazy",
+                        --     group = "@property",
+                        --     action = "Lazy",
+                        --     key = "l",
+                        -- },
                     },
                 },
             })

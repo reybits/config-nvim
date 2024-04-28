@@ -22,13 +22,12 @@ return {
                 })
             end, desc = "Find Files (cwd)" },
 
-        { "<leader>fc", function ()
+        { "<leader>fC", function ()
                 require("telescope.builtin").find_files({
                     cwd = vim.fn.stdpath("config")
                 })
             end, desc = "Find Neovim Files" },
 
-        -- add a keymap to browse plugin files
         { "<leader>fP", function()
                 require("telescope.builtin").find_files({
                     cwd = require("lazy.core.config").options.root,

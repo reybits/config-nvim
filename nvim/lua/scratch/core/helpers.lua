@@ -64,7 +64,7 @@ M.icons = icons
 
 --------------------------------------------------------------------------------
 
-local truncate = function(content, max_length)
+M.truncate = function(content, max_length)
     local truncated = content
 
     if content ~= nil then
@@ -75,7 +75,7 @@ local truncate = function(content, max_length)
             -- truncated = vim.fn.strcharpart(content, 0, max_length - ELLIPSIS_LENGTH)
             --     .. ELLIPSIS_CHAR
             local half_length = math.floor(max_length / 2)
-            local tail_length = half_length - ELLIPSIS_LENGTH
+            local tail_length = (max_length - half_length) - ELLIPSIS_LENGTH
             local left = vim.fn.strcharpart(content, 0, half_length)
             local right = vim.fn.strcharpart(
                 content,
@@ -101,11 +101,11 @@ M.cmp_format = function(_, item)
     local columns = vim.o.columns -- vim.api.nvim_win_get_width(0)
 
     -- use truncated `item.word` as `item.abbr`
-    item.abbr = icon .. truncate(item.word, math.floor(columns * 0.2))
+    item.abbr = icon .. M.truncate(item.word, math.floor(columns * 0.2))
     item.word = ""
 
     -- truncate `item.menu` too
-    item.menu = truncate(item.menu, math.floor(columns * 0.35))
+    item.menu = M.truncate(item.menu, math.floor(columns * 0.35))
 
     return item
 end

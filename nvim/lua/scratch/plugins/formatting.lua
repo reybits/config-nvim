@@ -16,6 +16,33 @@ return {
     config = function()
         local conform = require("conform")
 
+        local formatBuffer = function()
+            return {
+                async = true,
+                lsp_fallback = true,
+                quiet = true,
+            }, function(err)
+                if err then
+                    local helpers = require("scratch.core.helpers")
+                    local result = helpers.split_to_strings(err, 60)
+
+                    -- display error message in reverse order
+                    -- because fidget prints it from bottom to top
+                    for i = #result, 1, -1 do
+                        local msg = result[i]
+
+                        -- left justify
+                        local len = msg:len()
+                        if len < 60 then
+                            msg = msg .. string.rep(" ", 60 - len)
+                        end
+
+                        vim.notify(msg, vim.log.levels.ERROR)
+                    end
+                end
+            end
+        end
+
         conform.setup({
             notify_on_error = true,
             formatters_by_ft = {
@@ -98,28 +125,12 @@ return {
                     return
                 end
 
-                return {
-                    async = true,
-                    lsp_fallback = true,
-                    quiet = true,
-                }, function(err)
-                    if err then
-                        vim.notify(err, vim.log.levels.WARN)
-                    end
-                end
+                return formatBuffer()
             end,
         })
 
         vim.api.nvim_create_user_command("FormatBuffer", function()
-            conform.format({
-                async = true,
-                lsp_fallback = true,
-                quiet = true,
-            }, function(err)
-                if err then
-                    vim.notify(err, vim.log.levels.WARN)
-                end
-            end)
+            conform.format(formatBuffer())
         end, {
             desc = "Format Buffer/Range",
         })

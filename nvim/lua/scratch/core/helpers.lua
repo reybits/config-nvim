@@ -110,6 +110,31 @@ M.cmp_format = function(_, item)
     return item
 end
 
+--- split message by words into strings array ----------------------------------
+M.split_to_strings = function(message, max_length)
+    local result = {}
+    local row = ""
+    local rowLen = 0
+
+    for word in message:gmatch("%S+") do
+        local wordLen = word:len()
+        if rowLen + wordLen < max_length then
+            row = row .. word .. " "
+            rowLen = rowLen + wordLen + 1
+        else
+            table.insert(result, row)
+            row = word .. " "
+            rowLen = wordLen + 1
+        end
+    end
+
+    if row:len() ~= 0 then
+        table.insert(result, row)
+    end
+
+    return result
+end
+
 --- simple dumper --------------------------------------------------------------
 M.dump = function(o, depth)
     if type(o) == "table" then

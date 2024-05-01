@@ -3,6 +3,8 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "hrsh7th/cmp-nvim-lsp",
+
+        -- Additional lua configuration, makes nvim stuff amazing!
         { "folke/neodev.nvim", opts = {} },
         -- { "antosha417/nvim-lsp-file-operations", config = true },
     },

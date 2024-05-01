@@ -1,22 +1,15 @@
 return {
     "stevearc/conform.nvim",
     dependencies = {
-        "mason.nvim",
+        "williamboman/mason.nvim",
     },
     event = { "BufWritePre" },
-    cmd = { "ConformInfo", "FormatEnable", "FormatDisable" },
+    cmd = { "ConformInfo", "FormatEnable", "FormatDisable", "FormatBuffer" },
     keys = {
         {
             mode = { "n", "v" },
             "<leader>bf",
-            function()
-                -- require("conform").format({ async = true, lsp_fallback = true })
-                require("conform").format({
-                    lsp_fallback = true,
-                    async = false,
-                    timeout_ms = 1000,
-                })
-            end,
+            "<cmd>FormatBuffer<cr>",
             desc = "Format Buffer/Range",
         },
     },
@@ -24,6 +17,7 @@ return {
         local conform = require("conform")
 
         conform.setup({
+            notify_on_error = true,
             formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
@@ -103,12 +97,31 @@ return {
                     vim.b[bufnr].disable_autoformat then
                     return
                 end
+
                 return {
+                    async = true,
                     lsp_fallback = true,
-                    async = false,
-                    timeout_ms = 500,
-                }
+                    quiet = true,
+                }, function(err)
+                    if err then
+                        vim.notify(err, vim.log.levels.WARN)
+                    end
+                end
             end,
+        })
+
+        vim.api.nvim_create_user_command("FormatBuffer", function()
+            conform.format({
+                async = true,
+                lsp_fallback = true,
+                quiet = true,
+            }, function(err)
+                if err then
+                    vim.notify(err, vim.log.levels.WARN)
+                end
+            end)
+        end, {
+            desc = "Format Buffer/Range",
         })
 
         vim.api.nvim_create_user_command("FormatDisable", function(args)

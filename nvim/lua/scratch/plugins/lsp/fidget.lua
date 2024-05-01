@@ -1,6 +1,11 @@
 return {
-    --- Standalone UI for nvim-lsp progress.
+    -- Extensible UI for Neovim notifications and LSP progress messages.
     "j-hui/fidget.nvim",
-    event = "LspAttach",
-    opts = {},
+    event = "VeryLazy",
+    opts = {
+        notification = {
+            -- Automatically override vim.notify() with Fidget
+            override_vim_notify = true,
+        },
+    },
 }

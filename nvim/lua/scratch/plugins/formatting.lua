@@ -59,6 +59,8 @@ return {
                 sh = { "shfmt" },
                 typescript = { "prettier" },
                 gml = { "gml" },
+
+                ["_"] = { "trim_whitespace" },
             },
             formatters = {
                 java = {

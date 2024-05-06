@@ -160,4 +160,19 @@ M.safe = function(v, d)
     return d ~= nil and d or ""
 end
 
+--- lookup substring in the list -----------------------------------------------
+M.lookup = function(str, table)
+    if str == nil then
+        return false
+    end
+
+    for _, v in pairs(table) do
+        if string.find(str, v) ~= nil then
+            return true
+        end
+    end
+
+    return false
+end
+
 return M

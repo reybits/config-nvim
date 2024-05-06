@@ -14,14 +14,7 @@ return {
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-        local lookup = function(str, table)
-            for _, v in pairs(table) do
-                if string.find(str, v) ~= nil then
-                    return true
-                end
-            end
-            return false
-        end
+        local lookup = require("scratch.core.helpers").lookup
 
         if
             lookup(vim.env.TERM, { "256" })

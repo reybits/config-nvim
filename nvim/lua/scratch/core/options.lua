@@ -16,6 +16,8 @@ vim.g.loaded_node_provider = 0
 
 local opt = vim.opt
 
+opt.scrolloff = 5
+opt.sidescrolloff = 20
 opt.confirm = false -- Don't ask to save changes before exiting modified buffer
 
 opt.relativenumber = false -- Relative line numbers

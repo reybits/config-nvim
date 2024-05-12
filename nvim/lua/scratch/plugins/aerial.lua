@@ -3,7 +3,7 @@ return {
     event = "VeryLazy",
     -- stylua: ignore
     keys = {
-        { "<leader>a", "<cmd>AerialToggle left<cr>", desc = "Show Areal" },
+        { "<leader>a", "<cmd>AerialToggle left<cr>", desc = "Toggle Areal" },
     },
     opts = {
         backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },

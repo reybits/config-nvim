@@ -28,5 +28,5 @@ map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", opts)
 map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", opts)
 
 -- Alias to <esc>
-map("i", "jk", "<esc>", opts)
-map("i", "kj", "<esc>", opts)
+-- map("i", "jk", "<esc>", opts)
+-- map("i", "kj", "<esc>", opts)

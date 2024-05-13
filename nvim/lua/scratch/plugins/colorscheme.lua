@@ -1,7 +1,8 @@
 return {
     "EdenEast/nightfox.nvim",
     dependencies = {
-        -- { "ellisonleao/gruvbox.nvim" },
+        -- { "ellisonleao/gruvbox.nvim" }, -- doesn't support 16/256 colors terminal
+        { "morhetz/gruvbox" },
         -- { "catppuccin/nvim", name = "catppuccin" },
 
         --  for 16-color terminals
@@ -15,7 +16,6 @@ return {
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
         local lookup = require("scratch.core.helpers").lookup
-
         if
             lookup(vim.env.TERM, { "256" })
             or lookup(vim.env.COLORTERM, { "truecolor" })

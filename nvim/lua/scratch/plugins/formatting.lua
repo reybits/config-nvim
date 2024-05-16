@@ -18,7 +18,7 @@ return {
 
         local formatBuffer = function()
             return {
-                async = true,
+                -- async = true,
                 lsp_fallback = true,
                 quiet = true,
             }, function(err)

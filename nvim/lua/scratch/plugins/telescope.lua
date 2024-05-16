@@ -139,7 +139,7 @@ return {
                             ["<c-d>"] = actions.delete_buffer,
                         },
                     },
-                    previewer = false,
+                    previewer = true,
                 },
                 current_buffer_fuzzy_find = {
                     previewer = false,

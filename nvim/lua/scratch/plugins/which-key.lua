@@ -3,7 +3,7 @@ return {
     event = "VeryLazy",
     init = function()
         vim.o.timeout = true
-        vim.o.timeoutlen = 300
+        vim.o.timeoutlen = 500
     end,
     opts = {
         plugins = {
@@ -19,7 +19,7 @@ return {
             group = " ",
         },
         window = {
-            winblend = 20, -- 0 for fully opaque and 100 for fully transparent
+            winblend = 10, -- 0 for fully opaque and 100 for fully transparent
         },
         layout = {
             align = "center", -- align columns left, center or right
@@ -36,6 +36,8 @@ return {
             ["<leader>u"] = { name = "UI" },
             ["<leader>w"] = { name = "Window" },
             ["<leader>x"] = { name = "Diagnostics" },
+            ["["] = { name = "Jump Prev" },
+            ["]"] = { name = "Jump Next" },
         },
     },
     config = function(_, opts)

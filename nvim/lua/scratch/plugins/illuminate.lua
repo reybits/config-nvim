@@ -15,6 +15,7 @@ return {
                 "TelescopePrompt",
                 "Trouble",
                 "alpha",
+                "checkhealth",
                 "dirbuf",
                 "dirvish",
                 "fugitive",

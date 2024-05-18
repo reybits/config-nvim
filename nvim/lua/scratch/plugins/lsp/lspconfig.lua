@@ -84,6 +84,14 @@ return {
                         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
                     end
 
+                    if client.server_capabilities.inlayHintProvider then
+                        opts.desc = "Toggle Inlay Hint"
+                        map("n", "<leader>ci", function()
+                            local e = vim.lsp.inlay_hint.is_enabled({})
+                            vim.lsp.inlay_hint.enable(not e)
+                        end, opts)
+                    end
+
                     -- opts.desc = "Buffer Format"
                     -- map("n", "<leader>bf", function() vim.lsp.buf.format({ async = true }) end, opts)
 

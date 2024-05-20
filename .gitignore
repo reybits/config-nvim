@@ -1,4 +1,5 @@
 .DS_Store
 /nvim/lazy-lock.json
+/nvim/lua/scratch/custom/
 /tmp/
 test*.cpp

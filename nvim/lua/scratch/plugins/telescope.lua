@@ -113,6 +113,7 @@ return {
                             end
                             vim.fn.jobstart({
                                 "catimg",
+                                "-w 100",
                                 filepath, -- Terminal image viewer command
                             }, {
                                 on_stdout = send_output,

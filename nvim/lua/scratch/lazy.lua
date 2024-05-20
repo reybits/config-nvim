@@ -15,6 +15,7 @@ require("lazy").setup({
     { import = "scratch.plugins" },
     { import = "scratch.plugins.lsp" },
     { import = "scratch.plugins.dap" },
+    { import = "scratch.custom" },
 }, {
     checker = {
         enabled = true, -- automatically check for plugin updates

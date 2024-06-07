@@ -1,19 +1,22 @@
 return {
     "folke/trouble.nvim",
     lazy = true,
-    cmd = { "TroubleToggle", "Trouble" },
+    cmd = "Trouble",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         -- "folke/todo-comments.nvim",
     },
     -- stylua: ignore
     keys = {
-        { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
-        { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diags" },
-        { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diags" },
-        { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List" },
-        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List" },
-        { "gr", "<cmd>lua require('trouble').toggle('lsp_references')<cr>", desc = "References List" },
+        -- { "<leader>xx", "<cmd>Trouble<cr>", desc = "Trouble" },
+        { "<leader>xw", "<cmd>Trouble lsp toggle<cr>", desc = "Full LSP" },
+        { "<leader>xw", "<cmd>Trouble lsp_document_symbols toggle<cr>", desc = "Symbols" },
+        { "<leader>xw", "<cmd>Trouble lsp_incoming_calls toggle<cr>", desc = "Incoming Calls" },
+        { "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
+        { "<leader>xq", "<cmd>Trouble quickfix toggle<cr>", desc = "Quickfix List" },
+        { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+        { "<leader>xw", "<cmd>Trouble todo toggle<cr>", desc = "Todo" },
+        { "gr", "<cmd>Trouble lsp_references toggle<cr>", desc = "References List" },
     },
     opts = {
         use_diagnostic_signs = true,

@@ -6,16 +6,13 @@ return {
             virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
         },
         current_line_blame_formatter = "<author_time:%Y-%m-%d> <author>: <summary>",
-        current_line_blame_formatter_opts = {
-            relative_time = false,
-        },
         signs = {
-            add = { text = "▎" },
-            change = { text = "▎" },
+            -- add = { text = "┃" },
+            -- change = { text = "┃" },
             delete = { text = "" },
             topdelete = { text = "" },
-            changedelete = { text = "~" }, -- { text = "▎" },
-            untracked = { text = "┆" }, -- { text = "▎" },
+            -- changedelete = { text = "~" },
+            -- untracked = { text = "┆" },
         },
         -- stylua: ignore
         on_attach = function(_)

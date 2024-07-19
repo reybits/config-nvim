@@ -1,48 +1,56 @@
 return {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 500
-    end,
-    opts = {
-        plugins = {
-            spelling = true,
+    keys = {
+        {
+            "<leader>?",
+            function()
+                require("which-key").show({ global = false })
+            end,
+            desc = "Buffer Local Keymaps (which-key)",
         },
-        operators = {
-            gc = "Comments",
-            gb = "Comments",
+    },
+    opts = {
+        -- Delay before showing the popup.
+        delay = function(ctx)
+            return ctx.plugin and 0 or 500
+        end,
+        spec = {
+            { "<leader>b", group = "Buffer" },
+            { "<leader>c", group = "Code" },
+            { "<leader>d", group = "Debug" },
+            { "<leader>f", group = "File" },
+            { "<leader>g", group = "Git" },
+            { "<leader>gh", group = "Hunks" },
+            { "<leader>o", group = "Options" },
+            { "<leader>s", group = "Search" },
+            { "<leader>u", group = "UI" },
+            { "<leader>w", group = "Window" },
+            { "<leader>x", group = "Diagnostics" },
+            { " ", group = "Essential" },
+            { "g", group = "Goto" },
+            { "z", group = "Folding" },
+            { "[", desc = "Jump Prev" },
+            { "]", desc = "Jump Next" },
         },
         icons = {
-            -- breadcrumb = "»",
-            -- separator = "➜",
-            group = " ",
+            mappings = true,
+            group = "", -- " ",
+            rules = {
+                { pattern = "options", icon = "", color = "cyan" },
+            },
         },
-        window = {
-            winblend = 10, -- 0 for fully opaque and 100 for fully transparent
+        win = {
+            wo = {
+                winblend = 10, -- 0 for fully opaque and 100 for fully transparent
+            },
         },
         layout = {
             align = "center", -- align columns left, center or right
-        },
-        defaults = {
-            ["<leader>b"] = { name = "Buffer" },
-            ["<leader>c"] = { name = "Code" },
-            ["<leader>d"] = { name = "Debug" },
-            ["<leader>f"] = { name = "File" },
-            ["<leader>g"] = { name = "Git" },
-            ["<leader>gh"] = { name = "Hunks" },
-            ["<leader>o"] = { name = "Options" },
-            ["<leader>s"] = { name = "Search" },
-            ["<leader>u"] = { name = "UI" },
-            ["<leader>w"] = { name = "Window" },
-            ["<leader>x"] = { name = "Diagnostics" },
-            ["["] = { name = "Jump Prev" },
-            ["]"] = { name = "Jump Next" },
         },
     },
     config = function(_, opts)
         local wk = require("which-key")
         wk.setup(opts)
-        wk.register(opts.defaults)
     end,
 }

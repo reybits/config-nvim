@@ -9,7 +9,7 @@ return {
     -- stylua: ignore
     keys = {
         -- { "<leader>xx", "<cmd>Trouble<cr>", desc = "Trouble" },
-        { "<leader>xx", "<cmd>rouble lsp toggle<cr>", desc = "Full LSP" },
+        { "<leader>xx", "<cmd>Trouble lsp toggle<cr>", desc = "Full LSP" },
         { "<leader>xs", "<cmd>Trouble lsp_document_symbols toggle<cr>", desc = "Symbols" },
         { "<leader>xi", "<cmd>Trouble lsp_incoming_calls toggle<cr>", desc = "Incoming Calls" },
         { "<leader>xd", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },

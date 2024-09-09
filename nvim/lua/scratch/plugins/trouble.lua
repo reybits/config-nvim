@@ -8,12 +8,6 @@ return {
     },
     keys = {
         {
-            "<leader>xx",
-            -- "<cmd>Trouble lsp toggle<cr>",
-            "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-            desc = "LSP related (Trouble)",
-        },
-        {
             "<leader>xd",
             "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
             desc = "Buffer Diagnostics (Trouble)",
@@ -36,6 +30,11 @@ return {
         },
         {
             "<leader>xt",
+            "<cmd>Trouble todo toggle filter.buf=0<cr>",
+            desc = "Buffer Todo (Trouble)",
+        },
+        {
+            "<leader>xT",
             "<cmd>Trouble todo toggle<cr>",
             desc = "Todo (Trouble)",
         },
@@ -45,14 +44,24 @@ return {
             desc = "Symbols (Trouble)",
         },
         {
+            "<leader>xx",
+            "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+            desc = "LSP related (Trouble)",
+        },
+        {
+            "<leader>xs",
+            "<cmd>Trouble lsp_document_symbols toggle<cr>",
+            desc = "LSP Symbols (Trouble)",
+        },
+        {
             "<leader>xr",
-            "<cmd>Trouble lsp_references toggle<cr>",
-            desc = "References List (Trouble)",
+            "<cmd>Trouble lsp_references toggle focus=true<cr>",
+            desc = "LSP References (Trouble)",
         },
         {
             "<leader>xi",
-            "<cmd>Trouble lsp_incoming_calls toggle<cr>",
-            desc = "Incoming Calls (Trouble)",
+            "<cmd>Trouble lsp_incoming_calls toggle focus=true<cr>",
+            desc = "LSP Incoming Calls (Trouble)",
         },
     },
     opts = {

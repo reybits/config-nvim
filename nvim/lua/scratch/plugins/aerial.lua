@@ -1,3 +1,8 @@
+-- INFO: Disabled in favor of Trouble (:Trouble symbols toggle)
+if true then
+    return {}
+end
+
 return {
     "stevearc/aerial.nvim",
     event = "VeryLazy",

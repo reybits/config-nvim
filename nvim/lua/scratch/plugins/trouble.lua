@@ -40,8 +40,7 @@ return {
             desc = "Todo (Trouble)",
         },
         {
-            "<leader>xs",
-            -- "<cmd>Trouble lsp_document_symbols toggle<cr>",
+            "<leader>a",
             "<cmd>Trouble symbols toggle focus=true win.position=left<cr>",
             desc = "Symbols (Trouble)",
         },

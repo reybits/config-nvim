@@ -24,10 +24,10 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    if vim.fn.has("nvim-0.9.5") == 1 then
-                        vim.fn["vsnip#anonymous"](args.body)
-                    else
+                    if vim.fn.has("nvim-0.10.0") == 1 then
                         vim.snippet.expand(args.body) -- native snippets (Neovim v0.10+)
+                    else
+                        vim.fn["vsnip#anonymous"](args.body)
                     end
                 end,
             },

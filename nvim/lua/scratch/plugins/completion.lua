@@ -34,11 +34,11 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ["<c-j>"] = cmp.mapping.select_next_item(),
                 ["<c-k>"] = cmp.mapping.select_prev_item(),
-                ["<C-n>"] = cmp.mapping.select_next_item(),
-                ["<C-p>"] = cmp.mapping.select_prev_item(),
+                ["<c-n>"] = cmp.mapping.select_next_item(),
+                ["<c-p>"] = cmp.mapping.select_prev_item(),
                 ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<c-f>"] = cmp.mapping.scroll_docs(4),
-                ["<c-Space>"] = cmp.mapping.complete(),
+                ["<c-space>"] = cmp.mapping.complete(),
                 -- ["<cr>"] = cmp.mapping.confirm({ select = true }),
                 ["<cr>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,

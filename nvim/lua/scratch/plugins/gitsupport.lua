@@ -20,6 +20,15 @@ return {
         end,
     },
 
+    -- vim-fugitive companion
+    -- (GBrowse command)
+    {
+        "tpope/vim-rhubarb",
+        dependencies = {
+            "tpope/vim-fugitive",
+        },
+    },
+
     -- tig is no longer needed :)
     {
         "rbong/vim-flog",

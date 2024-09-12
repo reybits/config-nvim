@@ -1,16 +1,16 @@
 local exclude_filetypes = {
-    "help",
+    "aerial",
     "alpha",
     "dashboard",
-    "neo-tree",
-    "Trouble",
-    "trouble",
+    "help",
     "lazy",
-    "mason",
-    "notify",
-    "toggleterm",
     "lazyterm",
-    "aerial",
+    "mason",
+    "neo-tree",
+    "notify",
+    "nvimtree",
+    "toggleterm",
+    "trouble",
 }
 
 return {

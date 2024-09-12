@@ -122,6 +122,7 @@ return {
                     "NeogitStatus",
                     "starter",
                     "dashboard",
+                    "trouble",
                 },
             },
             -- stylua: ignore

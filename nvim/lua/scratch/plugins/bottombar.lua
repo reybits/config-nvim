@@ -94,8 +94,7 @@ return {
                 percent = str:gsub("%%", "")
             end
 
-            local list =
-                { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
+            local list = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" }
             local idx = 1 + math.floor((#list - 1) * percent / 100)
             -- print(str .. " -> " .. idx)
             return list[idx]
@@ -145,7 +144,14 @@ return {
                     { better_fn }
                 },
                 lualine_x = {
-                    "diff",
+                    {
+                        "diff",
+                        symbols = {
+                            added = ' ',
+                            modified = ' ',
+                            removed = ' '
+                        },
+                    },
                     "diagnostics",
                     {
                         lazy_status.updates,

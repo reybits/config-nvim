@@ -67,10 +67,12 @@ return {
                 winblend = 20,
                 layout_strategy = "vertical",
                 layout_config = {
-                    width = 0.96,
-                    height = 0.96,
-                    preview_cutoff = 25,
-                    preview_height = 0.6,
+                    vertical = {
+                        width = 0.96,
+                        height = 0.96,
+                        preview_cutoff = 25,
+                        preview_height = 0.6,
+                    },
                 },
                 path_display = { "truncate" },
                 prompt_prefix = "  ",

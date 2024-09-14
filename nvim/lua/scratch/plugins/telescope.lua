@@ -119,7 +119,11 @@ return {
                                     pty = true,
                                 })
                             else
-                                vim.notify("Viewer '" .. viewer .. "' not found!")
+                                require("telescope.previewers.utils").set_preview_message(
+                                    bufnr,
+                                    opts.winid,
+                                    "Viewer '" .. viewer .. "' not found!"
+                                )
                             end
                         else
                             require("telescope.previewers.utils").set_preview_message(

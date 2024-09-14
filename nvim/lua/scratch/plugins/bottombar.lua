@@ -2,12 +2,14 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
+        --[[
         {
             "SmiteshP/nvim-navic",
             dependencies = {
                 "neovim/nvim-lspconfig",
             },
         },
+        --]]
     },
     config = function()
         local lualine = require("lualine")
@@ -43,6 +45,8 @@ return {
             return data
         end
 
+        --[[
+        -- useful only if globalstatus = true
         local better_fn_inactive = better_fn:extend()
         function better_fn_inactive:init(options)
             better_fn_inactive.super.init(self, options)
@@ -62,15 +66,20 @@ return {
                 self.options.color = ""
             end
         end
+        --]]
 
+        --[[
         local navic = require("nvim-navic")
         navic.setup({
             lsp = {
                 auto_attach = true,
                 preference = nil,
             },
+            depth_limit = 2,
+            depth_limit_indicator = "…",
             highlight = false,
         })
+        --]]
 
         local fmt_mode = function(str)
             return str:sub(1, 1)
@@ -100,22 +109,11 @@ return {
             return list[idx]
         end
 
-        local fmt_buffer_name = function(str)
-            local names = { "NvimTree", "Neogit" }
-            for _, name in ipairs(names) do
-                local len = name:len()
-                if str:sub(1, len) == name then
-                    return name
-                end
-            end
-            return ""
-        end
-
         lualine.setup({
             options = {
                 section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },
-                globalstatus = false,
+                globalstatus = true,
                 disabled_filetypes = {
                     "NvimTree",
                     "NeogitStatus",
@@ -141,7 +139,17 @@ return {
                         separator = "",
                         padding = { left = 1, right = 0 },
                     },
-                    { better_fn }
+                    { better_fn },
+                    --[[
+                    {
+                        function()
+                            return navic.get_location()
+                        end,
+                        cond = function()
+                            return navic.is_available()
+                        end
+                    }
+                    --]]
                 },
                 lualine_x = {
                     {
@@ -187,6 +195,8 @@ return {
                 },
             },
             -- stylua: ignore
+            --[[
+            -- useful only if globalstatus = true
             inactive_sections = {
                 lualine_a = {},
                 lualine_b = {},
@@ -202,16 +212,31 @@ return {
                 lualine_y = {},
                 lualine_z = {},
             },
+            --]]
             -- stylua: ignore
             tabline = {
-                lualine_a = {
-                    { "filename",
-                        fmt = fmt_buffer_name,
+                --[[
+                lualine_b = {
+                    {
+                        function()
+                            return navic.get_location()
+                        end,
+                        cond = function()
+                            return navic.is_available()
+                        end
+                    }
+                },
+                --]]
+                lualine_z = {
+                    { "tabs",
+                        cond = function()
+                            return #vim.fn.gettabinfo() > 1
+                        end,
                     },
                 },
-                lualine_b = { "navic" },
-                lualine_z = { "tabs" },
             },
         })
+
+        vim.opt.showtabline = 1 -- override lualine's settings
     end,
 }

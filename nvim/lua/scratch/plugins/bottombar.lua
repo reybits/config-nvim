@@ -18,6 +18,7 @@ return {
         local highlight = require("lualine.highlight")
 
         local better_fn = require("lualine.components.filename"):extend()
+
         function better_fn:init(options)
             better_fn.super.init(self, options)
             self.status_colors = {
@@ -81,18 +82,6 @@ return {
         })
         --]]
 
-        local fmt_mode = function(str)
-            return str:sub(1, 1)
-        end
-
-        local fmt_sections = function(str)
-            return str:len() > 0 and "s:" .. str or ""
-        end
-
-        local fmt_location = function(str)
-            return str:gsub("%s+", "")
-        end
-
         local fmt_progress = function(str)
             local percent = 0
             if str == "Top" then
@@ -107,6 +96,16 @@ return {
             local idx = 1 + math.floor((#list - 1) * percent / 100)
             -- print(str .. " -> " .. idx)
             return list[idx]
+        end
+
+        local function diff_cond()
+            return vim.bo.buftype == "acwrite"
+            -- local buf_name = vim.api.nvim_buf_get_name(0)
+            -- local prefix = "gitsigns://"
+            -- return buf_name:sub(1, #prefix) == prefix
+        end
+        local function not_diff_cond()
+            return diff_cond() == false
         end
 
         lualine.setup({
@@ -126,7 +125,9 @@ return {
             sections = {
                 lualine_a = {
                     { "mode",
-                        fmt = fmt_mode,
+                        fmt = function(str)
+                            return str:sub(1, 1)
+                        end,
                         padding = { left = 1, right = 0 }
                     },
                 },
@@ -138,8 +139,14 @@ return {
                         icon_only = true,
                         separator = "",
                         padding = { left = 1, right = 0 },
+                        cond = not_diff_cond
                     },
-                    { better_fn },
+                    { function() return "*diff*" end,
+                        cond = diff_cond
+                    },
+                    { better_fn,
+                        cond = not_diff_cond
+                    },
                     --[[
                     {
                         function()
@@ -152,39 +159,48 @@ return {
                     --]]
                 },
                 lualine_x = {
-                    {
-                        "diff",
+                    { "diff",
                         symbols = {
                             added = ' ',
                             modified = ' ',
                             removed = ' '
                         },
+                        cond = not_diff_cond
                     },
-                    "diagnostics",
-                    {
-                        lazy_status.updates,
-                        cond = lazy_status.has_updates,
+                    { "diagnostics",
+                        cond = not_diff_cond
+                    },
+                    { lazy_status.updates,
+                        cond = function()
+                            return not_diff_cond() and lazy_status.has_updates()
+                        end,
                         color = { fg = "#ff9e64" },
                     },
                 },
                 lualine_y = {
                     { "fileformat",
                         separator = "",
-                        padding = { left = 0, right = 1 }
+                        padding = { left = 0, right = 1 },
+                        cond = not_diff_cond
                     },
                     { "encoding",
                         separator = "",
-                        padding = { left = 0, right = 1 }
+                        padding = { left = 0, right = 1 },
+                        cond = not_diff_cond
                     },
                 },
                 lualine_z = {
                     { "selectioncount",
-                        fmt = fmt_sections,
+                        fmt = function(str)
+                            return str:len() > 0 and "s:" .. str or ""
+                        end,
                         separator = " ",
                         padding = { left = 0, right = 0 },
                     },
                     { "location",
-                        fmt = fmt_location,
+                        fmt = function(str)
+                            return str:gsub("%s+", "")
+                        end,
                         separator = " ",
                         padding = { left = 0, right = 0 },
                     },

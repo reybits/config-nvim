@@ -46,6 +46,18 @@ return {
                     select = true,
                 }),
                 ["<c-e>"] = cmp.mapping.abort(),
+                ["<tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        local entries = cmp.get_entries()
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+
+                        if #entries == 1 then
+                            cmp.confirm()
+                        end
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
             }),
             sources = cmp.config.sources({
                 { name = "codeium" },

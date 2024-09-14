@@ -66,10 +66,12 @@ return {
             defaults = {
                 scroll_strategy = "limit",
                 winblend = 20,
+                layout_strategy = "vertical",
                 layout_config = {
                     width = 0.96,
                     height = 0.96,
-                    preview_cutoff = 120,
+                    preview_cutoff = 25,
+                    preview_height = 0.6,
                 },
                 path_display = { "truncate" },
                 prompt_prefix = "  ",
@@ -148,13 +150,13 @@ return {
                     previewer = true,
                 },
                 current_buffer_fuzzy_find = {
-                    previewer = false,
+                    previewer = true,
                 },
                 live_grep = {
-                    previewer = false,
+                    previewer = true,
                 },
                 grep_string = {
-                    previewer = false,
+                    previewer = true,
                 },
                 colorscheme = {
                     enable_preview = true,

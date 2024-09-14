@@ -102,14 +102,14 @@ return {
                             icon = "󰡦 ", -- " 󰉺  ",
                             desc = "Files",
                             group = "Label",
-                            action = "Telescope find_files preview={hide_on_startup=true}",
+                            action = "Telescope find_files",
                             key = "f",
                         },
                         {
                             icon = "󰔠 ", -- "󱑍  ",
                             desc = "Recent",
                             group = "Label",
-                            action = "Telescope oldfiles preview={hide_on_startup=true}",
+                            action = "Telescope oldfiles",
                             key = "o",
                         },
                         {

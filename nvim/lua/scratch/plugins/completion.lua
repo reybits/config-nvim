@@ -47,6 +47,7 @@ return {
                 ["<c-e>"] = cmp.mapping.abort(),
             }),
             sources = cmp.config.sources({
+                { name = "codeium" },
                 { name = "nvim_lsp" },
                 { name = "vsnip" },
                 { name = "path" },
@@ -60,9 +61,9 @@ return {
                     local kind = lspkind.cmp_format({
                         mode = "symbol_text",
                         maxwidth = 50,
+                        symbol_map = { Codeium = "" },
                     })(entry, vim_item)
-                    local strings =
-                        vim.split(kind.kind, "%s", { trimempty = true })
+                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
                     kind.kind = " " .. (strings[1] or "") .. " "
                     kind.menu = "    (" .. (strings[2] or "") .. ")"
                     return kind

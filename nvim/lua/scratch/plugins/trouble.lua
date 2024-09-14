@@ -39,7 +39,7 @@ return {
             desc = "Todo (Trouble)",
         },
         {
-            "<leader>a",
+            "<leader>xa",
             "<cmd>Trouble symbols toggle focus=true win.position=left<cr>",
             desc = "Symbols (Trouble)",
         },

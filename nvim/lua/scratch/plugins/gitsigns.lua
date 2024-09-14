@@ -59,7 +59,7 @@ return {
             map("n", "<leader>go", gitsigns.toggle_deleted, { desc = "Toggle Deleted" })
 
             -- Diff
-            map("n", "<leader>gd", gitsigns.diffthis, { desc = "Diff Buffer" })
+            map("n", "<leader>gd", function() gitsigns.diffthis(nil, { split="botright" }) end, { desc = "Diff Buffer" })
 
             -- Text object
             map( { "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>", { desc = "Select Hunk" })

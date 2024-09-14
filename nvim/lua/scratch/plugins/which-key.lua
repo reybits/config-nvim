@@ -44,12 +44,10 @@ return {
             },
         },
         win = {
+            no_overlap = false, -- don't allow the popup to overlap with the cursor
             wo = {
                 winblend = 10, -- 0 for fully opaque and 100 for fully transparent
             },
-        },
-        layout = {
-            align = "center", -- align columns left, center or right
         },
     },
 }

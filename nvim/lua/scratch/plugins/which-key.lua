@@ -52,8 +52,4 @@ return {
             align = "center", -- align columns left, center or right
         },
     },
-    config = function(_, opts)
-        local wk = require("which-key")
-        wk.setup(opts)
-    end,
 }

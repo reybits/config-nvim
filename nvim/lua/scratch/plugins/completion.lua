@@ -19,6 +19,31 @@ return {
         local cmp = require("cmp")
         local lspkind = require("lspkind")
 
+        local do_next = function(fallback)
+            if cmp.visible() then
+                -- local entries = cmp.get_entries()
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+
+                -- if #entries == 1 then
+                --     cmp.confirm()
+                -- end
+            else
+                fallback()
+            end
+        end
+        local do_prev = function(fallback)
+            if cmp.visible() then
+                -- local entries = cmp.get_entries()
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace })
+
+                -- if #entries == 1 then
+                --     cmp.confirm()
+                -- end
+            else
+                fallback()
+            end
+        end
+
         cmp.setup({
             completion = {
                 completeopt = "menu,menuone,preview,noselect",
@@ -33,31 +58,28 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ["<c-j>"] = cmp.mapping.select_next_item(),
-                ["<c-k>"] = cmp.mapping.select_prev_item(),
-                ["<c-n>"] = cmp.mapping.select_next_item(),
-                ["<c-p>"] = cmp.mapping.select_prev_item(),
-                ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<c-f>"] = cmp.mapping.scroll_docs(4),
                 ["<c-space>"] = cmp.mapping.complete(),
-                -- ["<cr>"] = cmp.mapping.confirm({ select = true }),
+                ["<c-e>"] = cmp.mapping.abort(),
+
+                ["<c-j>"] = cmp.mapping(do_next),
+                ["<c-k>"] = cmp.mapping(do_prev),
+
+                ["<c-n>"] = cmp.mapping(do_next),
+                ["<c-p>"] = cmp.mapping(do_prev),
+
+                ["<tab>"] = cmp.mapping(do_next),
+                ["<s-tab>"] = cmp.mapping(do_prev),
+
+                ["<c-f>"] = cmp.mapping.scroll_docs(4),
+                ["<c-b>"] = cmp.mapping.scroll_docs(-4),
+
+                ["<c-d>"] = cmp.mapping.scroll_docs(4),
+                ["<c-u>"] = cmp.mapping.scroll_docs(-4),
+
                 ["<cr>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
+                    -- behavior = cmp.ConfirmBehavior.Replace,
                     select = true,
                 }),
-                ["<c-e>"] = cmp.mapping.abort(),
-                ["<tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        local entries = cmp.get_entries()
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-
-                        if #entries == 1 then
-                            cmp.confirm()
-                        end
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
             }),
             sources = cmp.config.sources({
                 { name = "codeium" },

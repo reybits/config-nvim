@@ -19,22 +19,32 @@ return {
             return ctx.plugin and 0 or 500
         end,
         spec = {
-            { "<leader>b", group = "Buffer", mode = { "n", "v" } },
-            { "<leader>c", group = "Code", mode = { "n", "v" } },
-            { "<leader>d", group = "Debug", mode = { "n", "v" } },
-            { "<leader>f", group = "File" },
-            { "<leader>g", group = "Git", mode = { "n", "v" } },
-            { "<leader>gh", group = "Hunks", mode = { "n", "v" } },
-            { "<leader>o", group = "Options" },
-            { "<leader>s", group = "Search" },
-            { "<leader>u", group = "UI" },
-            { "<leader>w", group = "Window" },
-            { "<leader>x", group = "Diagnostics" },
-            { " ", group = "Essential", mode = { "n", "v" } },
-            { "g", group = "Goto" },
-            { "z", group = "Folding", mode = { "n", "v" } },
-            { "[", desc = "Jump Prev", mode = { "n", "v" } },
-            { "]", desc = "Jump Next", mode = { "n", "v" } },
+            {
+                -- normal mode only
+                { "<leader>a", group = "AI" },
+                { "<leader>f", group = "File" },
+                { "<leader>o", group = "Options" },
+                { "<leader>s", group = "Search" },
+                { "<leader>u", group = "UI" },
+                { "<leader>w", group = "Window" },
+                { "<leader>x", group = "Diagnostics" },
+                { "g", group = "Goto" },
+            },
+            {
+                -- normal and visual mode
+                mode = { "n", "v" },
+
+                { "<leader>b", group = "Buffer" },
+                { "<leader>c", group = "Code" },
+                { "<leader>d", group = "Debug" },
+                { "<leader>g", group = "Git" },
+                { "<leader>gh", group = "Hunks" },
+                { " ", group = "Essential" },
+                { "z", group = "Folding" },
+
+                { "[", group = "Jump Prev" },
+                { "]", group = "Jump Next" },
+            },
         },
         icons = {
             mappings = true,

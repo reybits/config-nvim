@@ -34,7 +34,6 @@ return {
                 })
             end, desc = "Find plugin file" },
 
-        { "<leader>bs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
         { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
 
         { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },

@@ -114,10 +114,11 @@ return {
                 component_separators = { left = "", right = "" },
                 globalstatus = true,
                 disabled_filetypes = {
-                    "NvimTree",
                     "NeogitStatus",
-                    "starter",
+                    "NvimTree",
+                    "TelescopePrompt",
                     "dashboard",
+                    "starter",
                     "trouble",
                 },
             },

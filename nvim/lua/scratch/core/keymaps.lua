@@ -25,6 +25,14 @@ map(
     desc("Toggle Split Layout")
 )
 
+-- toggle wrap
+map("n", "<leader>uw", function()
+    local is_wrap = vim.api.nvim_win_get_option(0, "wrap")
+
+    vim.api.nvim_win_set_option(0, "wrap", not is_wrap)
+    vim.api.nvim_win_set_option(0, "linebreak", not is_wrap)
+end, desc("Toggle Wrap"))
+
 -- Move selected line / block of text in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
 

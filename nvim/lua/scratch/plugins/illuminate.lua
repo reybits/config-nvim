@@ -1,6 +1,21 @@
+--- disable illuminate on big files --------------------------------------------
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = { "*" },
+    callback = function()
+        local file = vim.fn.expand("%:p")
+        local ok, stats = pcall(vim.loop.fs_stat, file)
+
+        local max_size = 1024 * 100
+        if ok and stats and stats.size > max_size then
+            vim.cmd("IlluminatePauseBuf")
+        end
+    end,
+})
+
 return {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
+    cmd = { "IlluminatePauseBuf" },
     config = function()
         local illuminate = require("illuminate")
         illuminate.configure({
@@ -30,6 +45,9 @@ return {
                 "spectre_panel",
                 "toggleterm",
             },
+            -- large_file_cutoff: number of lines at which to use large_file_config
+            -- The `under_cursor` option is disabled when this cutoff is hit
+            large_file_cutoff = 2000,
         })
 
         local map = vim.keymap.set

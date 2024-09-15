@@ -34,6 +34,10 @@ map("v", "K", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
 map("v", "p", '"_dp', desc("Paste Over Selected Text"))
 map("v", "P", '"_dP', desc("Paste Over Selected Text"))
 
+--- better movement in wrap mode
+map("n", "j", "gj")
+map("n", "k", "gk")
+
 -- Navigate tabs
 map("n", "<right>", ":tabnext<cr>", desc("Next Tab"))
 map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))

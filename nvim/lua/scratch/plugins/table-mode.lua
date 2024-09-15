@@ -3,6 +3,6 @@ return {
     cmd = { "TableModeToggle" },
     -- stylua: ignore
     keys = {
-        { "<leader>ot", "<cmd>TableModeToggle<cr>", desc = "Toggle TableMode" },
+        { "<leader>ut", "<cmd>TableModeToggle<cr>", desc = "Toggle TableMode" },
     },
 }

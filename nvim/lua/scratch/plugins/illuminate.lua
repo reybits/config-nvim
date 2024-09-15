@@ -33,7 +33,7 @@ return {
         })
 
         local map = vim.keymap.set
-        map("n", "<leader>oi", function()
+        map("n", "<leader>ui", function()
             illuminate.toggle()
             -- stylua: ignore
             print("Illiminate " .. (illuminate.is_paused() and "disabled" or "enabled"))

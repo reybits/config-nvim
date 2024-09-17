@@ -142,7 +142,7 @@ return {
                         padding = { left = 1, right = 0 },
                         cond = not_diff_cond
                     },
-                    { function() return "*diff*" end,
+                    { function() return "*diff (close with gq)*" end,
                         cond = diff_cond
                     },
                     { better_fn,

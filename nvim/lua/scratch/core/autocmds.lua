@@ -55,6 +55,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+--- close diff buffer with <gq> ----------------------------------------------
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = augroup("close_with_gq"),
+    pattern = { "*" },
+    callback = function(event)
+        if vim.bo[event.buf].buftype == "acwrite" then
+            vim.keymap.set("n", "gq", "<cmd>close<cr>", { buffer = event.buf })
+        end
+    end,
+})
+
 --- highlight when yanking (copying) text --------------------------------------
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {

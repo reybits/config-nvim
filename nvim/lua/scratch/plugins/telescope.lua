@@ -7,7 +7,10 @@ return {
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
         "folke/trouble.nvim",
-        { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "make",
+        },
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -112,9 +115,11 @@ return {
                                         vim.api.nvim_chan_send(term, d .. "\r\n")
                                     end
                                 end
+
+                                local width = vim.api.nvim_win_get_width(opts.winid)
                                 vim.fn.jobstart({
                                     viewer,
-                                    "-w 100",
+                                    "-w " .. tostring(width),
                                     filepath, -- Terminal image viewer command
                                 }, {
                                     on_stdout = send_output,

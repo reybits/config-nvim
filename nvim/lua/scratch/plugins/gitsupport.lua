@@ -2,13 +2,32 @@ return {
     -- best git wrapper for vim
     {
         "tpope/vim-fugitive",
-        -- stylua: ignore
         cmd = {
-            "G", "Git",
-            "GBrowse", "GDelete", "GRemove", "GUnlink", "GMove", "GRename",
-            "Gcd", "Glcd", "Gclog", "Gllog", "Gdiffsplit", "Gdrop", "Gedit",
-            "Ggrep", "Glgrep", "Gpedit", "Gread", "Gtabedit", "Gsplit",
-            "Gvdiffsplit", "Gvsplit", "Gwq", "Gwrite"
+            "G",
+            "Git",
+            "GBrowse",
+            "GDelete",
+            "GRemove",
+            "GUnlink",
+            "GMove",
+            "GRename",
+            "Gcd",
+            "Glcd",
+            "Gclog",
+            "Gllog",
+            "Gdiffsplit",
+            "Gdrop",
+            "Gedit",
+            "Ggrep",
+            "Glgrep",
+            "Gpedit",
+            "Gread",
+            "Gtabedit",
+            "Gsplit",
+            "Gvdiffsplit",
+            "Gvsplit",
+            "Gwq",
+            "Gwrite",
         },
         keys = {
             { "<leader>gg", "<cmd>Git<cr>", desc = "Git Fugitive" },
@@ -24,6 +43,9 @@ return {
     -- (GBrowse command)
     {
         "tpope/vim-rhubarb",
+        cmd = {
+            "GBrowse",
+        },
         dependencies = {
             "tpope/vim-fugitive",
         },
@@ -32,7 +54,11 @@ return {
     -- tig is no longer needed :)
     {
         "rbong/vim-flog",
-        cmd = { "Flog", "Flogsplit", "Floggit" },
+        cmd = {
+            "Flog",
+            "Flogsplit",
+            "Floggit",
+        },
         keys = {
             { "<leader>gl", "<cmd>Flog<cr>", desc = "A git branch viewer" },
         },
@@ -44,7 +70,10 @@ return {
     --[[
     -- clone of magit
     "NeogitOrg/neogit",
-    event = { "BufReadPre", "BufNewFile" },
+    event = {
+        "BufReadPre",
+        "BufNewFile",
+    },
     dependencies = {
         "nvim-lua/plenary.nvim", -- required
         "sindrets/diffview.nvim", -- optional

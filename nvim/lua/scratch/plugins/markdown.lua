@@ -2,6 +2,9 @@ return {
     -- inline preview
     {
         "MeanderingProgrammer/render-markdown.nvim",
+        ft = {
+            "markdown",
+        },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons",
@@ -46,8 +49,14 @@ return {
     -- browser preview
     {
         "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
+        cmd = {
+            "MarkdownPreviewToggle",
+            "MarkdownPreview",
+            "MarkdownPreviewStop",
+        },
+        ft = {
+            "markdown",
+        },
         build = function(plugin)
             if vim.fn.executable("npx") then
                 vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")

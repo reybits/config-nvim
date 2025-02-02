@@ -50,5 +50,13 @@ return {
                 vertical = "up:70%",
             },
         },
+        keymap = {
+            builtin = {
+                ["<F1>"] = "toggle-help",
+                ["<M-/>"] = "toggle-help",
+                ["<M-p>"] = "toggle-preview",
+                ["<M-w>"] = "toggle-preview-wrap",
+            },
+        },
     },
 }

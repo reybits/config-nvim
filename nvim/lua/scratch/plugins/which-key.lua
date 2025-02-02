@@ -23,9 +23,8 @@ return {
                 -- normal mode only
                 { "<leader>a", group = "AI" },
                 { "<leader>f", group = "File" },
-                { "<leader>o", group = "Obsidian" },
+                { "<leader>o", group = "Options" },
                 { "<leader>s", group = "Search" },
-                { "<leader>u", group = "UI" },
                 { "<leader>w", group = "Window" },
                 { "<leader>x", group = "Diagnostics" },
                 { "g", group = "Goto" },

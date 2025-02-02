@@ -7,8 +7,8 @@ local desc = function(desc)
     return merged
 end
 
-map("n", "<leader>ul", "<cmd>Lazy<cr>", desc("Lazy Plugin Manager"))
-map("n", "<leader>um", "<cmd>Mason<cr>", desc("Mason Manager"))
+map("n", "<leader>ol", "<cmd>Lazy<cr>", desc("Lazy Plugin Manager"))
+map("n", "<leader>om", "<cmd>Mason<cr>", desc("Mason Manager"))
 
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
 
@@ -26,7 +26,7 @@ map(
 )
 
 -- toggle wrap
-map("n", "<leader>uw", function()
+map("n", "<leader>ow", function()
     local is_wrap = vim.api.nvim_win_get_option(0, "wrap")
 
     vim.api.nvim_win_set_option(0, "wrap", not is_wrap)

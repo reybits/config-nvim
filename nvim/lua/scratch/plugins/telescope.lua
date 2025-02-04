@@ -1,6 +1,3 @@
-    -- stylua: ignore
-if true then return {} end
-
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",

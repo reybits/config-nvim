@@ -12,7 +12,13 @@ return {
             build = "make",
         },
     },
-    cmd = "Telescope",
+    cmd = {
+        "Telescope",
+        "DashBrowse",
+        "DashFiles",
+        "DashRecent",
+        "DashGrep",
+    },
     -- stylua: ignore
     keys = {
         { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers List" },
@@ -63,6 +69,23 @@ return {
         local actions = require("telescope.actions")
         local actions_layout = require("telescope.actions.layout")
         local trouble = require("trouble.sources.telescope")
+
+        -- Dashboard commands support
+        vim.api.nvim_create_user_command("DashBrowse", function()
+            require("telescope.builtin").find_files({
+                preview = { hide_on_startup = true },
+                cwd = "",
+            })
+        end, {})
+        vim.api.nvim_create_user_command("DashFiles", function()
+            require("telescope.builtin").find_files()
+        end, {})
+        vim.api.nvim_create_user_command("DashRecent", function()
+            require("telescope.builtin").oldfiles()
+        end, {})
+        vim.api.nvim_create_user_command("DashGrep", function()
+            require("telescope.builtin").live_grep()
+        end, {})
 
         telescope.setup({
             defaults = {

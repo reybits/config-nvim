@@ -25,6 +25,24 @@ map(
     desc("Toggle Split Layout")
 )
 
+vim.api.nvim_create_user_command("MakeResources", function()
+    local exec_command = "make resources"
+
+    if os.getenv("TMUX") then
+        os.execute(
+            "tmux split-window -v -l 30% '"
+                .. exec_command
+                .. " || exec $SHELL' ; tmux select-pane -U"
+        )
+    else
+        vim.cmd("12split | terminal " .. exec_command)
+        vim.cmd("normal G") -- scroll to the bottom
+        vim.cmd("wincmd p") -- return focus to previous window
+    end
+end, {})
+
+map("n", "<leader>rr", "<cmd>MakeResources<cr>", desc("Run: make resources"))
+
 -- toggle wrap
 map("n", "<leader>ow", function()
     local is_wrap = vim.api.nvim_win_get_option(0, "wrap")

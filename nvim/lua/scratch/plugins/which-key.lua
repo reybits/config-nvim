@@ -24,6 +24,7 @@ return {
                 { "<leader>a", group = "AI" },
                 { "<leader>f", group = "File" },
                 { "<leader>o", group = "Options" },
+                { "<leader>r", group = "Run" },
                 { "<leader>s", group = "Search" },
                 { "<leader>w", group = "Window" },
                 { "<leader>x", group = "Diagnostics" },
@@ -50,6 +51,7 @@ return {
             group = "", -- " ",
             rules = {
                 { pattern = "options", icon = "", color = "cyan" },
+                { pattern = "run", icon = "", color = "cyan" },
             },
         },
         win = {

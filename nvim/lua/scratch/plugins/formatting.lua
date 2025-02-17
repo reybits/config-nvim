@@ -16,12 +16,16 @@ return {
     config = function()
         local conform = require("conform")
 
-        local formatBuffer = function()
+        local formatOpts = function()
             return {
                 -- async = true,
-                lsp_fallback = true,
+                lsp_format = "fallback",
                 quiet = true,
-            }, function(err)
+            }
+            -- FIXME: Error message not supported anymore?
+            --
+            --[[
+            , function(err)
                 if err then
                     local helpers = require("scratch.core.helpers")
                     local result = helpers.split_to_strings(err, 60)
@@ -41,6 +45,7 @@ return {
                     end
                 end
             end
+            --]]
         end
 
         conform.setup({
@@ -122,17 +127,16 @@ return {
             format_on_save = function(bufnr)
                 -- Disable with a global or buffer-local variable
                 -- stylua: ignore
-                if vim.g.disable_autoformat or
-                    vim.b[bufnr].disable_autoformat then
+                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                     return
                 end
 
-                return formatBuffer()
+                return formatOpts()
             end,
         })
 
         vim.api.nvim_create_user_command("FormatBuffer", function()
-            conform.format(formatBuffer())
+            conform.format(formatOpts())
         end, {
             desc = "Format Buffer/Range",
         })

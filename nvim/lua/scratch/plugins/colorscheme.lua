@@ -50,4 +50,9 @@ return {
         "nickcharlton/vim-materia",
         lazy = true,
     },
+
+    {
+        "sphamba/smear-cursor.nvim",
+        opts = {},
+    },
 }

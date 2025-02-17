@@ -53,11 +53,13 @@ return {
                         map("n", "gi", vim.lsp.buf.implementation, opts)
                     end
 
+                    --[[
                     if client.server_capabilities.typeDefinitionProvider then
                         opts.desc = "Goto Type Definition"
                         -- stylua: ignore
                         map("n", "<leader>cd", vim.lsp.buf.type_definition, opts)
                     end
+                    --]]
 
                     if client.server_capabilities.hoverProvider then
                         opts.desc = "Symbol Info"

@@ -28,6 +28,10 @@ return {
                     },
                 },
             },
+            filters = {
+                git_ignored = false,
+                dotfiles = true,
+            },
         })
     end,
 

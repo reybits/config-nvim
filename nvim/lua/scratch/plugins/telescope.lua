@@ -73,6 +73,7 @@ return {
             end, desc = "LSP document symbols" },
         { "<leader>ci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "LSP Incoming Calls" },
         { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "LSP References" },
+        { "<leader>cd", "<cmd>Telescope diagnostics<cr>", desc = "LSP Diagnostics" },
     },
     config = function()
         local telescope = require("telescope")

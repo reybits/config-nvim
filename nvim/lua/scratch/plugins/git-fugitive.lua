@@ -2,6 +2,7 @@ return {
     -- best git wrapper for vim
     {
         "tpope/vim-fugitive",
+        enabled = false,
         cmd = {
             "G",
             "Git",
@@ -43,6 +44,7 @@ return {
     -- (GBrowse command)
     {
         "tpope/vim-rhubarb",
+        enabled = false,
         cmd = {
             "GBrowse",
         },
@@ -54,6 +56,7 @@ return {
     -- tig is no longer needed :)
     {
         "rbong/vim-flog",
+        enabled = false,
         cmd = {
             "Flog",
             "Flogsplit",
@@ -66,27 +69,4 @@ return {
             "tpope/vim-fugitive",
         },
     },
-
-    --[[
-    -- clone of magit
-    "NeogitOrg/neogit",
-    event = {
-        "BufReadPre",
-        "BufNewFile",
-    },
-    dependencies = {
-        "nvim-lua/plenary.nvim", -- required
-        "sindrets/diffview.nvim", -- optional
-        "nvim-telescope/telescope.nvim", -- optional
-    },
-    config = true,
-    opts = {
-        graph_style = "unicode",
-    },
-    -- stylua: ignore
-    keys = {
-        { "<leader>gG", "<cmd>Neogit cwd=%:p:h<cr>", desc = "Neogit (cwd)" },
-        { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (project root)" },
-    },
-    --]]
 }

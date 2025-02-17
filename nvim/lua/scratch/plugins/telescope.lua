@@ -6,7 +6,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
-        "folke/trouble.nvim",
+        -- "folke/trouble.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
@@ -63,12 +63,22 @@ return {
 
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
+
+        { "<leader>cs", function()
+                require("telescope.builtin").lsp_document_symbols({
+                    symbol_width = 50,
+                    symbol_type_width = 11,
+                    show_line = true
+                })
+            end, desc = "LSP document symbols" },
+        { "<leader>ci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "LSP Incoming Calls" },
+        { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "LSP References" },
     },
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
         local actions_layout = require("telescope.actions.layout")
-        local trouble = require("trouble.sources.telescope")
+        -- local trouble = require("trouble.sources.telescope")
 
         -- Dashboard commands support
         vim.api.nvim_create_user_command("DashBrowse", function()
@@ -117,7 +127,7 @@ return {
                         ["<c-k>"] = actions.move_selection_previous,
                         ["<c-n>"] = actions.cycle_history_next,
                         ["<c-p>"] = actions.cycle_history_prev,
-                        ["<c-t>"] = trouble.open,
+                        -- ["<c-t>"] = trouble.open,
                         ["<m-p>"] = actions_layout.toggle_preview,
                     },
                 },

@@ -184,7 +184,7 @@ return {
                     sort_mru = true,
                     mappings = {
                         i = {
-                            ["<c-d>"] = actions.delete_buffer,
+                            ["<c-x>"] = actions.delete_buffer,
                         },
                     },
                     previewer = true,

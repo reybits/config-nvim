@@ -88,7 +88,7 @@ return {
 
                     if client.server_capabilities.inlayHintProvider then
                         opts.desc = "Toggle Inlay Hint"
-                        map("n", "<leader>ch", function()
+                        map("n", "<leader>oh", function()
                             local e = vim.lsp.inlay_hint.is_enabled({})
                             vim.lsp.inlay_hint.enable(not e)
                         end, opts)

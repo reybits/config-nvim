@@ -7,7 +7,7 @@ local desc = function(desc)
     return merged
 end
 
-map("n", "<leader>ol", "<cmd>Lazy<cr>", desc("Lazy Plugin Manager"))
+map("n", "<leader>ol", "<cmd>Lazy<cr>", desc("Lazy Manager"))
 map("n", "<leader>om", "<cmd>Mason<cr>", desc("Mason Manager"))
 
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))

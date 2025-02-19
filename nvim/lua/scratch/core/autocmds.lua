@@ -55,6 +55,19 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+--- show buffer name on switch -----------------------------------------------
+
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    group = augroup("show_buffer_name"),
+    callback = function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+        if bufname ~= "" then
+            local relname = vim.fn.fnamemodify(bufname, ":.")
+            print("Switched to: " .. relname)
+        end
+    end,
+})
+
 --- close diff buffer with <gq> ----------------------------------------------
 
 vim.api.nvim_create_autocmd("BufWinEnter", {

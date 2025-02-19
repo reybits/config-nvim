@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 --- show buffer name on switch -----------------------------------------------
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = augroup("show_buffer_name"),
     callback = function()
         local bufname = vim.api.nvim_buf_get_name(0)

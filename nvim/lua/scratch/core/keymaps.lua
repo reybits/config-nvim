@@ -1,3 +1,5 @@
+--------------------------------------------------------------------------------
+
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
@@ -7,11 +9,16 @@ local desc = function(desc)
     return merged
 end
 
+--------------------------------------------------------------------------------
+
+-- plugins and tools managers
 map("n", "<leader>ol", "<cmd>Lazy<cr>", desc("Lazy Manager"))
 map("n", "<leader>om", "<cmd>Mason<cr>", desc("Mason Manager"))
 
+-- hide highligting by <esc>
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
 
+-- window related stuff
 map("n", "<leader>wv", "<c-w>v<cr>", desc("Split Window Vertically"))
 map("n", "<leader>wh", "<c-w>s<cr>", desc("Split Window Horizontally"))
 
@@ -25,6 +32,7 @@ map(
     desc("Toggle Split Layout")
 )
 
+-- build resources
 vim.api.nvim_create_user_command("MakeResources", function()
     local exec_command = "make resources"
 
@@ -51,10 +59,31 @@ map("n", "<leader>ow", function()
     vim.api.nvim_win_set_option(0, "linebreak", not is_wrap)
 end, desc("Toggle Wrap"))
 
--- Move selected line / block of text in visual mode
+-- move selected line / block of text in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
-
 map("v", "K", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
+
+-- quickfix related stuff
+map("n", "<leader>q", function()
+    local qf_exists = false
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if
+            vim.api.nvim_win_get_config(win).relative == ""
+            and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype")
+                == "quickfix"
+        then
+            qf_exists = true
+            break
+        end
+    end
+    if qf_exists then
+        vim.cmd("cclose")
+    else
+        vim.cmd("copen")
+    end
+end, desc("Toggle Quick List"))
+map("n", "<m-j>", "<cmd>cnext<cr>", desc("Next Item in Quicklist"))
+map("n", "<m-k>", "<cmd>cprev<cr>", desc("Prev Item in Quicklist"))
 
 -- paste over currently selected text without yanking it
 map("v", "p", '"_dp', desc("Paste Over Selected Text"))
@@ -64,13 +93,13 @@ map("v", "P", '"_dP', desc("Paste Over Selected Text"))
 map("n", "j", "gj")
 map("n", "k", "gk")
 
--- Navigate tabs
+-- navigate tabs
 map("n", "<right>", ":tabnext<cr>", desc("Next Tab"))
 map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 
 map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", desc("Arrow Key Disabled"))
 map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", desc("Arrow Key Disabled"))
 
--- Alias to <esc>
+-- alias to <esc>
 -- map("i", "jk", "<esc>", opts)
 -- map("i", "kj", "<esc>", opts)

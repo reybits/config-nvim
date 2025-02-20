@@ -71,8 +71,18 @@ return {
                     show_line = true
                 })
             end, desc = "LSP document symbols" },
-        { "<leader>ci", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "LSP Incoming Calls" },
-        { "<leader>cr", "<cmd>Telescope lsp_references<cr>", desc = "LSP References" },
+        { "<leader>ci", function()
+                require("telescope.builtin").lsp_incoming_calls({
+                    fname_width = 50,
+                    show_line = true
+                })
+            end,  desc = "LSP Incoming Calls" },
+        { "<leader>cr", function()
+                require("telescope.builtin").lsp_references({
+                    fname_width = 40,
+                    show_line = true
+                })
+            end, desc = "LSP References" },
         { "<leader>cd", "<cmd>Telescope diagnostics<cr>", desc = "LSP Diagnostics" },
     },
     config = function()

@@ -13,6 +13,7 @@ return {
         local mason_lspconfig = require("mason-lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+        -- stylua: ignore
         vim.lsp.handlers["textDocument/hover"] =
             vim.lsp.with(vim.lsp.handlers.hover, {
                 border = "rounded",
@@ -30,81 +31,76 @@ return {
             callback = function(args)
                 -- Buffer local mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local map = vim.keymap.set
                 local opts = { buffer = args.buf, silent = true }
+                local map = function(mode, keys, fn, desc)
+                    opts.desc = desc
+                    vim.keymap.set(mode, keys, fn, opts)
+                end
+                local mapn = function(keys, fn, desc)
+                    map("n", keys, fn, desc)
+                end
 
-                opts.desc = "Switch Source/Header"
-                map("n", "gs", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
+                for _, client in ipairs(vim.lsp.get_clients()) do
+                    if client.name == "clangd" then
+                        mapn("gs", "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header")
+                    end
+                end
 
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client ~= nil then
                     if client.server_capabilities.declarationProvider then
-                        opts.desc = "Goto Declaration"
-                        map("n", "gD", vim.lsp.buf.declaration, opts)
+                        mapn("gD", vim.lsp.buf.declaration, "Goto Declaration")
                     end
 
                     if client.server_capabilities.definitionProvider then
-                        opts.desc = "Goto Definition"
-                        map("n", "gd", vim.lsp.buf.definition, opts)
+                        mapn("gd", vim.lsp.buf.definition, "Goto Definition")
                     end
 
                     if client.server_capabilities.implementationProvider then
-                        opts.desc = "Goto Implementation"
-                        map("n", "gi", vim.lsp.buf.implementation, opts)
+                        mapn("gi", vim.lsp.buf.implementation, "Goto Implementation")
                     end
 
-                    --[[
-                    if client.server_capabilities.typeDefinitionProvider then
-                        opts.desc = "Goto Type Definition"
-                        -- stylua: ignore
-                        map("n", "<leader>cd", vim.lsp.buf.type_definition, opts)
-                    end
-                    --]]
+                    -- if client.server_capabilities.typeDefinitionProvider then
+                    --     mapn("<leader>cd", vim.lsp.buf.type_definition, "Goto Type Definition")
+                    -- end
 
                     if client.server_capabilities.hoverProvider then
-                        opts.desc = "Symbol Info"
-                        map("n", "K", vim.lsp.buf.hover, opts)
+                        mapn("K", vim.lsp.buf.hover, "Symbol Info")
                     end
 
                     if client.server_capabilities.signatureHelpProvider then
-                        opts.desc = "Signature Info"
-                        map("n", "<leader>ck", vim.lsp.buf.signature_help, opts)
+                        mapn("<leader>ck", vim.lsp.buf.signature_help, "Signature Info")
                     end
 
-                    -- instead of use Trouble
-                    -- opts.desc = "Referencies List"
-                    -- map("n", "<leader>sr", vim.lsp.buf.references, opts)
+                    -- Instead of use Trouble/Telescope
+                    -- mapn("<leader>sr", vim.lsp.buf.references, "Referencies List")
 
                     if client.server_capabilities.renameProvider then
-                        opts.desc = "Rename Referencies"
-                        map("n", "<leader>cR", vim.lsp.buf.rename, opts)
+                        mapn("<leader>cR", vim.lsp.buf.rename, "Rename Referencies")
                     end
 
                     if client.server_capabilities.codeActionProvider then
-                        opts.desc = "Show Code Action"
                         -- stylua: ignore
-                        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+                        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
                     end
 
                     if client.server_capabilities.inlayHintProvider then
-                        opts.desc = "Toggle Inlay Hint"
-                        map("n", "<leader>oh", function()
+                        mapn("<leader>oh", function()
                             local e = vim.lsp.inlay_hint.is_enabled({})
                             vim.lsp.inlay_hint.enable(not e)
-                        end, opts)
+                        end, "Toggle Inlay Hint")
                     end
 
-                    -- opts.desc = "Buffer Format"
-                    -- map("n", "<leader>bf", function() vim.lsp.buf.format({ async = true }) end, opts)
+                    -- mapn("<leader>bf", function()
+                    --    vim.lsp.buf.format({ async = true })
+                    -- end, "Buffer Format")
 
-                    -- opts.desc = "Add Workspace Folder"
-                    -- map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+                    -- mapn("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")
+                    -- mapn("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder")
 
-                    -- opts.desc = "Remove Workspace Folder"
-                    -- map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
-
-                    -- opts.desc = "List Workspace Folders"
-                    -- map("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+                    -- mapn("<leader>wl", function()
+                    --    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                    -- end, "List Workspace Folders")
                 end
             end,
         })

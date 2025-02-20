@@ -20,8 +20,6 @@ opt.scrolloff = 5
 opt.sidescrolloff = 20
 opt.confirm = false -- Don't ask to save changes before exiting modified buffer
 
-opt.relativenumber = false -- Relative line numbers
-
 -- opt.clipboard:append("unnamedplus")
 opt.clipboard = "unnamedplus,unnamed" -- Sync clipboard between OS and Neovim.
 opt.completeopt = "menuone,noselect" -- Set completeopt to have a better completion experience
@@ -57,7 +55,9 @@ opt.splitbelow = true
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes" -- Keep signcolumn on by default
+
 opt.number = true -- Line numbers
+opt.relativenumber = true -- Relative line numbers
 
 opt.backspace = "indent,eol,start"
 

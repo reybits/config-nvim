@@ -59,6 +59,20 @@ map("n", "<leader>ow", function()
     vim.api.nvim_win_set_option(0, "linebreak", not is_wrap)
 end, desc("Toggle Wrap"))
 
+-- toggle numbers
+map("n", "<leader>on", function()
+    local is_number = vim.api.nvim_win_get_option(0, "number")
+
+    vim.api.nvim_win_set_option(0, "number", not is_number)
+end, desc("Toggle Numbers"))
+
+-- toggle relative numbers
+map("n", "<leader>or", function()
+    local is_relative = vim.api.nvim_win_get_option(0, "relativenumber")
+
+    vim.api.nvim_win_set_option(0, "relativenumber", not is_relative)
+end, desc("Toggle Relative Numbers"))
+
 -- move selected line / block of text in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
 map("v", "K", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))

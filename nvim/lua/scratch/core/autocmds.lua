@@ -61,7 +61,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = augroup("show_buffer_name"),
     callback = function()
         local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname ~= "" then
+        if bufname ~= "" and string.find(bufname, "Neogit") == nil then
             local relname = vim.fn.fnamemodify(bufname, ":.")
             print("Switched to: " .. relname)
         end

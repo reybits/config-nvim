@@ -3,8 +3,15 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
     },
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo", "FormatEnable", "FormatDisable", "FormatBuffer" },
+    event = {
+        "BufWritePre",
+    },
+    cmd = {
+        "ConformInfo",
+        "FormatEnable",
+        "FormatDisable",
+        "FormatBuffer",
+    },
     keys = {
         {
             mode = { "n", "v" },
@@ -12,40 +19,33 @@ return {
             "<cmd>FormatBuffer<cr>",
             desc = "Format Buffer/Range",
         },
+        {
+            mode = "n",
+            "<leader>of",
+            function()
+                vim.g.disable_autoformat = not vim.g.disable_autoformat
+                if vim.g.disable_autoformat then
+                    vim.notify("Autoformat Disabled", vim.log.levels.INFO)
+                else
+                    vim.notify("Autoformat Enabled", vim.log.levels.INFO)
+                end
+            end,
+            desc = "Toggle Autoformat",
+        },
     },
     config = function()
         local conform = require("conform")
 
         local formatOpts = function()
             return {
-                -- async = true,
                 lsp_format = "fallback",
+                async = false,
                 quiet = true,
-            }
-            -- FIXME: Error message not supported anymore?
-            --
-            --[[
-            , function(err)
+            }, function(err)
                 if err then
-                    local helpers = require("scratch.core.helpers")
-                    local result = helpers.split_to_strings(err, 60)
-
-                    -- display error message in reverse order
-                    -- because fidget prints it from bottom to top
-                    for i = #result, 1, -1 do
-                        local msg = result[i]
-
-                        -- left justify
-                        local len = msg:len()
-                        if len < 60 then
-                            msg = msg .. string.rep(" ", 60 - len)
-                        end
-
-                        vim.notify(msg, vim.log.levels.ERROR)
-                    end
+                    vim.notify(err, vim.log.levels.ERROR)
                 end
             end
-            --]]
         end
 
         conform.setup({
@@ -124,14 +124,12 @@ return {
                     },
                 },
             },
-            format_on_save = function(bufnr)
-                -- Disable with a global or buffer-local variable
-                -- stylua: ignore
-                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-                    return
+            format_on_save = function()
+                if vim.g.disable_autoformat then
+                    return nil
                 end
 
-                return formatOpts()
+                return { formatOpts() }
             end,
         })
 
@@ -141,20 +139,13 @@ return {
             desc = "Format Buffer/Range",
         })
 
-        vim.api.nvim_create_user_command("FormatDisable", function(args)
-            if args.bang then
-                -- FormatDisable! will disable formatting globaly
-                vim.g.disable_autoformat = true
-            else
-                vim.b.disable_autoformat = true
-            end
+        vim.api.nvim_create_user_command("FormatDisable", function()
+            vim.g.disable_autoformat = true
         end, {
             desc = "Disable Autoformat-on-save",
-            bang = true,
         })
 
         vim.api.nvim_create_user_command("FormatEnable", function()
-            vim.b.disable_autoformat = false
             vim.g.disable_autoformat = false
         end, {
             desc = "Enable Autoformat-on-save",

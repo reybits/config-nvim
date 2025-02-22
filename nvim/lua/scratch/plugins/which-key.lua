@@ -26,6 +26,7 @@ return {
                 { "<leader>o", group = "Options" },
                 { "<leader>r", group = "Run" },
                 { "<leader>s", group = "Search" },
+                { "<leader>t", group = "Tools" },
                 { "<leader>w", group = "Window" },
                 { "<leader>x", group = "Diagnostics" },
                 { "g", group = "Goto" },
@@ -50,7 +51,9 @@ return {
             mappings = true,
             group = "", -- " ",
             rules = {
+                { pattern = "code", icon = "󰅩", color = "cyan" },
                 { pattern = "options", icon = "", color = "cyan" },
+                { pattern = "tools", icon = "", color = "cyan" },
                 { pattern = "run", icon = "", color = "cyan" },
             },
         },

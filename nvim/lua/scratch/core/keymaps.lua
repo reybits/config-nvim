@@ -12,8 +12,8 @@ end
 --------------------------------------------------------------------------------
 
 -- plugins and tools managers
-map("n", "<leader>ol", "<cmd>Lazy<cr>", desc("Lazy Manager"))
-map("n", "<leader>om", "<cmd>Mason<cr>", desc("Mason Manager"))
+map("n", "<leader>tl", "<cmd>Lazy<cr>", desc("Lazy Manager"))
+map("n", "<leader>tm", "<cmd>Mason<cr>", desc("Mason Manager"))
 
 -- hide highligting by <esc>
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))

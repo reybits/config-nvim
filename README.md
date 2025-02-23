@@ -2,7 +2,7 @@
 
 This repository contains my custom Neovim configuration for Linux, macOS, and potentially Windows. The setup is built from scratch and includes only the plugins I actively use in my workflow. I primarily use Neovim as a C++ IDE for cross-platform game development.
 
-For the best experience, use it alongside my config-tmux repository.
+For the best experience, use it alongside my [config-tmux](https://github.com/andreyugolnik/config-tmux.git) repository.
 
 ## Install
 

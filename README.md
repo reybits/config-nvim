@@ -15,15 +15,18 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 ## Features
 
 - Plugin management via Lazy.nvim.
-- Code auto-completion via nvim-cmp.
+- Tool manager via Mason.nvim.
+- Startup screen via dashboard-nvim.
+- Colorscheme via nightfox.nvim.
+- Nice statusline via lualine.nvim.
 - Language server protocol (LSP) support via nvim-lspconfig.
+- Code auto-completion via nvim-cmp.
+- Fast navigation, lookup, and more via telescope.nvim with fzf.
+- Buffer bookmarks via harpoon2.
 - Git integration via neogit or vim-fugitive.
 - Code commenting via Comment.nvim.
-- Fast buffer navigation via harpoon2.
-- Nice statusline via lualine.nvim.
 - File tree explorer via nvim-tree.lua.
 - Mapping hint via which-key.nvim.
 - Code highlighting via nvim-treesitter.
-- Colorscheme via tokyonight.
 - Markdown writing and previewing via vim-markdown and markdown-preview.nvim.
 - And more...

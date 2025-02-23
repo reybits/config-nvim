@@ -4,6 +4,8 @@ This repository contains my custom Neovim configuration for Linux, macOS, and po
 
 For the best experience, use it alongside my [config-tmux](https://github.com/andreyugolnik/config-tmux.git) repository.
 
+![Nvim wiht Lazy](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-lazy.png?raw=true)
+
 ## Install
 
 ```sh

@@ -67,8 +67,9 @@ return {
                 ["<c-n>"] = cmp.mapping(do_next),
                 ["<c-p>"] = cmp.mapping(do_prev),
 
-                ["<tab>"] = cmp.mapping(do_next),
-                ["<s-tab>"] = cmp.mapping(do_prev),
+                -- Disabled in favor of the default mapping, allowing the completer to work more accurately.
+                -- ["<tab>"] = cmp.mapping(do_next),
+                -- ["<s-tab>"] = cmp.mapping(do_prev),
 
                 ["<c-f>"] = cmp.mapping.scroll_docs(4),
                 ["<c-b>"] = cmp.mapping.scroll_docs(-4),

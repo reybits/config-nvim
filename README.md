@@ -30,3 +30,22 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 - Code highlighting via nvim-treesitter.
 - Markdown writing and previewing via vim-markdown and markdown-preview.nvim.
 - And more...
+
+## Customize
+
+By default, Neogit is used as the Git plugin. However, you can change this by creating a `disabled.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/disabled.lua
+
+return {
+    -- disable neogit
+    { "NeogitOrg/neogit", enabled = false },
+
+    -- enable vim-fugitive and it's companion
+    { "tpope/vim-fugitive",enabled = true },
+    { "tpope/vim-rhubarb",enabled = true },
+    { "rbong/vim-flog",enabled = true },
+}
+
+```

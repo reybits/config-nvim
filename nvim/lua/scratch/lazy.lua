@@ -24,6 +24,7 @@ require("lazy").setup({
     { import = "scratch.plugins" },
     { import = "scratch.plugins.lsp" },
     { import = "scratch.plugins.dap" },
+    { import = "scratch.plugins.vcs" },
     { import = "scratch.custom" },
 }, {
     checker = {

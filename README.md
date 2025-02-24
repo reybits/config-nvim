@@ -33,10 +33,14 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 
 ## Customize
 
-By default, Neogit is used as the Git plugin. However, you can change this by creating a `disabled.lua` file with the following content:
+To customize plugins, enable, or disable integration with other tools, inside the `nvim/lua/scratch/custom` directory, create a `plugin-name.lua` file with the plugin name and add custom settings.
+
+### Git related
+
+By default, Neogit is used as the Git plugin. However, you can change this by creating a `git.lua` file with the following content:
 
 ```lua
--- nvim/lua/scratch/custom/disabled.lua
+-- nvim/lua/scratch/custom/git.lua
 
 return {
     -- disable neogit
@@ -47,5 +51,21 @@ return {
     { "tpope/vim-rhubarb",enabled = true },
     { "rbong/vim-flog",enabled = true },
 }
-
 ```
+
+### AI related
+
+By default, both Copilot and Codeium plugins are disabled. To enable them, create an `AI.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/AI.lua
+
+return {
+    -- enable Copilot
+    { "github/copilot.vim", enabled = true },
+
+    -- or enable Codeium
+    { "Exafunction/codeium.nvim", enabled = true },
+}
+```
+

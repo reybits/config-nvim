@@ -78,6 +78,8 @@ map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
 map("v", "K", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
 
 -- quickfix related stuff
+-- moved to quickfix.lua plugin
+--[[ 
 map("n", "<leader>q", function()
     local qf_exists = false
     for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -96,6 +98,7 @@ map("n", "<leader>q", function()
         vim.cmd("copen")
     end
 end, desc("Toggle Quick List"))
+--]]
 map("n", "<m-j>", "<cmd>cnext<cr>", desc("Next Item in Quicklist"))
 map("n", "<m-k>", "<cmd>cprev<cr>", desc("Prev Item in Quicklist"))
 

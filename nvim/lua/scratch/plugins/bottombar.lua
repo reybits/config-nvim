@@ -203,10 +203,16 @@ return {
                         cond = function()
                             return not_diff_cond() and lazy_status.has_updates()
                         end,
+                        on_click = function()
+                            vim.cmd("Lazy")
+                        end,
                         color = { fg = "#ff9e64" },
                     },
                     { mason_status,
                         icon = "󱌢",
+                        on_click = function()
+                            vim.cmd("Mason")
+                        end,
                         color = { fg = "#ff9e64" },
                     },
                 },

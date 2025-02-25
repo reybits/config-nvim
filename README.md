@@ -1,5 +1,9 @@
 # Nvim from Scratch
 
+[![Plugins](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/plugins?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
+[![leaderkey](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/leaderkey?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
+[![plugin-manager](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/plugin-manager?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
+
 This repository contains my custom Neovim configuration for Linux, macOS, and potentially Windows. The setup is built from scratch and includes only the plugins I actively use in my workflow. I primarily use Neovim as a C++ IDE for cross-platform game development.
 
 For the best experience, use it alongside my [config-tmux](https://github.com/andreyugolnik/config-tmux.git) repository.

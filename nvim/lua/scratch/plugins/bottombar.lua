@@ -1,5 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         --[[
@@ -13,11 +14,38 @@ return {
     },
     config = function()
         local lualine = require("lualine")
+
+        -- check for Lazy package upgrades
         local lazy_status = require("lazy.status")
 
-        local highlight = require("lualine.highlight")
+        -- check for Mason package upgrades
+        local function mason_status()
+            local registry = require("mason-registry")
+            if registry ~= nil then
+                local installed = registry.get_installed_package_names()
+                local outdated = 0
+
+                for _, pkg in pairs(installed) do
+                    local p = registry.get_package(pkg)
+                    if p then
+                        p:check_new_version(function(success, _)
+                            if success then
+                                outdated = outdated + 1
+                            end
+                        end)
+                    end
+                end
+
+                if outdated ~= 0 then
+                    return outdated
+                end
+            end
+
+            return ""
+        end
 
         local better_fn = require("lualine.components.filename"):extend()
+        local highlight = require("lualine.highlight")
 
         function better_fn:init(options)
             better_fn.super.init(self, options)
@@ -175,6 +203,10 @@ return {
                         cond = function()
                             return not_diff_cond() and lazy_status.has_updates()
                         end,
+                        color = { fg = "#ff9e64" },
+                    },
+                    { mason_status,
+                        icon = "󱌢",
                         color = { fg = "#ff9e64" },
                     },
                 },

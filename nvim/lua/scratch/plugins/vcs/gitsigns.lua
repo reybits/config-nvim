@@ -36,33 +36,28 @@ return {
                 end
             end, { desc = "Prev Hunk" })
 
-            -- Hunks related
-            map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "Stage Hunk" })
-            map("n", "<leader>ghr", gitsigns.reset_hunk, { desc = "Reset Hunk" })
-            map("n", "<leader>ghu", gitsigns.undo_stage_hunk, { desc = "Unstage Hunk" })
+            map("n", "<leader>gb", gitsigns.blame, { desc = "Blame Buffer" })
+
+            map("n", "<leader>gl", gitsigns.blame_line, { desc = "Blame Line" })
+            map("n", "<leader>gi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
+
+            -- Diff Buffer
+            map("n", "<leader>gd", function() gitsigns.diffthis(nil, { split="botright" }) end, { desc = "Diff Buffer" })
+
+            -- Preview Hunk
+            map("n", "<leader>ghp", gitsigns.preview_hunk_inline, { desc = "Preview Hunk" })
+
+            -- Stage/Unstage Hunk
+            map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "Stage/Unstage Hunk" })
             map("v", "<leader>ghs", function()
                 gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
             end, { desc = "Stage Hunk" })
+
+            -- Reset Hunk
+            map("n", "<leader>ghr", gitsigns.reset_hunk, { desc = "Reset Hunk" })
             map("v", "<leader>ghr", function()
                 gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
             end, { desc = "Stage Hunk" })
-
-            -- Buffer related
-            map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Stage Buffer" })
-            map("n", "<leader>ghR", gitsigns.reset_buffer, { desc = "Reset Buffer" })
-            map("n", "<leader>ghp", gitsigns.preview_hunk, { desc = "Preview Buffer" })
-
-            map("n", "<leader>ghb", function() gitsigns.blame_line({ full = true }) end, { desc = "Blame Line" })
-
-            -- Toggle
-            map("n", "<leader>gi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
-            map("n", "<leader>go", gitsigns.toggle_deleted, { desc = "Toggle Deleted" })
-
-            -- Diff
-            map("n", "<leader>gd", function() gitsigns.diffthis(nil, { split="botright" }) end, { desc = "Diff Buffer" })
-
-            -- Text object
-            map( { "o", "x" }, "ih", ":<c-u>Gitsigns select_hunk<cr>", { desc = "Select Hunk" })
         end,
     },
 }

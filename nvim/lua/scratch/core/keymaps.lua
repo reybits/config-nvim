@@ -32,24 +32,27 @@ map(
     desc("Toggle Split Layout")
 )
 
--- build resources
-vim.api.nvim_create_user_command("MakeResources", function()
-    local exec_command = "make resources"
-
+local custom_make = function(cmd)
     if os.getenv("TMUX") then
         os.execute(
-            "tmux split-window -v -l 30% '"
-                .. exec_command
-                .. " || exec $SHELL' ; tmux select-pane -U"
+            "tmux split-window -v -l 30% '" .. cmd .. " || exec $SHELL' ; tmux select-pane -U"
         )
     else
-        vim.cmd("12split | terminal " .. exec_command)
+        vim.cmd("12split | terminal " .. cmd)
         vim.cmd("normal G") -- scroll to the bottom
         vim.cmd("wincmd p") -- return focus to previous window
     end
-end, {})
+end
 
-map("n", "<leader>rr", "<cmd>MakeResources<cr>", desc("Run: make resources"))
+-- build resources
+map("n", "<leader>rr", function()
+    custom_make("make resources")
+end, desc("Run: make resources"))
+
+-- build compile_commands.json
+map("n", "<leader>rc", function()
+    custom_make("make build_compile_commands")
+end, desc("Run: make build_compile_commands"))
 
 -- toggle wrap
 map("n", "<leader>ow", function()

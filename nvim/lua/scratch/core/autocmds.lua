@@ -60,9 +60,23 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = augroup("show_buffer_name"),
-    callback = function()
+    callback = function(event)
+        local list = {
+            "Neogit",
+            "floggraph",
+            "fugitive",
+            "git",
+            "help",
+        }
+        local filetype = vim.bo[event.buf].filetype
+        for _, name in ipairs(list) do
+            if filetype == name then
+                return
+            end
+        end
+
         local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname ~= "" and string.find(bufname, "Neogit") == nil then
+        if bufname ~= "" then
             local relname = vim.fn.fnamemodify(bufname, ":.")
             print("Switched to: " .. relname)
         end

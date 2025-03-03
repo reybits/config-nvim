@@ -39,6 +39,7 @@ return {
                 { "<leader>c", group = "Code" },
                 { "<leader>d", group = "Debug" },
                 { "<leader>g", group = "Git" },
+                { "<leader>gb", group = "Blame" },
                 { "<leader>gh", group = "Hunks" },
                 { " ", group = "Essential" },
                 { "z", group = "Folding" },

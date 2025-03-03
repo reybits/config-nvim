@@ -36,10 +36,10 @@ return {
                 end
             end, { desc = "Prev Hunk" })
 
-            map("n", "<leader>gb", gitsigns.blame, { desc = "Blame Buffer" })
+            map("n", "<leader>gbb", gitsigns.blame, { desc = "Blame Buffer" })
 
-            map("n", "<leader>gl", gitsigns.blame_line, { desc = "Blame Line" })
-            map("n", "<leader>gi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
+            map("n", "<leader>gbl", gitsigns.blame_line, { desc = "Blame Line" })
+            map("n", "<leader>gbi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
 
             -- Diff Buffer
             map("n", "<leader>gd", function() gitsigns.diffthis(nil, { split="botright" }) end, { desc = "Diff Buffer" })

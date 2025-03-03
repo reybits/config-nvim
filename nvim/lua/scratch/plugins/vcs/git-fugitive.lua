@@ -32,7 +32,6 @@ return {
         },
         keys = {
             { "<leader>gg", "<cmd>Git<cr>", desc = "Git Fugitive" },
-            { "<leader>gb", "<cmd>Git blame<cr>", desc = "Toggle Git Blame" },
         },
         init = function()
             -- disables legacy commands (like as Gbrowse, Gremove, Grename).

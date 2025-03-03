@@ -58,6 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 --- show buffer name on switch -----------------------------------------------
 
+local last_bufname = ""
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = augroup("show_buffer_name"),
     callback = function(event)
@@ -76,7 +77,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         end
 
         local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname ~= "" then
+        if bufname ~= "" and last_bufname ~= bufname then
+            last_bufname = bufname
             local relname = vim.fn.fnamemodify(bufname, ":.")
             print("Switched to: " .. relname)
         end

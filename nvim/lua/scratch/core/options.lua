@@ -47,7 +47,10 @@ opt.wrap = false -- Don't wrap wide lines
 opt.shell = "/bin/zsh"
 
 opt.showcmd = false
-opt.laststatus = 2 -- Always show status line
+
+-- 2 - Always show status lines
+-- 3 - Nvim global status
+opt.laststatus = 3
 
 opt.splitbelow = true
 -- opt.splitright = true

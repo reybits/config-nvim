@@ -1,6 +1,11 @@
 return {
     "neovim/nvim-lspconfig",
+    event = {
+        "BufReadPre",
+        "BufNewFile",
+    },
     dependencies = {
+        -- "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
         "hrsh7th/cmp-nvim-lsp",
 
@@ -10,8 +15,6 @@ return {
     },
     config = function()
         local lspconfig = require("lspconfig")
-        local mason_lspconfig = require("mason-lspconfig")
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         -- stylua: ignore
         vim.lsp.handlers["textDocument/hover"] =
@@ -111,9 +114,11 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local capabilities = cmp_nvim_lsp.default_capabilities()
         capabilities.offsetEncoding = { "utf-16" }
 
+        local mason_lspconfig = require("mason-lspconfig")
         mason_lspconfig.setup_handlers({
             function(server_name)
                 lspconfig[server_name].setup({

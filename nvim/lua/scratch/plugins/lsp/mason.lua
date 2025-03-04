@@ -6,6 +6,14 @@ return {
         "jay-babu/mason-nvim-dap.nvim",
         "stevearc/dressing.nvim",
     },
+    cmd = {
+        "Mason",
+        "MasonUpdate",
+        "MasonInstall",
+        "MasonUninstall",
+        "MasonUninstallAll",
+        "MasonLog",
+    },
     config = function()
         local mason = require("mason")
         mason.setup({
@@ -19,8 +27,8 @@ return {
             },
         })
 
-        local lspconfig = require("mason-lspconfig")
-        lspconfig.setup({
+        local mason_lspconfig = require("mason-lspconfig")
+        mason_lspconfig.setup({
             automatic_installation = true,
             ensure_installed = {
                 "clangd", -- (LSP) C, C++

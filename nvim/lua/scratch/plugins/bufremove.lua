@@ -16,12 +16,12 @@ return {
             else
                 bd(0)
             end
-        end, desc = "Buffer delete", },
+        end, desc = "Buffer Delete", },
 
         -- stylua: ignore
         { "<leader>bD", function()
             local bd = require("mini.bufremove").delete
             bd(0, true)
-        end, desc = "Buffer delete (Force)" },
+        end, desc = "Buffer Delete (force)" },
     },
 }

@@ -41,7 +41,7 @@ return {
                 require("telescope.builtin").find_files({
                     cwd = require("lazy.core.config").options.root,
                 })
-            end, desc = "Find plugin file" },
+            end, desc = "Find Plugin File" },
 
         { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
 
@@ -70,20 +70,20 @@ return {
                     symbol_type_width = 11,
                     show_line = true
                 })
-            end, desc = "LSP document symbols" },
+            end, desc = "Show Document Symbols" },
         { "<leader>ci", function()
                 require("telescope.builtin").lsp_incoming_calls({
                     fname_width = 50,
                     show_line = true
                 })
-            end,  desc = "LSP Incoming Calls" },
+            end,  desc = "Show Incoming Calls" },
         { "<leader>cr", function()
                 require("telescope.builtin").lsp_references({
                     fname_width = 40,
                     show_line = true
                 })
-            end, desc = "LSP References" },
-        { "<leader>cd", "<cmd>Telescope diagnostics<cr>", desc = "LSP Diagnostics" },
+            end, desc = "Show References" },
+        { "<leader>cd", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
     },
     config = function()
         local telescope = require("telescope")

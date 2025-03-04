@@ -47,12 +47,12 @@ end
 -- build resources
 map("n", "<leader>rr", function()
     custom_make("make resources")
-end, desc("Run: make resources"))
+end, desc("Do 'make resources'"))
 
 -- build compile_commands.json
 map("n", "<leader>rc", function()
     custom_make("make build_compile_commands")
-end, desc("Run: make build_compile_commands"))
+end, desc("Do 'make build_compile_commands'"))
 
 -- toggle wrap
 map("n", "<leader>ow", function()

@@ -59,8 +59,8 @@ opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes" -- Keep signcolumn on by default
 
-opt.number = true -- Line numbers
-opt.relativenumber = true -- Relative line numbers
+opt.number = true -- Show line numbers
+opt.relativenumber = false -- Disable relative line numbers
 
 opt.backspace = "indent,eol,start"
 

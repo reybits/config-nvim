@@ -7,8 +7,8 @@ return {
     },
     dependencies = {
         "nvim-lua/plenary.nvim", -- required
-        "sindrets/diffview.nvim", -- optional
-        "nvim-telescope/telescope.nvim", -- optional
+        -- "sindrets/diffview.nvim", -- optional (personally I use gitsigns instead)
+        -- "nvim-telescope/telescope.nvim", -- optional (personally I don't use it in this case)
     },
     config = true,
     opts = {

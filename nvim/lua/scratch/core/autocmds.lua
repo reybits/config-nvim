@@ -64,6 +64,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     callback = function(event)
         local list = {
             "Neogit",
+            "NvimTree",
             "floggraph",
             "fugitive",
             "git",
@@ -72,6 +73,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         local filetype = vim.bo[event.buf].filetype
         for _, name in ipairs(list) do
             if filetype == name then
+                last_bufname = name
                 return
             end
         end

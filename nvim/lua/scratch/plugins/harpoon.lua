@@ -4,6 +4,43 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
+    keys = {
+        {
+            "<leader>h",
+            function()
+                local harpoon = require("harpoon")
+                harpoon.ui:toggle_quick_menu(harpoon:list())
+            end,
+            desc = "Open Harpoon window",
+        },
+        {
+            "<leader>H",
+            function()
+                vim.notify(
+                    "File '" .. vim.fn.expand("%") .. "' added to Harpoon",
+                    vim.log.levels.INFO
+                )
+                require("harpoon"):list():add()
+            end,
+            desc = "Add file to Harpoon",
+        },
+        --[[
+        {
+            "<leader>P",
+            function()
+                require("harpoon"):list():prev()
+            end,
+            desc = "Toggle previous buffers stored within Harpoon list",
+        },
+        {
+            "<leader>N",
+            function()
+                require("harpoon"):list():next()
+            end,
+            desc = "Toggle next buffers stored within Harpoon list",
+        },
+        --]]
+    },
     config = function()
         local harpoon = require("harpoon")
         harpoon:setup()
@@ -15,18 +52,5 @@ return {
 
         -- Goto buffer by number keys
         harpoon:extend(extensions.builtins.navigate_with_number())
-
-        vim.keymap.set("n", "<leader>h", function()
-            harpoon.ui:toggle_quick_menu(harpoon:list())
-        end, { desc = "Open Harpoon window" })
-
-        vim.keymap.set("n", "<leader>H", function()
-            vim.notify("File '" .. vim.fn.expand("%") .. "' added to Harpoon", vim.log.levels.INFO)
-            harpoon:list():add()
-        end, { desc = "Add file to Harpoon" })
-
-        -- Toggle previous & next buffers stored within Harpoon list
-        -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-        -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
     end,
 }

@@ -120,6 +120,14 @@ map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", desc("Arrow Key Disabled"))
 map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", desc("Arrow Key Disabled"))
 
+-- diagnostics
+map("n", "<leader>cD", function()
+    local float_bufnr, _ = vim.diagnostic.open_float({ scope = "line", border = "rounded" })
+    if float_bufnr == nil then
+        vim.notify("No diagnostics found", vim.log.levels.INFO)
+    end
+end, desc("Show Line Diagnostics"))
+
 -- alias to <esc>
 -- map("i", "jk", "<esc>", opts)
 -- map("i", "kj", "<esc>", opts)

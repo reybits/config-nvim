@@ -14,7 +14,6 @@ return {
     },
     cmd = {
         "Telescope",
-        "DashBrowse",
         "DashFiles",
         "DashRecent",
         "DashGrep",
@@ -92,12 +91,6 @@ return {
         -- local trouble = require("trouble.sources.telescope")
 
         -- Dashboard commands support
-        vim.api.nvim_create_user_command("DashBrowse", function()
-            require("telescope.builtin").find_files({
-                preview = { hide_on_startup = true },
-                cwd = "",
-            })
-        end, {})
         vim.api.nvim_create_user_command("DashFiles", function()
             require("telescope.builtin").find_files()
         end, {})

@@ -1,3 +1,10 @@
+-------------------------------------------------------------------------------
+-- Author: Andrey Ugolnik
+-- Description: A module with helper functions for Neovim.
+-- License: MIT
+-- https://github.com/andreyugolnik/
+-------------------------------------------------------------------------------
+
 local M = {}
 
 -- most icons copied from LazyVim plugin
@@ -77,11 +84,7 @@ M.truncate = function(content, max_length)
             local half_length = math.floor(max_length / 2)
             local tail_length = (max_length - half_length) - ELLIPSIS_LENGTH
             local left = vim.fn.strcharpart(content, 0, half_length)
-            local right = vim.fn.strcharpart(
-                content,
-                content_length - tail_length,
-                tail_length
-            )
+            local right = vim.fn.strcharpart(content, content_length - tail_length, tail_length)
             truncated = left .. ELLIPSIS_CHAR .. right
             -- else
             --     truncated = content .. (" "):rep(max_length - content_length)

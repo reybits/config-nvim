@@ -61,6 +61,11 @@ return {
         { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
 
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
+        { "<leader>sm", function()
+            require("telescope.builtin").man_pages({
+                sections={"ALL"}
+            })
+        end, desc = "Search Man" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
 
         { "<leader>cs", function()

@@ -27,6 +27,7 @@ return {
                 { "<leader>r", group = "Run" },
                 { "<leader>s", group = "Search" },
                 { "<leader>t", group = "Tools" },
+                { "<leader>ts", group = "Scratchpad" },
                 { "<leader>w", group = "Window" },
                 { "<leader>x", group = "Diagnostics" },
                 { "g", group = "Goto" },
@@ -41,6 +42,8 @@ return {
                 { "<leader>g", group = "Git" },
                 { "<leader>gb", group = "Blame" },
                 { "<leader>gh", group = "Hunks" },
+                { "<leader>t", group = "Tools" },
+                { "<leader>ts", group = "Scratchpad" },
                 { " ", group = "Essential" },
                 { "z", group = "Folding" },
 

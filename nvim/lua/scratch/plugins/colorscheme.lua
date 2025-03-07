@@ -21,6 +21,7 @@ return {
         end,
     },
 
+    --[[
     {
         -- "ellisonleao/gruvbox.nvim", -- doesn't support 16/256 colors terminal
         "morhetz/gruvbox",
@@ -50,4 +51,5 @@ return {
         "nickcharlton/vim-materia",
         lazy = true,
     },
+    --]]
 }

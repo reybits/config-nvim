@@ -1,10 +1,9 @@
 return {
     "b0o/incline.nvim",
-    -- Optional: Lazy load Incline
-    event = "VeryLazy",
+    event = {
+        "BufRead",
+    },
     config = function()
-        -- require("incline").setup()
-
         require("incline").setup({
             render = function(props)
                 local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")

@@ -22,8 +22,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { import = "scratch.plugins" },
-    { import = "scratch.plugins.lsp" },
+    { import = "scratch.plugins.ai" },
     { import = "scratch.plugins.dap" },
+    { import = "scratch.plugins.lsp" },
     { import = "scratch.plugins.vcs" },
     { import = "scratch.custom" },
 }, {

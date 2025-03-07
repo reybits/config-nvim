@@ -21,26 +21,30 @@ return {
     -- stylua: ignore
     keys = {
         { "<leader>,", "<cmd>Telescope buffers<cr>", desc = "Buffers List" },
-        { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers List" },
-        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Find Recent Files" },
-        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+        { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Buffers List" },
+
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
+
+        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Project Files" },
+        { "<leader>fp", "<cmd>Telescope find_files<cr>", desc = "Project Files" },
+
         { "<leader>ff", function()
                 require("telescope.builtin").find_files({
                     cwd = require("telescope.utils").buffer_dir(),
                 })
-            end, desc = "Find Files (cwd)" },
+            end, desc = "Current Dir Files" },
 
         { "<leader>fC", function ()
                 require("telescope.builtin").find_files({
                     cwd = vim.fn.stdpath("config")
                 })
-            end, desc = "Find Neovim Files" },
+            end, desc = "Neovim Config Files" },
 
         { "<leader>fP", function()
                 require("telescope.builtin").find_files({
                     cwd = require("lazy.core.config").options.root,
                 })
-            end, desc = "Find Plugin File" },
+            end, desc = "Neovim Plugin Files" },
 
         { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
 

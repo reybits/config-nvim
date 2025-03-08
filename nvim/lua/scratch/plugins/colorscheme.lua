@@ -1,23 +1,43 @@
+local setupscheme = function(theme, fallback)
+    local lookup = require("scratch.core.helpers").lookup
+    if lookup(vim.env.TERM, { "256" }) or lookup(vim.env.COLORTERM, { "truecolor" }) then
+        vim.opt.termguicolors = true
+        vim.cmd("colorscheme " .. theme)
+        -- vim.cmd("colorscheme gruvbox")
+        -- vim.cmd("colorscheme catppuccin")
+    else
+        vim.opt.termguicolors = false
+        vim.cmd("colorscheme " .. fallback)
+        -- vim.cmd("colorscheme noctu")
+        -- vim.cmd("colorscheme interrobang")
+        -- vim.cmd("colorscheme dim")
+    end
+end
+
 return {
     {
-        "EdenEast/nightfox.nvim",
+        "rebelot/kanagawa.nvim",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
-        dependencies = {},
         config = function()
-            local lookup = require("scratch.core.helpers").lookup
-            if lookup(vim.env.TERM, { "256" }) or lookup(vim.env.COLORTERM, { "truecolor" }) then
-                vim.opt.termguicolors = true
-                vim.cmd([[colorscheme duskfox]])
-                -- vim.cmd([[colorscheme gruvbox]])
-                -- vim.cmd([[colorscheme catppuccin]])
-            else
-                vim.opt.termguicolors = false
-                vim.cmd([[colorscheme vim]])
-                -- vim.cmd([[colorscheme noctu]])
-                -- vim.cmd([[colorscheme interrobang]])
-                -- vim.cmd([[colorscheme dim]])
-            end
+            require("kanagawa").setup({
+                compile = false,
+            })
+
+            setupscheme("kanagawa-wave", "vim")
+        end,
+        build = function()
+            vim.cmd("KanagawaCompile")
+        end,
+    },
+
+    {
+        "EdenEast/nightfox.nvim",
+        enabled = false,
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            setupscheme("duskfox", "vim")
         end,
     },
 

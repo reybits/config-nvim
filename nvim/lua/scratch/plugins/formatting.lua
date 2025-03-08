@@ -2,9 +2,12 @@ local ToggleOption = require("scratch.core.toggleopt")
 
 local disable_autoformat = ToggleOption:new(
     "<leader>of",
-    "disable_autoformat",
+    function(state)
+        vim.g.disable_autoformat = state
+    end,
     { "Autoformat Disabled", "Autoformat Enabled" },
-    { "Disable Autoformat", "Enable Autoformat" }
+    { "Disable Autoformat", "Enable Autoformat" },
+    vim.g.disable_autoformat or false
 )
 
 return {

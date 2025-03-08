@@ -12,9 +12,16 @@ end
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPost", "BufNewFile" },
+        event = {
+            "BufReadPost",
+            "BufNewFile",
+        },
         build = ":TSUpdate",
-        cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+        cmd = {
+            "TSUpdateSync",
+            "TSUpdate",
+            "TSInstall",
+        },
         config = function()
             local treesitter = require("nvim-treesitter.configs")
             treesitter.setup({

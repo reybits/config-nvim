@@ -11,6 +11,23 @@ return {
         opts = {},
     },
 
+    -- Minimal Eye-candy keys screencaster
+    {
+        "nvzone/showkeys",
+        cmd = "ShowkeysToggle",
+        opts = {
+            winopts = {
+                focusable = false,
+                style = "minimal",
+                border = "single",
+                zindex = 1000,
+            },
+            timeout = 1, -- in secs
+            maxkeys = 5,
+            show_count = true,
+        },
+    },
+
     --[[
     -- UI Component Library for Neovim.
     -- May be I use this UI toolset in the feature.

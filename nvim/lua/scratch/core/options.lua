@@ -4,6 +4,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 --- netrw tree style -----------------------------------------------------------
+-- valid only if netrw is enabled
+-- currently, netrw is disabled in favor to nvim-tree plugin
 vim.g.netrw_liststyle = 3
 
 --- disalble providers ---------------------------------------------------------

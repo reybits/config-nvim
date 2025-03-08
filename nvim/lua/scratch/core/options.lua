@@ -12,9 +12,6 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
---- disable autoformat by default ----------------------------------------------
-vim.g.disable_autoformat = true
-
 --- Common options -------------------------------------------------------------
 
 local opt = vim.opt

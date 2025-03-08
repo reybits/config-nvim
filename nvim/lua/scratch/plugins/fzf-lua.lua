@@ -1,28 +1,63 @@
+local lastFileMode = ""
+local isResumeEnabled = function(mode)
+    if mode ~= lastFileMode then
+        lastFileMode = mode
+        return false
+    end
+
+    return true
+end
+
 return {
     "ibhagwan/fzf-lua",
     enabled = false,
     dependencies = {
-        -- optional for icon support
         "nvim-tree/nvim-web-devicons",
+        "folke/todo-comments.nvim",
     },
-    cmd = "FzfLua",
+    cmd = {
+        "FzfLua",
+        "DashFiles",
+        "DashRecent",
+        "DashGrep",
+    },
     -- stylua: ignore
     keys = {
-        { "<leader>,", "<cmd>FzfLua buffers<cr>", desc = "Buffers List" },
-        { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers List" },
-        { "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Find Recent Files" },
-        { "<leader><space>", "<cmd>FzfLua files<cr>", desc = "Find Files" },
+        { "<leader>,", function()
+                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
+            end, desc = "Buffers List" },
+        { "<leader>bb", function()
+                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
+            end, desc = "Buffers List" },
+
+        { "<leader>fr", function()
+                require('fzf-lua').oldfiles({ resume = isResumeEnabled("oldfiles") })
+            end, desc = "Recent Files" },
+
+        { "<leader><space>", function()
+                require('fzf-lua').files({ resume = isResumeEnabled("files") })
+            end, desc = "Project Files" },
+        { "<leader>fp", function()
+                require('fzf-lua').files({ resume = isResumeEnabled("files") })
+            end, desc = "Project Files" },
+
         { "<leader>ff", function ()
-                require('fzf-lua').files({ cwd = vim.fn.expand('%:h') })
-            end, desc = "Find Files (cwd)" },
+                require('fzf-lua').files({
+                    cwd = vim.fn.expand('%:h'),
+                    resume = isResumeEnabled("filescwd") })
+            end, desc = "Current Dir Files" },
 
         { "<leader>fC", function ()
-                require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
-            end, desc = "Find Neovim Files" },
+                require('fzf-lua').files({
+                    cwd = vim.fn.stdpath('config'),
+                    resume = isResumeEnabled("filescwd") })
+            end, desc = "Neovim Config Files" },
 
         { "<leader>fP", function ()
-                require('fzf-lua').files({ cwd = require('lazy.core.config').options.root })
-            end, desc = "Find plugin file" },
+                require('fzf-lua').files({
+                    cwd = require('lazy.core.config').options.root,
+                    resume = isResumeEnabled("filescwd") })
+            end, desc = "Neovim Plugin Files" },
 
         { "<leader>/", "<cmd>FzfLua grep_curbuf<cr>", desc = "Fuzzy Search Buffer" },
 
@@ -36,28 +71,98 @@ return {
                 require('fzf-lua').grep_cword({ cwd = vim.fn.expand('%:h') })
             end, desc = "Grep Word (cwd)" },
 
-        { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
+        { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "Find TODO/INFO/..." },
 
         { "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Search Help" },
+        { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Search Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Search Keymaps" },
     },
-    opts = {
-        "telescope",
-        winopts = {
-            width = 1,
-            height = 1,
-            preview = {
-                layout = "vertical",
-                vertical = "up:70%",
+    config = function()
+        local fzflua = require("fzf-lua")
+        local actions = fzflua.actions
+
+        -- Dashboard commands support
+        vim.api.nvim_create_user_command("DashFiles", function(opts)
+            opts = opts or {}
+            local args = {}
+
+            for key, value in string.gmatch(opts.args, "([^%s=]+)=([^{%s]+)") do
+                args[key] = value
+            end
+
+            -- print("r: " .. vim.inspect(args))
+
+            require("fzf-lua").files(args)
+        end, { nargs = "*" })
+        vim.api.nvim_create_user_command("DashRecent", function()
+            require("fzf-lua").oldfiles()
+        end, {})
+        vim.api.nvim_create_user_command("DashGrep", function()
+            require("fzf-lua").live_grep()
+        end, {})
+
+        fzflua.setup({
+            -- profile
+            "hide", -- or "telescope",
+
+            winopts = {
+                width = 0.96,
+                height = 0.96,
+                preview = {
+                    layout = "vertical",
+                    vertical = "up:70%",
+                },
             },
-        },
-        keymap = {
-            builtin = {
-                ["<F1>"] = "toggle-help",
-                ["<M-/>"] = "toggle-help",
-                ["<M-p>"] = "toggle-preview",
-                ["<M-w>"] = "toggle-preview-wrap",
+            keymap = {
+                builtin = {
+                    false,
+                    ["<F1>"] = "toggle-help",
+                    ["<M-/>"] = "toggle-help",
+
+                    ["<M-S-f>"] = "toggle-fullscreen",
+
+                    ["<M-p>"] = "toggle-preview",
+                    ["<M-w>"] = "toggle-preview-wrap",
+
+                    ["<M-c>"] = "toggle-preview-cw",
+                    ["<M-S-c>"] = "toggle-preview-ccw",
+
+                    ["<C-d>"] = "preview-page-down",
+                    ["<C-u>"] = "preview-page-up",
+                },
+                fzf = {
+                    false,
+                    ["alt-a"] = "toggle-all",
+                    ["alt-g"] = "first",
+                    ["alt-G"] = "last",
+                },
             },
-        },
-    },
+            files = {
+                hidden = false,
+            },
+            buffers = {
+                prompt = "❯ ",
+            },
+            keymaps = {
+                prompt = "❯ ",
+                winopts = { preview = { hidden = true } },
+            },
+            actions = {
+                files = {
+                    -- true, -- if set to true, enables default settings.
+
+                    ["enter"] = actions.file_edit_or_qf,
+                    ["ctrl-q"] = actions.file_sel_to_qf,
+                    ["alt-f"] = actions.toggle_follow,
+                    ["alt-h"] = actions.toggle_hidden,
+                    ["alt-i"] = actions.toggle_ignore,
+                    ["ctrl-s"] = actions.file_split,
+                    ["ctrl-v"] = actions.file_vsplit,
+                },
+            },
+            fzf_opts = {
+                ["--layout"] = "default",
+            },
+        })
+    end,
 }

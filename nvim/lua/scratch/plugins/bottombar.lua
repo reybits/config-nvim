@@ -110,6 +110,7 @@ return {
         })
         --]]
 
+        --[[
         local fmt_progress = function(str)
             local percent = 0
             if str == "Top" then
@@ -125,19 +126,15 @@ return {
             -- print(str .. " -> " .. idx)
             return list[idx]
         end
+        --]]
 
-        local function diff_cond()
-            return vim.bo.buftype == "acwrite"
-            -- local buf_name = vim.api.nvim_buf_get_name(0)
-            -- local prefix = "gitsigns://"
-            -- return buf_name:sub(1, #prefix) == prefix
-        end
         local function not_diff_cond()
-            return diff_cond() == false
+            return vim.bo.buftype ~= "acwrite"
         end
 
         lualine.setup({
             options = {
+                theme = "material",
                 section_separators = { left = "", right = "" },
                 component_separators = { left = "", right = "" },
                 globalstatus = true,
@@ -170,11 +167,13 @@ return {
                         padding = { left = 1, right = 0 },
                         cond = not_diff_cond
                     },
-                    { function() return "*diff (close with gq)*" end,
-                        cond = diff_cond
-                    },
                     { better_fn,
-                        cond = not_diff_cond
+                        fmt = function(str)
+                            if not_diff_cond() then
+                                return str
+                            end
+                            return "*diff (close with gq)*"
+                        end,
                     },
                     --[[
                     {
@@ -209,6 +208,9 @@ return {
                         color = { fg = "#ff9e64" },
                     },
                     { mason_status,
+                        cond = function()
+                            return not_diff_cond()
+                        end,
                         icon = "󱌢",
                         on_click = function()
                             vim.cmd("Mason")
@@ -229,24 +231,28 @@ return {
                     },
                 },
                 lualine_z = {
+                    --[[
+                    { "searchcount",
+                        maxcount = 999999,
+                        separator = "|",
+                        padding = { left = 0, right = 0 },
+                    },
+                    --]]
                     { "selectioncount",
-                        fmt = function(str)
-                            return str:len() > 0 and "s:" .. str or ""
-                        end,
-                        separator = " ",
+                        separator = "|",
                         padding = { left = 0, right = 0 },
                     },
                     { "location",
                         fmt = function(str)
                             return str:gsub("%s+", "")
                         end,
-                        separator = " ",
-                        padding = { left = 0, right = 0 },
-                    },
-                    { "progress",
-                        fmt = fmt_progress,
+                        separator = "|",
                         padding = { left = 0, right = 1 },
                     },
+                    -- { "progress",
+                    --     fmt = fmt_progress,
+                    --     padding = { left = 0, right = 1 },
+                    -- },
                 },
             },
             -- stylua: ignore

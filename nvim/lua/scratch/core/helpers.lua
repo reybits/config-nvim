@@ -1,14 +1,31 @@
 -------------------------------------------------------------------------------
+-- Neovim Helper Module
+--
 -- Author: Andrey Ugolnik
--- Description: A module with helper functions for Neovim.
 -- License: MIT
--- https://github.com/andreyugolnik/
+-- GitHub: https://github.com/andreyugolnik/
+--
+-- Description:
+-- This module provides various utility functions for Neovim, including:
+-- - A collection of icons for diagnostics, git, and LSP kinds.
+-- - String manipulation utilities (truncation, word splitting).
+-- - Custom formatting for completion menu items.
+-- - Safe value retrieval and lookup functions.
+-- - Table dumping for debugging.
+--
+-- Features:
+-- - Predefined icon sets for UI elements.
+-- - String processing functions (truncate, split).
+-- - Custom completion formatting for `nvim-cmp`.
+-- - Safe value checking and table lookup functions.
+-- - Debugging utilities for dumping table contents.
+--
 -------------------------------------------------------------------------------
 
 local M = {}
 
--- most icons copied from LazyVim plugin
-local icons = {
+--- Predefined icons for debugging, git, diagnostics, and LSP.
+M.icons = {
     dap = {
         Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
         Breakpoint = " ",
@@ -67,41 +84,41 @@ local icons = {
     },
 }
 
-M.icons = icons
-
---------------------------------------------------------------------------------
-
+--- Truncates a string to a maximum length, keeping both ends.
+--- @param content string The string to be truncated.
+--- @param max_length number The maximum allowed length.
+--- @return string The truncated string with an ellipsis if needed.
 M.truncate = function(content, max_length)
-    local truncated = content
-
-    if content ~= nil then
-        local content_length = vim.fn.strcharlen(content)
-        if content_length > max_length then
-            local ELLIPSIS_CHAR = "…" -- "•"
-            local ELLIPSIS_LENGTH = vim.fn.strcharlen(ELLIPSIS_CHAR)
-            -- truncated = vim.fn.strcharpart(content, 0, max_length - ELLIPSIS_LENGTH)
-            --     .. ELLIPSIS_CHAR
-            local half_length = math.floor(max_length / 2)
-            local tail_length = (max_length - half_length) - ELLIPSIS_LENGTH
-            local left = vim.fn.strcharpart(content, 0, half_length)
-            local right = vim.fn.strcharpart(content, content_length - tail_length, tail_length)
-            truncated = left .. ELLIPSIS_CHAR .. right
-            -- else
-            --     truncated = content .. (" "):rep(max_length - content_length)
-        end
+    if not content then
+        return ""
     end
 
-    return truncated
+    local content_length = vim.fn.strcharlen(content)
+    if content_length <= max_length then
+        return content
+    end
+
+    local ELLIPSIS = "…"
+    local half_length = math.floor(max_length / 2)
+    local tail_length = (max_length - half_length) - vim.fn.strcharlen(ELLIPSIS)
+
+    local left = vim.fn.strcharpart(content, 0, half_length)
+    local right = vim.fn.strcharpart(content, content_length - tail_length, tail_length)
+
+    return left .. ELLIPSIS .. right
 end
 
---- custom cmp format function -------------------------------------------------
+--- Custom formatter for nvim-cmp completion menu.
+--- @param _ any Unused parameter.
+--- @param item table The completion item to format.
+--- @return table The formatted completion item.
 M.cmp_format = function(_, item)
-    local icon = icons.kinds[item.kind] or " "
+    local icon = M.icons.kinds[item.kind] or " "
 
-    item.kind = "" -- icon .. item.kind
+    item.kind = "" -- Hide the text kind
 
     -- Get the width of the current window.
-    local columns = vim.o.columns -- vim.api.nvim_win_get_width(0)
+    local columns = vim.o.columns
 
     -- use truncated `item.word` as `item.abbr`
     item.abbr = icon .. M.truncate(item.word, math.floor(columns * 0.2))
@@ -113,14 +130,17 @@ M.cmp_format = function(_, item)
     return item
 end
 
---- split message by words into strings array ----------------------------------
+--- Splits a string into an array of substrings of a maximum length.
+--- @param message string The input string.
+--- @param max_length number The maximum length per line.
+--- @return table A list of split strings.
 M.split_to_strings = function(message, max_length)
     local result = {}
     local row = ""
     local rowLen = 0
 
     for word in message:gmatch("%S+") do
-        local wordLen = word:len()
+        local wordLen = #word
         if rowLen + wordLen < max_length then
             row = row .. word .. " "
             rowLen = rowLen + wordLen + 1
@@ -131,22 +151,23 @@ M.split_to_strings = function(message, max_length)
         end
     end
 
-    if row:len() ~= 0 then
+    if row ~= "" then
         table.insert(result, row)
     end
 
     return result
 end
 
---- simple dumper --------------------------------------------------------------
+--- Dumps a Lua table or value into a readable string format.
+--- @param o any The object to dump.
+--- @param depth number The depth of recursion (not implemented).
+--- @return string A string representation of the object.
 M.dump = function(o, depth)
     if type(o) == "table" then
         local s = "{ "
         for k, v in pairs(o) do
-            if type(k) ~= "number" then
-                k = '"' .. k .. '"'
-            end
-            s = s .. "[" .. k .. "] = " .. M.dump(v, depth - 1) .. ","
+            local key = type(k) == "number" and k or ('"' .. k .. '"')
+            s = s .. "[" .. key .. "] = " .. M.dump(v, depth - 1) .. ", "
         end
         return s .. "} "
     end
@@ -154,7 +175,10 @@ M.dump = function(o, depth)
     return tostring(o)
 end
 
---- check v for nil ------------------------------------------------------------
+--- Safely returns a value or a default if the value is nil.
+--- @param v any The value to check.
+--- @param d any The default value to return if `v` is nil.
+--- @return any The original value or the default.
 M.safe = function(v, d)
     if v ~= nil then
         return v
@@ -163,14 +187,17 @@ M.safe = function(v, d)
     return d ~= nil and d or ""
 end
 
---- lookup substring in the list -----------------------------------------------
-M.lookup = function(str, table)
-    if str == nil then
+--- Checks if a string contains any substring from a list.
+--- @param str string The string to search in.
+--- @param list table A table of substrings to look for.
+--- @return boolean True if any substring is found, otherwise false.
+M.lookup = function(str, list)
+    if not str then
         return false
     end
 
-    for _, v in pairs(table) do
-        if string.find(str, v) ~= nil then
+    for _, v in pairs(list) do
+        if string.find(str, v) then
             return true
         end
     end

@@ -3,14 +3,17 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- netrw: tree style
+--- netrw tree style -----------------------------------------------------------
 vim.g.netrw_liststyle = 3
 
---- Disalble providers ---------------------------------------------------------
+--- disalble providers ---------------------------------------------------------
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
+
+--- disable autoformat by default ----------------------------------------------
+vim.g.disable_autoformat = true
 
 --- Common options -------------------------------------------------------------
 

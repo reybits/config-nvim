@@ -17,7 +17,7 @@ return {
                     limit = 5,
                     icon = " ",
                     label = "Browse Files in Directory",
-                    action = "Telescope find_files cwd=", -- "FzfLua files preview={hide_on_startup=true} cwd=",
+                    action = "DashFiles cwd=",
                 },
                 mru = {
                     limit = 10,
@@ -44,21 +44,21 @@ return {
                         icon = "󰡦 ", -- " 󰉺  ",
                         desc = "Files",
                         group = "Label",
-                        action = "DashFiles", -- "FzfLua files",
+                        action = "DashFiles",
                         key = "f",
                     },
                     {
                         icon = "󰔠 ", -- "󱑍  ",
                         desc = "Recent",
                         group = "Label",
-                        action = "DashRecent", -- "FzfLua oldfiles",
+                        action = "DashRecent",
                         key = "o",
                     },
                     {
                         icon = "󱘢 ", -- " ",
                         desc = "Grep",
                         group = "Label",
-                        action = "DashGrep", -- "FzfLua live_grep",
+                        action = "DashGrep",
                         key = "g",
                     },
                     {

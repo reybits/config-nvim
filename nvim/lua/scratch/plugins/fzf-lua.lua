@@ -1,12 +1,17 @@
-local lastFileMode = ""
-local isResumeEnabled = function(mode)
-    if mode ~= lastFileMode then
-        lastFileMode = mode
-        return false
-    end
+--- Checks if the given mode is the same as the last used mode.
+--- @return function Returns isResumeEnabled function
+local function createResume()
+    local lastUsedMode = ""
 
-    return true
+    --- @param mode string The current mode.
+    --- @return boolean True if the mode is the same as the last one, false otherwise.
+    return function(mode)
+        local isSame = (mode == lastUsedMode)
+        lastUsedMode = mode
+        return isSame
+    end
 end
+local isResumeEnabled = createResume()
 
 return {
     "ibhagwan/fzf-lua",

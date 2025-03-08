@@ -1,8 +1,15 @@
 return {
     "nvim-tree/nvim-tree.lua",
     lazy = true,
+    event = {
+        "BufWinEnter",
+    },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
+    },
+    -- stylua: ignore
+    keys = {
+        { "<leader>e", "<cmd>NvimTreeFindFileToggle<cr>", desc = "Toggle File Explorer" },
     },
     config = function()
         local nvimtree = require("nvim-tree")
@@ -34,9 +41,4 @@ return {
             },
         })
     end,
-
-    -- stylua: ignore
-    keys = {
-        { "<leader>e", "<cmd>NvimTreeFindFileToggle<cr>", desc = "Toggle File Explorer" },
-    },
 }

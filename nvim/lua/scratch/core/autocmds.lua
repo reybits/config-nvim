@@ -58,10 +58,12 @@ vim.api.nvim_create_autocmd("FileType", {
 
 --- show buffer name on switch -----------------------------------------------
 
-local last_bufname = ""
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = augroup("show_buffer_name"),
-    callback = function(event)
+--- Checks if the given name is the same as the last used name.
+--- @return function Returns lastBufNameFunction function
+local function createBufNameFunction()
+    local lastBufName = ""
+
+    return function(event)
         local list = {
             "Neogit",
             "NvimTree",
@@ -73,18 +75,24 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         local filetype = vim.bo[event.buf].filetype
         for _, name in ipairs(list) do
             if filetype == name then
-                last_bufname = name
+                lastBufName = name
                 return
             end
         end
 
         local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname ~= "" and last_bufname ~= bufname then
-            last_bufname = bufname
+        if bufname ~= "" and lastBufName ~= bufname then
+            lastBufName = bufname
             local relname = vim.fn.fnamemodify(bufname, ":.")
-            print("Switched to: " .. relname)
+            vim.notify("Switched to: " .. relname)
         end
-    end,
+    end
+end
+local lastBufNameFunction = createBufNameFunction()
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    group = augroup("show_buffer_name"),
+    callback = lastBufNameFunction,
 })
 
 --- close diff buffer with <gq> ----------------------------------------------

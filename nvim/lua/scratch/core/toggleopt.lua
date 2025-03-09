@@ -95,7 +95,7 @@ function ToggleOption:setState(state)
 
     -- Display a notification about the state change.
     local msg = state and self.msg[1] or self.msg[2]
-    vim.notify(msg, vim.log.levels.INFO)
+    vim.notify(msg)
 end
 
 --- Gets the key mapping.

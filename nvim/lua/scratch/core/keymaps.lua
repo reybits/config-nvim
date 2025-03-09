@@ -124,7 +124,7 @@ map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", desc("Arrow Key Disabled"))
 map("n", "<leader>cD", function()
     local float_bufnr, _ = vim.diagnostic.open_float({ scope = "line", border = "rounded" })
     if float_bufnr == nil then
-        vim.notify("No diagnostics found", vim.log.levels.INFO)
+        vim.notify("No diagnostics found")
     end
 end, desc("Show Line Diagnostics"))
 

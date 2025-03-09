@@ -15,7 +15,7 @@ return {
                 -- print("Type: " .. vim.bo.filetype)
                 if vim.bo.filetype == "typr" then
                     -- print(vim.inspect(args))
-                    vim.notify("Copilot disabled", vim.log.levels.INFO)
+                    vim.notify("Copilot disabled")
                     vim.cmd("Copilot disable")
                 end
             end,
@@ -27,7 +27,7 @@ return {
                 -- print("Type: " .. vim.bo.filetype)
                 if vim.bo.filetype == "typr" then
                     -- print(vim.inspect(args))
-                    vim.notify("Copilot enabled", vim.log.levels.INFO)
+                    vim.notify("Copilot enabled")
                     vim.cmd("Copilot enable")
                 end
             end,

@@ -16,8 +16,7 @@ return {
             function()
                 vim.g.minisessions_disable = not vim.g.minisessions_disable
                 vim.notify(
-                    "Session save " .. (vim.g.minisessions_disable and "disabled" or "enabled"),
-                    vim.log.levels.INFO
+                    "Session save " .. (vim.g.minisessions_disable and "disabled" or "enabled")
                 )
             end,
             desc = "Toggle Store Session",

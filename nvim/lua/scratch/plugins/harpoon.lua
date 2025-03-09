@@ -16,10 +16,7 @@ return {
         {
             "<leader>H",
             function()
-                vim.notify(
-                    "File '" .. vim.fn.expand("%") .. "' added to Harpoon",
-                    vim.log.levels.INFO
-                )
+                vim.notify("File '" .. vim.fn.expand("%") .. "' added to Harpoon")
                 require("harpoon"):list():add()
             end,
             desc = "Add file to Harpoon",

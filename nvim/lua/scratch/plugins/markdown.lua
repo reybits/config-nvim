@@ -15,10 +15,10 @@ return {
                 function()
                     vim.g.render_markdown = not vim.g.render_markdown
                     if vim.g.render_markdown then
-                        vim.notify("Render Markdown Enabled", vim.log.levels.INFO)
+                        vim.notify("Render Markdown Enabled")
                         vim.cmd("RenderMarkdown enable")
                     else
-                        vim.notify("Render Markdown Disabled", vim.log.levels.INFO)
+                        vim.notify("Render Markdown Disabled")
                         vim.cmd("RenderMarkdown disable")
                     end
                 end,

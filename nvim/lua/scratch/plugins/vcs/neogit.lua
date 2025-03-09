@@ -1,6 +1,7 @@
 return {
     -- clone of magit
     "NeogitOrg/neogit",
+    enabled = false,
     event = {
         "BufReadPre",
         "BufNewFile",

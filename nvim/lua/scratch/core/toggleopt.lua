@@ -49,16 +49,14 @@ local ToggleOption = {}
 --- Creates a new ToggleOption object.
 --- @param map string Key mapping for the toggle.
 --- @param callback function Callback function triggered on state change.
---- @param msg table Notification messages {enabled, disabled}.
---- @param desc table Descriptions for the states {disabled, enabled}.
---- @param state boolean Initial state (default: false).
+--- @param title string Title used as description and notification.
+--- @param state? boolean Initial state (default: false).
 --- @return table New ToggleOption instance.
-function ToggleOption:new(map, callback, msg, desc, state)
+function ToggleOption:new(map, callback, title, state)
     local o = {
         map = map or "",
         callback = callback,
-        msg = msg or { "ERROR", "ERROR" },
-        desc = desc or { "ERROR", "ERROR" },
+        title = title or "Unkonown Toggle Optioon",
         state = state or false,
     }
     setmetatable(o, self)
@@ -74,27 +72,29 @@ end
 
 --- Sets a new state and updates the key mapping.
 --- @param state boolean The new state.
-function ToggleOption:setState(state)
+--- @param notify? boolean If true, then notify and call callback.
+function ToggleOption:setState(state, notify)
     self.state = state
+    if notify == nil then
+        notify = true
+    end
+
+    -- Update the key mapping with a new description.
+    vim.keymap.set("n", self:getMapping(), function()
+        self:toggle()
+    end, { desc = self:getCurrentDescription() })
+
+    if notify == false then
+        return
+    end
 
     -- Call the callback function if defined.
     if self.callback ~= nil then
         self.callback(state)
     end
 
-    -- Function to update the key mapping with a new description.
-    local function updateOption(desc)
-        vim.keymap.set("n", self:getMapping(), function()
-            self:toggle()
-        end, { desc = desc })
-    end
-
-    -- Get the updated description for the current state.
-    local desc = self:getCurrentDescription()
-    updateOption(desc)
-
     -- Display a notification about the state change.
-    local msg = state and self.msg[1] or self.msg[2]
+    local msg = state and (self.title .. " Enabled") or (self.title .. " Disabled")
     vim.notify(msg)
 end
 
@@ -107,7 +107,7 @@ end
 --- Gets the current state description.
 --- @return string The description of the current state.
 function ToggleOption:getCurrentDescription()
-    return self.state and self.desc[2] or self.desc[1]
+    return self.state and ("Disable " .. self.title) or ("Enable " .. self.title)
 end
 
 --- Returns a function that toggles the state.

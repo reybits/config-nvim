@@ -1,3 +1,11 @@
+vim.g.fzf_resume = false
+
+local ToggleOption = require("scratch.core.toggleopt")
+
+local toggle_fzfresume = ToggleOption:new("<leader>op", function(state)
+    vim.g.fzf_resume = state
+end, "Fzf Persistent Mode", vim.g.fzf_resume)
+
 --- Checks if the given mode is the same as the last used mode.
 --- @return function Returns isResumeEnabled function
 local function createResume()
@@ -6,6 +14,10 @@ local function createResume()
     --- @param mode string The current mode.
     --- @return boolean True if the mode is the same as the last one, false otherwise.
     return function(mode)
+        if vim.g.fzf_resume == false then
+            return false
+        end
+
         local isSame = (mode == lastUsedMode)
         lastUsedMode = mode
         return isSame
@@ -28,6 +40,11 @@ return {
     },
     -- stylua: ignore
     keys = {
+        {
+            toggle_fzfresume:getMapping(),
+            toggle_fzfresume:getToggleFunc(),
+            desc = toggle_fzfresume:getCurrentDescription(),
+        },
         { "<leader>,", function()
                 require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
             end, desc = "Buffers List" },

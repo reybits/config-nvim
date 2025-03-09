@@ -93,6 +93,7 @@ return {
                         local toggle_inlineHint = ToggleOption:new("<leader>oh", function(state)
                             vim.lsp.inlay_hint.enable(state)
                         end, "Inline Hint")
+                        toggle_inlineHint:setOpts(opts)
                         toggle_inlineHint:setState(vim.lsp.inlay_hint.is_enabled({}), false)
                     end
 

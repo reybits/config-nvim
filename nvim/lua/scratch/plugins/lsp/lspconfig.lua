@@ -87,11 +87,13 @@ return {
                         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
                     end
 
+                    local ToggleOption = require("scratch.core.toggleopt")
+
                     if client.server_capabilities.inlayHintProvider then
-                        mapn("<leader>oh", function()
-                            local e = vim.lsp.inlay_hint.is_enabled({})
-                            vim.lsp.inlay_hint.enable(not e)
-                        end, "Toggle Inlay Hint")
+                        local toggle_inlineHint = ToggleOption:new("<leader>oh", function(state)
+                            vim.lsp.inlay_hint.enable(state)
+                        end, "Inline Hint")
+                        toggle_inlineHint:setState(vim.lsp.inlay_hint.is_enabled({}), false)
                     end
 
                     -- mapn("<leader>bf", function()

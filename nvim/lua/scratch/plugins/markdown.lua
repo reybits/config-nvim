@@ -1,3 +1,16 @@
+-- disable plugin by default
+local render_markdown = false
+
+local ToggleOption = require("scratch.core.toggleopt")
+
+local toggle_markdown = ToggleOption:new("<leader>om", function(state)
+    if state then
+        vim.cmd("RenderMarkdown enable")
+    else
+        vim.cmd("RenderMarkdown disable")
+    end
+end, "Render Markdown", render_markdown)
+
 return {
     -- inline preview
     {
@@ -11,18 +24,9 @@ return {
         keys = {
             {
                 mode = "n",
-                "<leader>om",
-                function()
-                    vim.g.render_markdown = not vim.g.render_markdown
-                    if vim.g.render_markdown then
-                        vim.notify("Render Markdown Enabled")
-                        vim.cmd("RenderMarkdown enable")
-                    else
-                        vim.notify("Render Markdown Disabled")
-                        vim.cmd("RenderMarkdown disable")
-                    end
-                end,
-                desc = "Toggle Markdown",
+                toggle_markdown:getMapping(),
+                toggle_markdown:getToggleFunc(),
+                desc = toggle_markdown:getCurrentDescription(),
             },
         },
         dependencies = {
@@ -68,9 +72,7 @@ return {
                 },
             })
 
-            -- disable plugin by default
-            vim.g.render_markdown = false
-            if vim.g.render_markdown == false then
+            if render_markdown == false then
                 rendermd.disable()
             end
         end,

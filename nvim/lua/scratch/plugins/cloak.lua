@@ -1,8 +1,22 @@
+local ToggleOption = require("scratch.core.toggleopt")
+
+local toggle_cloak = ToggleOption:new("<leader>oc", function(state)
+    if state then
+        vim.cmd("CloakEnable")
+    else
+        vim.cmd("CloakDisable")
+    end
+end, "Cloak", true)
+
 return {
     "laytan/cloak.nvim",
     event = "BufReadPre",
     keys = {
-        { "<leader>oc", "<cmd>CloakToggle<cr>", desc = "Toggle Cloak" },
+        {
+            toggle_cloak:getMapping(),
+            toggle_cloak:getToggleFunc(),
+            desc = toggle_cloak:getCurrentDescription(),
+        },
     },
     cmd = {
         "CloakEnable",

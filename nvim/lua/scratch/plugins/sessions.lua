@@ -1,3 +1,9 @@
+local ToggleOption = require("scratch.core.toggleopt")
+
+local toggle_session = ToggleOption:new("<leader>os", function(state)
+    vim.g.minisessions_disable = not state
+end, "Session Save", true)
+
 return {
     "echasnovski/mini.sessions",
     version = false,
@@ -12,14 +18,9 @@ return {
     },
     keys = {
         {
-            "<leader>os",
-            function()
-                vim.g.minisessions_disable = not vim.g.minisessions_disable
-                vim.notify(
-                    "Session save " .. (vim.g.minisessions_disable and "disabled" or "enabled")
-                )
-            end,
-            desc = "Toggle Store Session",
+            toggle_session:getMapping(),
+            toggle_session:getToggleFunc(),
+            desc = toggle_session:getCurrentDescription(),
         },
     },
     config = function()

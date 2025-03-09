@@ -1,14 +1,8 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local disable_autoformat = ToggleOption:new(
-    "<leader>of",
-    function(state)
-        vim.g.disable_autoformat = state
-    end,
-    { "Autoformat Disabled", "Autoformat Enabled" },
-    { "Disable Autoformat", "Enable Autoformat" },
-    vim.g.disable_autoformat or false
-)
+local toggle_autoformat = ToggleOption:new("<leader>of", function(state)
+    vim.g.autoformat_toggle = state
+end, "Autoformat", vim.g.autoformat_toggle or true)
 
 return {
     "stevearc/conform.nvim",
@@ -33,9 +27,9 @@ return {
         },
         {
             mode = "n",
-            disable_autoformat:getMapping(),
-            disable_autoformat:getToggleFunc(),
-            desc = disable_autoformat:getCurrentDescription(),
+            toggle_autoformat:getMapping(),
+            toggle_autoformat:getToggleFunc(),
+            desc = toggle_autoformat:getCurrentDescription(),
         },
     },
     config = function()
@@ -130,7 +124,7 @@ return {
                 },
             },
             format_on_save = function()
-                if disable_autoformat:getState() then
+                if toggle_autoformat:getState() == false then
                     return nil
                 end
 
@@ -145,13 +139,13 @@ return {
         })
 
         vim.api.nvim_create_user_command("FormatDisable", function()
-            disable_autoformat:setState(true)
+            toggle_autoformat:setState(true)
         end, {
             desc = "Disable Autoformat-on-save",
         })
 
         vim.api.nvim_create_user_command("FormatEnable", function()
-            disable_autoformat:setState(false)
+            toggle_autoformat:setState(false)
         end, {
             desc = "Enable Autoformat-on-save",
         })

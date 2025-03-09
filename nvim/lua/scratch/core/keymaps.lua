@@ -1,5 +1,9 @@
 --------------------------------------------------------------------------------
 
+local ToggleOption = require("scratch.core.toggleopt")
+
+--------------------------------------------------------------------------------
+
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
@@ -55,26 +59,23 @@ map("n", "<leader>rc", function()
 end, desc("Do 'make build_compile_commands'"))
 
 -- toggle wrap
-map("n", "<leader>ow", function()
-    local is_wrap = vim.api.nvim_win_get_option(0, "wrap")
-
-    vim.api.nvim_win_set_option(0, "wrap", not is_wrap)
-    vim.api.nvim_win_set_option(0, "linebreak", not is_wrap)
-end, desc("Toggle Wrap"))
+local toggle_wrap = ToggleOption:new("<leader>ow", function(state)
+    vim.api.nvim_win_set_option(0, "wrap", state)
+    vim.api.nvim_win_set_option(0, "linebreak", state)
+end, "Wrap")
+toggle_wrap:setState(vim.api.nvim_win_get_option(0, "wrap"), false)
 
 -- toggle numbers
-map("n", "<leader>on", function()
-    local is_number = vim.api.nvim_win_get_option(0, "number")
-
-    vim.api.nvim_win_set_option(0, "number", not is_number)
-end, desc("Toggle Numbers"))
+local toggle_numbers = ToggleOption:new("<leader>on", function(state)
+    vim.api.nvim_win_set_option(0, "number", state)
+end, "Numbers")
+toggle_numbers:setState(vim.api.nvim_win_get_option(0, "number"), false)
 
 -- toggle relative numbers
-map("n", "<leader>or", function()
-    local is_relative = vim.api.nvim_win_get_option(0, "relativenumber")
-
-    vim.api.nvim_win_set_option(0, "relativenumber", not is_relative)
-end, desc("Toggle Relative Numbers"))
+local toggle_relative = ToggleOption:new("<leader>or", function(state)
+    vim.api.nvim_win_set_option(0, "relativenumber", state)
+end, "Relative Numbers")
+toggle_relative:setState(vim.api.nvim_win_get_option(0, "relativenumber"), false)
 
 -- move selected line / block of text in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))

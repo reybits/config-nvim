@@ -1,3 +1,13 @@
+local ToggleOption = require("scratch.core.toggleopt")
+
+local toggle_illuminate = ToggleOption:new("<leader>oi", function(state)
+    if state then
+        vim.cmd("IlluminateResume")
+    else
+        vim.cmd("IlluminatePause")
+    end
+end, "Illuminate", true)
+
 --- disable illuminate on big files --------------------------------------------
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = { "*" },
@@ -6,16 +16,52 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         local ok, stats = pcall(vim.loop.fs_stat, file)
 
         local max_size = 1024 * 100
-        if ok and stats and stats.size > max_size then
+        if not ok or not stats or stats.size > max_size then
             vim.cmd("IlluminatePauseBuf")
+        else
+            vim.cmd("IlluminateResumeBuf")
         end
     end,
 })
 
 return {
     "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "IlluminatePauseBuf" },
+    event = {
+        "BufReadPost",
+        "BufNewFile",
+    },
+    cmd = {
+        "IlluminateDebug",
+        "IlluminatePause",
+        "IlluminatePauseBuf",
+        "IlluminateResume",
+        "IlluminateResumeBuf",
+        "IlluminateToggle",
+        "IlluminateToggleBuf",
+    },
+    keys = {
+        {
+            toggle_illuminate:getMapping(),
+            toggle_illuminate:getToggleFunc(),
+            desc = toggle_illuminate:getCurrentDescription(),
+        },
+
+        {
+            "]]",
+            function()
+                require("illuminate").goto_next_reference(true)
+            end,
+            desc = "Goto Next Reference",
+        },
+
+        {
+            "[[",
+            function()
+                require("illuminate").goto_prev_reference(true)
+            end,
+            desc = "Goto Prev Reference",
+        },
+    },
     config = function()
         local illuminate = require("illuminate")
         illuminate.configure({
@@ -49,20 +95,5 @@ return {
             -- The `under_cursor` option is disabled when this cutoff is hit
             large_file_cutoff = 2000,
         })
-
-        local map = vim.keymap.set
-        map("n", "<leader>oi", function()
-            illuminate.toggle()
-            -- stylua: ignore
-            print("Illiminate " .. (illuminate.is_paused() and "disabled" or "enabled"))
-        end, { desc = "Toggle Illuminate" })
-
-        map("n", "]]", function()
-            illuminate.goto_next_reference(true)
-        end, { desc = "Goto Next Reference" })
-
-        map("n", "[[", function()
-            illuminate.goto_prev_reference(true)
-        end, { desc = "Goto Prev Reference" })
     end,
 }

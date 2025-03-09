@@ -57,10 +57,17 @@ function ToggleOption:new(map, callback, title, state)
         callback = callback,
         title = title or "Unkonown Toggle Optioon",
         state = state or false,
+        opts = {},
     }
     setmetatable(o, self)
     self.__index = self
     return o
+end
+
+--- Sets custom options that are forwarded to the mapping function.
+--- @param opts? table Custom options.
+function ToggleOption:setOpts(opts)
+    self.opts = opts
 end
 
 --- Gets the current state.
@@ -78,10 +85,16 @@ function ToggleOption:setState(state, notify)
         notify = true
     end
 
+    -- Extend table with custom options.
+    local opts = {
+        desc = self:getCurrentDescription(),
+    }
+    opts = vim.tbl_extend("keep", opts, self.opts)
+
     -- Update the key mapping with a new description.
     vim.keymap.set("n", self:getMapping(), function()
         self:toggle()
-    end, { desc = self:getCurrentDescription() })
+    end, opts)
 
     if notify == false then
         return

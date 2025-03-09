@@ -26,9 +26,8 @@
 --    function(state)                            -- Callback function
 --        print("Option state: " .. tostring(state))
 --    end,
---    { "Feature Enabled", "Feature Disabled" }, -- Notification messages
---    { "Enable Feature", "Disable Feature" },   -- Descriptions
---    state                                      -- Initial state (default: false).
+--    "Option Title",                            -- Option tile used in notifications and descriptions
+--    state                                      -- Initial state (default: false)
 -- )
 --
 -- -- Lazy key mapping integration:

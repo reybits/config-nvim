@@ -39,10 +39,10 @@ return {
                 incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = "gnn",
-                        node_incremental = "grn",
-                        scope_incremental = "grc",
-                        node_decremental = "grm",
+                        init_selection = "gns",
+                        node_incremental = "gns",
+                        scope_incremental = false, --"gns",
+                        node_decremental = "gnu",
                     },
                 },
                 ignore_install = {},

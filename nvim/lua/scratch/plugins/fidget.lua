@@ -6,6 +6,14 @@ return {
         notification = {
             -- Automatically override vim.notify() with Fidget
             override_vim_notify = true,
+            view = {
+                stack_upwards = false, -- if true, set align to 'bottom'
+            },
+            window = {
+                winblend = 0,
+                zindex = 9999,
+                align = "top",
+            },
         },
     },
 }

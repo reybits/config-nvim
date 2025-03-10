@@ -8,7 +8,11 @@ This repository contains my custom Neovim configuration for Linux, macOS, and po
 
 For the best experience, use it alongside my [config-tmux](https://github.com/andreyugolnik/config-tmux.git) repository.
 
-![Nvim wiht Lazy](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-lazy.png?raw=true)
+Kanagawa theme:
+![kanagawa theme](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-kanagawa.png?raw=true)
+
+Nightfox theme:
+![nightfox theme](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-nightfox.png?raw=true)
 
 ## Install
 
@@ -18,21 +22,24 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 
 ## Features
 
-- Plugin management via Lazy.nvim.
-- Tool manager via Mason.nvim.
-- Startup screen via dashboard-nvim.
-- Colorscheme via nightfox.nvim.
-- Nice statusline via lualine.nvim.
-- Language server protocol (LSP) support via nvim-lspconfig.
-- Code auto-completion via nvim-cmp.
-- Fast navigation, lookup, and more via telescope.nvim with fzf.
-- Buffer bookmarks via harpoon2.
-- Git integration via neogit or vim-fugitive.
-- Code commenting via Comment.nvim.
-- File tree explorer via nvim-tree.lua.
-- Mapping hint via which-key.nvim.
-- Code highlighting via nvim-treesitter.
-- Markdown writing and previewing via vim-markdown and markdown-preview.nvim.
+- Plugin management via [lazy.nvim](https://github.com/folke/lazy.nvim.git).
+- Tool manager via [mason.nvim](https://github.com/williamboman/mason.nvim).
+- Startup screen via [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim).
+- Colorscheme via [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) ([nightfox.nvim](https://github.com/EdenEast/nightfox.nvim) also available).
+- Nice statusline via [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim).
+- Scratchpad via [scratchpad.nvim](https://github.com/athar-qadri/scratchpad.nvim).
+- Blind typing trainer via [typr](https://github.com/nvzone/typ).
+- Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
+- Code auto-completion via [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
+- Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) with fzf or [fzf-lua](https://github.com/ibhagwan/fzf-lua).
+- Buffer bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
+- Git integration via [neogit](https://github.com/NeogitOrg/neogit) or [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim) and [vim-fugitive](https://github.com/tpope/vim-fugitive).
+- Code commenting via [Comment.nvim](https://github.com/numToStr/Comment.nvim).
+- File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
+- Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
+- Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvi).
+- Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
+- Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - And more...
 
 ## Customize

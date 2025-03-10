@@ -30,7 +30,6 @@ return {
             { "<leader>g", group = "Git Related" },
             { "<leader>gb", group = "Blame" },
             { "<leader>gh", group = "Hunks" },
-            { "<leader>l", group = "LazyGit" },
             { "<leader>o", group = "Options" },
             { "<leader>r", group = "Run" },
             { "<leader>s", group = "Search" },

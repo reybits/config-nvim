@@ -8,7 +8,7 @@ return {
     },
     keys = {
         {
-            "<Leader>ts",
+            "<Leader>tss",
             function()
                 local scratchpad = require("scratchpad")
                 scratchpad.ui:new_scratchpad()
@@ -16,7 +16,7 @@ return {
             desc = "Open Scratchpad",
         },
         {
-            "<leader>tp",
+            "<leader>tsp",
             function()
                 local scratchpad = require("scratchpad")
                 scratchpad.ui:sync()
@@ -24,7 +24,7 @@ return {
             desc = "Push Line to Scratchpad",
         },
         {
-            "<leader>tp",
+            "<leader>tsp",
             function()
                 local scratchpad = require("scratchpad")
                 scratchpad.ui:sync()
@@ -33,6 +33,13 @@ return {
             mode = { "v" },
         },
     },
+    init = function()
+        local wk = require("which-key")
+        wk.add({
+            mode = { "n", "v" },
+            { "<leader>ts", group = "Scratch" },
+        })
+    end,
     config = function()
         local scratchpad = require("scratchpad")
         scratchpad:setup({

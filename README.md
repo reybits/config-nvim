@@ -30,7 +30,7 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 - Scratchpad via [scratchpad.nvim](https://github.com/athar-qadri/scratchpad.nvim).
 - Blind typing trainer via [typr](https://github.com/nvzone/typ).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
-- Code auto-completion via [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
+- Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp) ~~[nvim-cmp](https://github.com/hrsh7th/nvim-cmp)~~.
 - Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) with fzf or [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Buffer bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit) or [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim) and [vim-fugitive](https://github.com/tpope/vim-fugitive).

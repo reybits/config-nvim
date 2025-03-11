@@ -47,7 +47,7 @@ local ToggleOption = {}
 
 --- Creates a new ToggleOption object.
 --- @param map string Key mapping for the toggle.
---- @param callback function Callback function triggered on state change.
+--- @param callback function|nil Callback function triggered on state change.
 --- @param title string Title used as description and notification.
 --- @param state? boolean Initial state (default: false).
 --- @return table New ToggleOption instance.

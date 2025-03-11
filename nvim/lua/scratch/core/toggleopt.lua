@@ -55,7 +55,7 @@ function ToggleOption:new(map, callback, title, state)
     local o = {
         map = map or "",
         callback = callback,
-        title = title or "Unkonown Toggle Optioon",
+        title = title or "Title Undefined",
         state = state or false,
         opts = {},
     }

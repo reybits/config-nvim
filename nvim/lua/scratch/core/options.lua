@@ -121,6 +121,12 @@ opt.backup = false
 opt.writebackup = false
 opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
 
+-- WARNING: `cmdheight=0` is considered experimental. Expect some unwanted behaviour.
+-- Some 'shortmess' flags and similar mechanism might fail to take effect,
+-- causing unwanted hit-enter prompts.
+-- Some informative messages, both from Nvim itself and plugins, will not be displayed.
+opt.cmdheight = 0 -- hide cmdline by default
+
 --- set filetype --------------------------------------------------------------
 vim.filetype.add({
     extension = {

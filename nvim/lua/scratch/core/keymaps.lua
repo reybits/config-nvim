@@ -59,20 +59,20 @@ map("n", "<leader>rc", function()
 end, desc("Do 'make build_compile_commands'"))
 
 -- toggle wrap
-local toggle_wrap = ToggleOption:new("<leader>ow", function(state)
+local toggle_wrap = ToggleOption:new("<leader>oew", function(state)
     vim.api.nvim_win_set_option(0, "wrap", state)
     vim.api.nvim_win_set_option(0, "linebreak", state)
 end, "Wrap")
 toggle_wrap:setState(vim.api.nvim_win_get_option(0, "wrap"), false)
 
 -- toggle numbers
-local toggle_numbers = ToggleOption:new("<leader>on", function(state)
+local toggle_numbers = ToggleOption:new("<leader>oen", function(state)
     vim.api.nvim_win_set_option(0, "number", state)
 end, "Numbers")
 toggle_numbers:setState(vim.api.nvim_win_get_option(0, "number"), false)
 
 -- toggle relative numbers
-local toggle_relative = ToggleOption:new("<leader>or", function(state)
+local toggle_relative = ToggleOption:new("<leader>oer", function(state)
     vim.api.nvim_win_set_option(0, "relativenumber", state)
 end, "Relative Numbers")
 toggle_relative:setState(vim.api.nvim_win_get_option(0, "relativenumber"), false)

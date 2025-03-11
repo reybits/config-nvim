@@ -1,6 +1,6 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_table = ToggleOption:new("<leader>ot", function(state)
+local toggle_table = ToggleOption:new("<leader>oet", function(state)
     if state then
         vim.cmd("TableModeEnable")
     else

@@ -90,7 +90,7 @@ return {
                     local ToggleOption = require("scratch.core.toggleopt")
 
                     if client.server_capabilities.inlayHintProvider then
-                        local toggle_inlineHint = ToggleOption:new("<leader>oh", function(state)
+                        local toggle_inlineHint = ToggleOption:new("<leader>och", function(state)
                             vim.lsp.inlay_hint.enable(state)
                         end, "Inline Hint")
                         toggle_inlineHint:setOpts(opts)

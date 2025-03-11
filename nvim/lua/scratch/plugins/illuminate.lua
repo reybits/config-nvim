@@ -1,6 +1,6 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_illuminate = ToggleOption:new("<leader>oi", function(state)
+local toggle_illuminate = ToggleOption:new("<leader>oei", function(state)
     if state then
         vim.cmd("IlluminateResume")
     else

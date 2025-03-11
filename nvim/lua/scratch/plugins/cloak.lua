@@ -1,6 +1,6 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_cloak = ToggleOption:new("<leader>oc", function(state)
+local toggle_cloak = ToggleOption:new("<leader>oec", function(state)
     if state then
         vim.cmd("CloakEnable")
     else

@@ -3,7 +3,7 @@ local render_markdown = false
 
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_markdown = ToggleOption:new("<leader>om", function(state)
+local toggle_markdown = ToggleOption:new("<leader>oem", function(state)
     if state then
         vim.cmd("RenderMarkdown enable")
     else

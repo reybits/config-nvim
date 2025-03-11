@@ -127,6 +127,14 @@ opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
 -- Some informative messages, both from Nvim itself and plugins, will not be displayed.
 opt.cmdheight = 0 -- hide cmdline by default
 
+--- fold via tree sitter, opened by default -----------------------------------
+-- vim.o.foldenable = false
+vim.o.foldcolumn = "0"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
 --- set filetype --------------------------------------------------------------
 vim.filetype.add({
     extension = {

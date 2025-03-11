@@ -109,12 +109,14 @@ return {
 
         cmdline = {
             keymap = {
+                -- ["<cr>"] = { "accept", "fallback" },
+                ["<tab>"] = { "show", "accept" },
                 ["<c-j>"] = { "select_next", "fallback_to_mappings" },
                 ["<c-k>"] = { "select_prev", "fallback_to_mappings" },
             },
             completion = {
                 menu = {
-                    auto_show = function(ctx)
+                    auto_show = function()
                         return vim.fn.getcmdtype() == ":"
                         -- enable for inputs as well, with:
                         -- or vim.fn.getcmdtype() == '@'

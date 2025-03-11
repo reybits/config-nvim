@@ -1,14 +1,3 @@
-local function cond_disable(_, bufnr)
-    local max_size = 1024 * 100
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-    if ok and stats and stats.size > max_size then
-        return true
-    end
-
-    local max_lines = 5000
-    return vim.api.nvim_buf_line_count(bufnr) > max_lines
-end
-
 return {
     {
         "nvim-treesitter/nvim-treesitter",
@@ -27,7 +16,16 @@ return {
             treesitter.setup({
                 highlight = {
                     enable = true,
-                    disable = cond_disable,
+                    disable = function(_, bufnr)
+                        local max_size = 1024 * 100
+                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+                        if ok and stats and stats.size > max_size then
+                            return true
+                        end
+
+                        local max_lines = 5000
+                        return vim.api.nvim_buf_line_count(bufnr) > max_lines
+                    end,
                 },
                 -- Indentation based on treesitter for the = operator.
                 -- This is an experimental feature.

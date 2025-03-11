@@ -7,7 +7,8 @@ return {
     dependencies = {
         -- "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
-        "hrsh7th/cmp-nvim-lsp",
+        -- "hrsh7th/cmp-nvim-lsp",
+        "saghen/blink.cmp",
 
         -- Additional lua configuration, makes nvim stuff amazing!
         { "folke/neodev.nvim", opts = {} },
@@ -117,8 +118,10 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
-        local capabilities = cmp_nvim_lsp.default_capabilities()
+        -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        -- local capabilities = cmp_nvim_lsp.default_capabilities()
+        -- capabilities.offsetEncoding = { "utf-16" }
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
         capabilities.offsetEncoding = { "utf-16" }
 
         local mason_lspconfig = require("mason-lspconfig")

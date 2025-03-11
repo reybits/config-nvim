@@ -1,0 +1,34 @@
+{
+  "head": {
+    "prefix": "head",
+    "body": [
+      "// **********************************************",
+      "//",
+      "//  Andrey A. Ugolnik",
+      "//  http://www.ugolnik.info",
+      "//  andrey@ugolnik.info",
+      "//",
+      "// **********************************************",
+      "",
+      "${1}"
+    ]
+  },
+  "once": {
+    "prefix": "once",
+    "body": ["#pragma once", "", ""]
+  },
+  "class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName}",
+      "{",
+      "public:",
+      "    ${1:ClassName}();",
+      "    ~${1:ClassName}();",
+      "",
+      "private:",
+      "    ${2:/* data */}",
+      "};"
+    ]
+  }
+}

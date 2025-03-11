@@ -231,13 +231,11 @@ return {
                     },
                 },
                 lualine_z = {
-                    --[[
                     { "searchcount",
                         maxcount = 999999,
                         separator = "|",
                         padding = { left = 0, right = 0 },
                     },
-                    --]]
                     { "selectioncount",
                         separator = "|",
                         padding = { left = 0, right = 0 },

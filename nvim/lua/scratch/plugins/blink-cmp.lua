@@ -14,7 +14,7 @@ return {
         -- "nvim-tree/nvim-web-devicons",
         -- "onsails/lspkind.nvim",
 
-        { "xzbdmw/colorful-menu.nvim", opts = {} },
+        "xzbdmw/colorful-menu.nvim",
     },
 
     event = {

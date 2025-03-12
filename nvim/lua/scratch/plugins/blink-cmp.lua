@@ -22,6 +22,13 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+        -- Disable blink-cmp for some filetype
+        enabled = function()
+            return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
+                and vim.bo.buftype ~= "prompt"
+                and vim.b.completion ~= false
+        end,
+
         -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
         -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
         -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept

@@ -1,6 +1,3 @@
--- disable ts context by default
-local tscontest_enabled = false
-
 local ToggleOption = require("scratch.core.toggleopt")
 
 local toggle_tscontext = ToggleOption:new("<leader>occ", function(state)
@@ -9,7 +6,7 @@ local toggle_tscontext = ToggleOption:new("<leader>occ", function(state)
     else
         vim.cmd("TSContextDisable")
     end
-end, "TS Context", tscontest_enabled)
+end, "TS Context", false) -- disable ts context by default
 
 return {
     "nvim-treesitter/nvim-treesitter-context",

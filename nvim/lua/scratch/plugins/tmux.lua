@@ -1,6 +1,9 @@
+--
+-- TMUX companion plugin:
+-- https://github.com/christoomey/vim-tmux-navigator
+--
+
 return {
-    -- TMUX companion plugin:
-    -- https://github.com/christoomey/vim-tmux-navigator
     "christoomey/vim-tmux-navigator",
     cmd = {
         "TmuxNavigateLeft",

@@ -1,3 +1,7 @@
+--
+-- Incline is a plugin for creating lightweight floating statuslines
+--
+
 return {
     "b0o/incline.nvim",
     event = {

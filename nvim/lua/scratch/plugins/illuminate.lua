@@ -8,22 +8,6 @@ local toggle_illuminate = ToggleOption:new("<leader>oei", function(state)
     end
 end, "Illuminate", true)
 
---- disable illuminate on big files --------------------------------------------
-vim.api.nvim_create_autocmd("BufReadPost", {
-    pattern = { "*" },
-    callback = function()
-        local file = vim.fn.expand("%:p")
-        local ok, stats = pcall(vim.loop.fs_stat, file)
-
-        local max_size = 1024 * 100
-        if not ok or not stats or stats.size > max_size then
-            vim.cmd("IlluminatePauseBuf")
-        else
-            vim.cmd("IlluminateResumeBuf")
-        end
-    end,
-})
-
 return {
     "RRethy/vim-illuminate",
     event = {
@@ -62,6 +46,23 @@ return {
             desc = "Goto Prev Reference",
         },
     },
+    init = function()
+        -- disable illuminate on big files
+        vim.api.nvim_create_autocmd("BufReadPost", {
+            pattern = { "*" },
+            callback = function()
+                local file = vim.fn.expand("%:p")
+                local ok, stats = pcall(vim.loop.fs_stat, file)
+
+                local max_size = 1024 * 100
+                if not ok or not stats or stats.size > max_size then
+                    vim.cmd("IlluminatePauseBuf")
+                else
+                    vim.cmd("IlluminateResumeBuf")
+                end
+            end,
+        })
+    end,
     config = function()
         local illuminate = require("illuminate")
         illuminate.configure({

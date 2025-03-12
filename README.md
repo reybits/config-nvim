@@ -37,6 +37,7 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 - Code commenting via [Comment.nvim](https://github.com/numToStr/Comment.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
+- Optional folding via [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo).
 - Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvi).
 - Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
@@ -80,3 +81,14 @@ return {
 }
 ```
 
+### Folding related
+
+Here’s a detailed guide on enabling and extending folding with nvim-ufo in Neovim.
+
+```lua
+-- nvim/lua/scratch/custom/editor.lua
+
+return {
+    { "kevinhwang91/nvim-ufo", enabled = true },
+}
+```

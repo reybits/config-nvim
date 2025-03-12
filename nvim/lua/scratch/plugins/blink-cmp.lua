@@ -11,9 +11,6 @@ return {
         -- optional: provides snippets for the snippet source
         -- "rafamadriz/friendly-snippets",
 
-        -- "nvim-tree/nvim-web-devicons",
-        -- "onsails/lspkind.nvim",
-
         "xzbdmw/colorful-menu.nvim",
     },
 

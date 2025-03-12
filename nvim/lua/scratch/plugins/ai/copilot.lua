@@ -1,35 +1,30 @@
 return {
     "github/copilot.vim",
     enabled = false,
+    dependencies = {
+        "fang2hou/blink-copilot",
+    },
     cmd = {
         "Copilot",
     },
     event = {
-        "InsertEnter",
+        -- Only "BufWinEnter" is required for Copilot to work when using the blink-cmp plugin.
+        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
+        "BufWinEnter",
+        -- "InsertEnter",
     },
     init = function()
-        -- This functions intended to be used to stop/resume copilot when Typr is active
-        vim.api.nvim_create_autocmd("InsertEnter", {
-            pattern = "*",
-            callback = function()
-                -- print("Type: " .. vim.bo.filetype)
-                if vim.bo.filetype == "typr" then
-                    -- print(vim.inspect(args))
-                    vim.notify("Copilot disabled")
-                    vim.cmd("Copilot disable")
-                end
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("InsertLeave", {
-            pattern = "*",
-            callback = function()
-                -- print("Type: " .. vim.bo.filetype)
-                if vim.bo.filetype == "typr" then
-                    -- print(vim.inspect(args))
-                    vim.notify("Copilot enabled")
-                    vim.cmd("Copilot enable")
-                end
+        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
+        vim.g.copilot_no_maps = true
+    end,
+    config = function()
+        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
+        -- Block the normal Copilot suggestions
+        vim.api.nvim_create_augroup("github_copilot", { clear = true })
+        vim.api.nvim_create_autocmd({ "FileType", "BufUnload", "BufEnter" }, {
+            group = "github_copilot",
+            callback = function(args)
+                vim.fn["copilot#On" .. args.event]()
             end,
         })
     end,

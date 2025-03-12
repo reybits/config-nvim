@@ -73,11 +73,14 @@ By default, both Copilot and Codeium plugins are disabled. To enable them, creat
 -- nvim/lua/scratch/custom/AI.lua
 
 return {
-    -- enable Copilot
+    -- Enable Copilot with integration into the completion menu via blink-cmp
     { "github/copilot.vim", enabled = true },
 
-    -- or enable Codeium
-    { "Exafunction/codeium.nvim", enabled = true },
+    -- or enable Codeium with nvim-cmp support without the completion menu,
+    -- using mappings instead:
+    -- <tab> to accept suggestion
+    -- <a-e> to cycle through suggestions
+    { "monkoose/neocodeium", enabled = true },
 }
 ```
 

@@ -80,6 +80,7 @@ return {
             -- Display a preview of the selected item on the current line
             ghost_text = {
                 enabled = true,
+                -- show_with_menu = false, -- only show when menu is closed
             },
 
             accept = { auto_brackets = { enabled = false } },
@@ -120,10 +121,12 @@ return {
             },
             completion = {
                 menu = {
-                    auto_show = function()
+                    auto_show = function(ctx)
                         return vim.fn.getcmdtype() == ":"
-                        -- enable for inputs as well, with:
-                        -- or vim.fn.getcmdtype() == '@'
+                            -- enable for inputs as well, with:
+                            -- or vim.fn.getcmdtype() == '@'
+                            -- requires by "monkoose/neocodeium"
+                            or ctx.mode ~= "default"
                     end,
                 },
             },
@@ -142,7 +145,41 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
-            default = { "lsp", "path", "snippets", "buffer" },
+            -- Setup sources according to enabled AI related plugins
+            default = function()
+                local sources = { "lsp", "path", "snippets", "buffer" }
+
+                if package.loaded["copilot"] ~= nil then
+                    table.insert(sources, "copilot")
+                end
+
+                return sources
+            end,
+
+            providers = {
+                snippets = {
+                    -- Hide snippets after trigger character
+                    should_show_items = function(ctx)
+                        return ctx.trigger.initial_kind ~= "trigger_character"
+                    end,
+                },
+
+                copilot = {
+                    name = "copilot",
+                    module = "blink-copilot",
+                    score_offset = 100,
+                    async = true,
+                },
+
+                -- path = {
+                --     opts = {
+                --         -- Path completion from cwd instead of current buffer's directory
+                --         get_cwd = function(_)
+                --             return vim.fn.getcwd()
+                --         end,
+                --     },
+                -- },
+            },
         },
 
         -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance

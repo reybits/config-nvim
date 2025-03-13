@@ -8,6 +8,23 @@ return {
     build = "make tiktoken", -- only on MacOS or Linux
     cmd = {
         "CopilotChat",
+        "CopilotChatAgents",
+        "CopilotChatClose",
+        "CopilotChatCommit",
+        "CopilotChatDocs",
+        "CopilotChatExplain",
+        "CopilotChatFix",
+        "CopilotChatLoad",
+        "CopilotChatModels",
+        "CopilotChatOpen",
+        "CopilotChatOptimize",
+        "CopilotChatPrompts",
+        "CopilotChatReset",
+        "CopilotChatReview",
+        "CopilotChatSave",
+        "CopilotChatStop",
+        "CopilotChatTests",
+        "CopilotChatToggle",
     },
     opts = function()
         local user = vim.env.USER or "User"
@@ -22,7 +39,14 @@ return {
         }
     end,
     keys = {
-        { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
+        {
+            "<c-s>",
+            "<cr>",
+            ft = "copilot-chat",
+            desc = "Submit Prompt",
+            mode = { "n", "v" },
+            remap = true,
+        },
         {
             "<leader>aa",
             function()
@@ -42,18 +66,35 @@ return {
         {
             "<leader>aq",
             function()
-                local input = vim.fn.input("Quick Chat: ")
-                if input ~= "" then
-                    require("CopilotChat").ask(input)
-                end
+                vim.ui.input({ prompt = " Quick Chat: " }, function(input)
+                    if input ~= "" then
+                        require("CopilotChat").ask(input)
+                    end
+                end)
             end,
             desc = "Quick Copilot Chat",
             mode = { "n", "v" },
         },
+        {
+            "<leader>ac",
+            "<cmd>CopilotChatCommit<cr>",
+            desc = "Copilot Commit Message",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>af",
+            "<cmd>CopilotChatFix<cr>",
+            desc = "Copilot FixIt",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>ao",
+            "<cmd>CopilotChatOptimize<cr>",
+            desc = "Copilot OptimizeIt",
+            mode = { "n", "v" },
+        },
     },
     config = function(_, opts)
-        local chat = require("CopilotChat")
-
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "copilot-chat",
             callback = function()
@@ -62,6 +103,7 @@ return {
             end,
         })
 
+        local chat = require("CopilotChat")
         chat.setup(opts)
     end,
 }

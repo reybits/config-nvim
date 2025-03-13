@@ -149,7 +149,7 @@ return {
             default = function()
                 local sources = { "lsp", "path", "snippets", "buffer" }
 
-                if package.loaded["copilot"] ~= nil then
+                if package.loaded["_copilot"] ~= nil then
                     table.insert(sources, "copilot")
                 end
 
@@ -166,6 +166,9 @@ return {
 
                 copilot = {
                     name = "copilot",
+                    enabled = function()
+                        return package.loaded["_copilot"] ~= nil
+                    end,
                     module = "blink-copilot",
                     score_offset = 100,
                     async = true,

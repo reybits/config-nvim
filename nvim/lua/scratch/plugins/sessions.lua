@@ -7,9 +7,6 @@ end, "Session Save", true)
 return {
     "echasnovski/mini.sessions",
     version = false,
-    dependencies = {
-        "stevearc/dressing.nvim",
-    },
     cmd = {
         "SessionsList",
         "SessionRead",

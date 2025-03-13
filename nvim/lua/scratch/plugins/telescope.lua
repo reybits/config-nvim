@@ -125,11 +125,15 @@ return {
                 winblend = 20,
                 layout_strategy = "vertical",
                 layout_config = {
+                    width = 0.96,
+                    height = 0.96,
                     vertical = {
-                        width = 0.96,
-                        height = 0.96,
                         preview_cutoff = 25,
                         preview_height = 0.6,
+                    },
+                    horizontal = {
+                        preview_cutoff = 25,
+                        preview_width = 0.7,
                     },
                 },
                 path_display = { "truncate" },
@@ -221,6 +225,10 @@ return {
                 },
                 colorscheme = {
                     enable_preview = true,
+                },
+                lsp_document_symbols = {
+                    previewer = true,
+                    layout_strategy = "horizontal",
                 },
             },
             extensions = {

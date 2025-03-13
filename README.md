@@ -48,6 +48,21 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 
 To customize plugins, enable, or disable integration with other tools, inside the `nvim/lua/scratch/custom` directory, create a `plugin-name.lua` file with the plugin name and add custom settings.
 
+### Navigation related
+
+By default, Telescope is used as the navigation plugin, you can change this by creating a `fuzzy.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/fuzzy.lua
+
+return {
+    -- Enable Fzf-lua
+    { "ibhagwan/fzf-lua", enabled = true },
+
+    -- Disable Telescope
+    { "nvim-telescope/telescope.nvim", enabled = false },
+```
+
 ### Git related
 
 By default, Neogit is used as the Git plugin. However, you can change this by creating a `git.lua` file with the following content:

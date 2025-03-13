@@ -107,7 +107,8 @@ function ToggleOption:setState(state, notify)
 
     -- Display a notification about the state change.
     local msg = state and (self.title .. " Enabled") or (self.title .. " Disabled")
-    vim.notify(msg)
+    ---@diagnostic disable-next-line: missing-fields
+    vim.notify(msg, nil, { key = self.title })
 end
 
 --- Gets the key mapping.

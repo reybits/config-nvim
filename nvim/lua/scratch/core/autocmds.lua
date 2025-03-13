@@ -84,7 +84,8 @@ local function createBufNameFunction()
         if bufname ~= "" and lastBufName ~= bufname then
             lastBufName = bufname
             local relname = vim.fn.fnamemodify(bufname, ":.")
-            vim.notify("Switched to: " .. relname)
+            ---@diagnostic disable-next-line: missing-fields
+            vim.notify(relname, nil, { key = "file_switch", annote = "󰈔" })
         end
     end
 end

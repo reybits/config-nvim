@@ -1,12 +1,14 @@
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
-    lazy = true,
+    event = "VeryLazy",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
-        -- "folke/trouble.nvim",
+
+        "nvim-telescope/telescope-ui-select.nvim",
+
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
@@ -232,6 +234,14 @@ return {
                 },
             },
             extensions = {
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown({}),
+
+                    -- pseudo code / specification for writing custom displays,
+                    -- like the one for "codeactions" available on site:
+                    -- https://github.com/nvim-telescope/telescope-ui-select.nvim?tab=readme-ov-file#telescope-setup-and-configuration
+                },
+
                 -- stylua: ignore
                 fzf = {
                     fuzzy = true,                   -- false will only do exact matching
@@ -241,6 +251,9 @@ return {
                 },
             },
         })
+
+        -- set telescope as ui-select's default picker
+        telescope.load_extension("ui-select")
 
         telescope.load_extension("fzf")
     end,

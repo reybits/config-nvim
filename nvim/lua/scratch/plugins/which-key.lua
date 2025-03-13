@@ -14,6 +14,9 @@ return {
         },
     },
     opts = {
+        ---@type false | "classic" | "modern" | "helix"
+        preset = "helix",
+
         -- Delay before showing the popup.
         delay = function(ctx)
             return ctx.plugin and 0 or 500

@@ -24,7 +24,7 @@ return {
         spec = {
             mode = { "n", "v" },
 
-            { " ", group = "Essential" },
+            { "<leader>", group = "󰯉" },
             { "<leader>a", group = "AI" },
             { "<leader>b", group = "Buffer" },
             { "<leader>c", group = "Code" },
@@ -41,9 +41,13 @@ return {
             { "<leader>t", group = "Tools" },
             { "<leader>w", group = "Window" },
             { "<leader>x", group = "Diagnostics" },
+
+            { "`", group = "Marks" },
+            { "'", group = "Marks" },
+            { '"', group = "Registers" },
+            { "<c-w>", group = "Window" },
             { "g", group = "Goto" },
             { "z", group = "Folding" },
-
             { "[", group = "Jump Prev" },
             { "]", group = "Jump Next" },
         },
@@ -51,12 +55,18 @@ return {
             mappings = true,
             group = "", -- " ",
             rules = {
+                { pattern = "󰯉", icon = "󱁐", color = "cyan" },
                 { pattern = "code", icon = "󰅩", color = "cyan" },
-                { pattern = "options", icon = "", color = "cyan" },
-                { pattern = "tools", icon = "", color = "cyan" },
-                { pattern = "run", icon = "", color = "cyan" },
-                { pattern = "lazygit", icon = "", color = "orange" },
+                { pattern = "folding", icon = "", color = "cyan" },
                 { pattern = "git", icon = "", color = "orange" },
+                { pattern = "goto", icon = "󱣱", color = "cyan" },
+                { pattern = "jump next", icon = "󰮺", color = "cyan" },
+                { pattern = "jump prev", icon = "󰮹", color = "cyan" },
+                { pattern = "lazygit", icon = "", color = "orange" },
+                { pattern = "marks", icon = "󰍕", color = "cyan" },
+                { pattern = "options", icon = "", color = "cyan" },
+                { pattern = "run", icon = "", color = "cyan" },
+                { pattern = "tools", icon = "", color = "cyan" },
             },
         },
         win = {

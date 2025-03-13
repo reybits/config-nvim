@@ -99,7 +99,10 @@ return {
         { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Search Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Search Keymaps" },
 
-        { "<leader>cs", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Show Document Symbols" },
+        { "<leader>cs", function()
+                require('fzf-lua').lsp_document_symbols({
+                    winopts = { preview = { layout = "horizontal" } } })
+            end, desc = "Show Document Symbols" },
         { "<leader>ci", "<cmd>FzfLua lsp_incoming_calls<cr>",  desc = "Show Incoming Calls" },
         { "<leader>cr", "<cmd>FzfLua lsp_references<cr>", desc = "Show References" },
         { "<leader>cd", "<cmd>FzfLua diagnostics_document<cr>", desc = "Show Diagnostics" },

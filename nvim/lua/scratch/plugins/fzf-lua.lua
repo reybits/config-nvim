@@ -28,6 +28,7 @@ local isResumeEnabled = createResume()
 return {
     "ibhagwan/fzf-lua",
     enabled = false,
+    event = "VeryLazy",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
@@ -110,6 +111,15 @@ return {
     config = function()
         local fzflua = require("fzf-lua")
         local actions = fzflua.actions
+
+        fzflua.register_ui_select({
+            winopts = {
+                height = 0.5,
+                width = 0.5,
+                row = 0.5,
+                col = 0.5,
+            },
+        })
 
         -- Dashboard commands support
         vim.api.nvim_create_user_command("DashFiles", function(opts)

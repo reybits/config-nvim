@@ -31,6 +31,7 @@ git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
 - Blind typing trainer via [typr](https://github.com/nvzone/typ).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp) ~~[nvim-cmp](https://github.com/hrsh7th/nvim-cmp)~~.
+- Code debugging via [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap) and [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) with fzf or [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Buffer bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit) or [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim) and [vim-fugitive](https://github.com/tpope/vim-fugitive).
@@ -55,10 +56,19 @@ By default, Neogit is used as the Git plugin. However, you can change this by cr
 -- nvim/lua/scratch/custom/git.lua
 
 return {
-    -- disable neogit
+    -- Disable Neogit, an interactive and powerful Git interface for Neovim inspired by Magit
     { "NeogitOrg/neogit", enabled = false },
 
-    -- enable vim-fugitive and it's companion
+    -- Enable LazyGit, a plugin for launching LazyGit from within Neovim
+    { "kdheepak/lazygit.nvim", enabled = true },
+
+    -- Enable GitLinker, a plugin for generating shareable file permalinks
+    { "ruifm/gitlinker.nvim", enabled = true },
+
+    -- Enable GitLinker, a plugin for visualizing and resolving merge conflicts
+    { "akinsho/git-conflict.nvim", enabled = true },
+
+    -- Enable vim-fugitive and its companion plugin
     { "tpope/vim-fugitive",enabled = true },
     { "tpope/vim-rhubarb",enabled = true },
     { "rbong/vim-flog",enabled = true },

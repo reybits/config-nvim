@@ -11,13 +11,19 @@ return {
         "GitConflictListQf",
     },
     keys = {
-        { "co", "<plug>(git-conflict-ours)", desc = "Choose Ours" },
-        { "ct", "<plug>(git-conflict-theirs)", desc = "Choose Theirs" },
-        { "cb", "<plug>(git-conflict-both)", desc = "Choose Both" },
-        { "c0", "<plug>(git-conflict-none)", desc = "Choose None" },
+        { "<leader>gco", "<plug>(git-conflict-ours)", desc = "Choose Ours" },
+        { "<leader>gct", "<plug>(git-conflict-theirs)", desc = "Choose Theirs" },
+        { "<leader>gcb", "<plug>(git-conflict-both)", desc = "Choose Both" },
+        { "<leader>gc0", "<plug>(git-conflict-none)", desc = "Choose None" },
         { "[x", "<plug>(git-conflict-prev-conflict)", desc = "Goto Previous Conflict" },
         { "]x", "<plug>(git-conflict-next-conflict)", desc = "Goto Next Conflict" },
     },
+    init = function()
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>gc", group = "Conflict", icon = "" },
+        })
+    end,
     opts = {
         default_mappings = false,
         default_commands = true,

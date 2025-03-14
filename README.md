@@ -34,7 +34,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Code debugging via [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap) and [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) with fzf or [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Buffer bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
-- Git integration via [neogit](https://github.com/NeogitOrg/neogit) or [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim) and [vim-fugitive](https://github.com/tpope/vim-fugitive).
+- Git integration via [neogit](https://github.com/NeogitOrg/neogit) and [vim-fugitive](https://github.com/tpope/vim-fugitive) or [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Code commenting via [Comment.nvim](https://github.com/numToStr/Comment.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
@@ -65,28 +65,21 @@ return {
 
 ### Git related
 
-By default, Neogit is used as the Git plugin. However, you can change this by creating a `git.lua` file with the following content:
+By default, Neogit and vim-fugitive is used as the Git plugin. However, you can change this by creating a `git.lua` file with the following content:
 
 ```lua
 -- nvim/lua/scratch/custom/git.lua
 
 return {
-    -- Disable Neogit, an interactive and powerful Git interface for Neovim inspired by Magit
-    { "NeogitOrg/neogit", enabled = false },
-
-    -- Enable LazyGit, a plugin for launching LazyGit from within Neovim
+    -- Enable LazyGit instead of Neogit and vim-fugitive
     { "kdheepak/lazygit.nvim", enabled = true },
+    { "NeogitOrg/neogit", enabled = false },
+    { "tpope/vim-fugitive", enabled = false },
 
-    -- Enable GitLinker, a plugin for generating shareable file permalinks
-    { "ruifm/gitlinker.nvim", enabled = true },
-
-    -- Enable GitLinker, a plugin for visualizing and resolving merge conflicts
-    { "akinsho/git-conflict.nvim", enabled = true },
-
-    -- Enable vim-fugitive and its companion plugin
-    { "tpope/vim-fugitive",enabled = true },
-    { "tpope/vim-rhubarb",enabled = true },
-    { "rbong/vim-flog",enabled = true },
+    -- Disable neogit and enable vim-fugitive and its companion plugin
+    { "NeogitOrg/neogit", enabled = false },
+    { "tpope/vim-rhubarb", enabled = true },
+    { "rbong/vim-flog", enabled = true },
 }
 ```
 
@@ -98,6 +91,9 @@ By default, both Copilot and Codeium plugins are disabled. To enable them, creat
 -- nvim/lua/scratch/custom/AI.lua
 
 return {
+    -- Enable Copilot Chat
+    { "CopilotC-Nvim/CopilotChat.nvim", enabled = true },
+
     -- Enable Copilot with integration into the completion menu via blink-cmp
     { "github/copilot.vim", enabled = true },
 

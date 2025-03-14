@@ -3,7 +3,7 @@
 --
 -- Author: Andrey Ugolnik
 -- License: MIT
--- GitHub: https://github.com/andreyugolnik/
+-- GitHub: https://github.com/reybits/
 --
 -- Description:
 -- This module provides a simple way to define toggleable options with key

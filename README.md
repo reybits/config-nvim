@@ -1,23 +1,23 @@
 # Nvim from Scratch
 
-[![Plugins](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/plugins?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
-[![leaderkey](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/leaderkey?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
-[![plugin-manager](https://dotfyle.com/andreyugolnik/config-nvim-nvim/badges/plugin-manager?style=flat)](https://dotfyle.com/andreyugolnik/config-nvim-nvim)
+[![Plugins](https://dotfyle.com/reybits/config-nvim-nvim/badges/plugins?style=flat)](https://dotfyle.com/reybits/config-nvim-nvim)
+[![leaderkey](https://dotfyle.com/reybits/config-nvim-nvim/badges/leaderkey?style=flat)](https://dotfyle.com/reybits/config-nvim-nvim)
+[![plugin-manager](https://dotfyle.com/reybits/config-nvim-nvim/badges/plugin-manager?style=flat)](https://dotfyle.com/reybits/config-nvim-nvim)
 
 This repository contains my custom Neovim configuration for Linux, macOS, and potentially Windows. The setup is built from scratch and includes only the plugins I actively use in my workflow. I primarily use Neovim as a C++ IDE for cross-platform game development.
 
-For the best experience, use it alongside my [config-tmux](https://github.com/andreyugolnik/config-tmux.git) repository.
+For the best experience, use it alongside my [config-tmux](https://github.com/reybits/config-tmux.git) repository.
 
 Kanagawa theme:
-![kanagawa theme](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-kanagawa.png?raw=true)
+![kanagawa theme](https://github.com/reybits/config-nvim/blob/master/nvim-kanagawa.png?raw=true)
 
 Nightfox theme:
-![nightfox theme](https://github.com/andreyugolnik/config-nvim/blob/master/nvim-nightfox.png?raw=true)
+![nightfox theme](https://github.com/reybits/config-nvim/blob/master/nvim-nightfox.png?raw=true)
 
 ## Install
 
 ```sh
-git clone https://github.com/andreyugolnik/config-nvim.git ~/.config/nvim
+git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 ```
 
 ## Features

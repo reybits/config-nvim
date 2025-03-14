@@ -7,7 +7,6 @@ return {
     dependencies = {
         -- "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
-        -- "hrsh7th/cmp-nvim-lsp",
         "saghen/blink.cmp",
 
         -- Additional lua configuration, makes nvim stuff amazing!
@@ -121,8 +120,10 @@ return {
         -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
         -- local capabilities = cmp_nvim_lsp.default_capabilities()
         -- capabilities.offsetEncoding = { "utf-16" }
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
-        capabilities.offsetEncoding = { "utf-16" }
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
+        capabilities = vim.tbl_deep_extend("force", capabilities, blink_capabilities)
+        capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } })
 
         local mason_lspconfig = require("mason-lspconfig")
         mason_lspconfig.setup_handlers({

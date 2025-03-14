@@ -93,7 +93,7 @@ return {
                     show_line = true
                 })
             end, desc = "Show References" },
-        { "<leader>cd", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
+        { "<leader>cD", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
     },
     config = function()
         local telescope = require("telescope")

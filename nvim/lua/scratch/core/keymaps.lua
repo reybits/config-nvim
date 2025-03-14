@@ -121,8 +121,8 @@ map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", desc("Arrow Key Disabled"))
 map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", desc("Arrow Key Disabled"))
 
--- diagnostics
-map("n", "<leader>cD", function()
+-- show diagnostics in the floating window
+map("n", "<leader>cd", function()
     local float_bufnr, _ = vim.diagnostic.open_float({ scope = "line", border = "rounded" })
     if float_bufnr == nil then
         vim.notify("No diagnostics found")

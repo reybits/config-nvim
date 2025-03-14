@@ -2,7 +2,6 @@ return {
     -- best git wrapper for vim
     {
         "tpope/vim-fugitive",
-        enabled = false,
         cmd = {
             "G",
             "Git",

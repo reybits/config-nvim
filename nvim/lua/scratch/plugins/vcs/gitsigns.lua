@@ -1,6 +1,9 @@
 return {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = {
+        "BufReadPre",
+        "BufNewFile",
+    },
     opts = {
         current_line_blame_opts = {
             virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'

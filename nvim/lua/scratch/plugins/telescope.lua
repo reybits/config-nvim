@@ -1,7 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
-    event = "VeryLazy",
+    event = "BufRead",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
@@ -19,6 +19,7 @@ return {
         "DashFiles",
         "DashRecent",
         "DashGrep",
+        "UiHandleSelect",
     },
     -- stylua: ignore
     keys = {
@@ -252,8 +253,21 @@ return {
             },
         })
 
+        local is_ui_select_registered = false
+        local function register_ui_select()
+            if is_ui_select_registered == false then
+                is_ui_select_registered = true
+                telescope.load_extension("ui-select")
+            end
+        end
+
+        -- Create command to register vim.ui.select handler
+        vim.api.nvim_create_user_command("UiHandleSelect", function()
+            register_ui_select()
+        end, {})
+
         -- set telescope as ui-select's default picker
-        telescope.load_extension("ui-select")
+        register_ui_select()
 
         telescope.load_extension("fzf")
     end,

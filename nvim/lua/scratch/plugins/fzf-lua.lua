@@ -28,7 +28,7 @@ local isResumeEnabled = createResume()
 return {
     "ibhagwan/fzf-lua",
     enabled = false,
-    event = "VeryLazy",
+    event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
@@ -38,6 +38,7 @@ return {
         "DashFiles",
         "DashRecent",
         "DashGrep",
+        "UiHandleSelect",
     },
     -- stylua: ignore
     keys = {
@@ -111,15 +112,6 @@ return {
     config = function()
         local fzflua = require("fzf-lua")
         local actions = fzflua.actions
-
-        fzflua.register_ui_select({
-            winopts = {
-                height = 0.5,
-                width = 0.5,
-                row = 0.5,
-                col = 0.5,
-            },
-        })
 
         -- Dashboard commands support
         vim.api.nvim_create_user_command("DashFiles", function(opts)
@@ -204,5 +196,27 @@ return {
                 ["--layout"] = "default",
             },
         })
+
+        local is_ui_select_registered = false
+        local function register_ui_select()
+            if is_ui_select_registered == false then
+                is_ui_select_registered = true
+                require("fzf-lua").register_ui_select({
+                    winopts = {
+                        height = 0.5,
+                        width = 0.5,
+                        row = 0.5,
+                        col = 0.5,
+                    },
+                })
+            end
+        end
+
+        register_ui_select()
+
+        -- Create command to register vim.ui.select handler
+        vim.api.nvim_create_user_command("UiHandleSelect", function()
+            register_ui_select()
+        end, {})
     end,
 }

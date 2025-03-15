@@ -33,6 +33,9 @@ return {
         -- stylua: ignore
         vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
+        -- force setup vim.ui.select handler
+        vim.cmd("UiHandleSelect")
+
         vim.api.nvim_create_user_command("SessionsList", function()
             session.select()
         end, {

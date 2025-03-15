@@ -25,7 +25,7 @@ return {
                 render_message = function(msg, cnt)
                     local message = cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
                     if toggle_truncte:getState() then
-                        local width = math.floor(vim.api.nvim_win_get_width(0) / 3)
+                        local width = math.floor(vim.api.nvim_win_get_width(0) / 2)
                         return require("scratch.core.helpers").truncate(message, width)
                     end
                     return message

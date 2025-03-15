@@ -9,8 +9,6 @@ return {
         "williamboman/mason.nvim",
         "saghen/blink.cmp",
 
-        -- Additional lua configuration, makes nvim stuff amazing!
-        { "folke/neodev.nvim", opts = {} },
         -- { "antosha417/nvim-lsp-file-operations", config = true },
     },
     config = function()

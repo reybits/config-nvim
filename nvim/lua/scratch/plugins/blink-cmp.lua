@@ -12,6 +12,18 @@ return {
         -- "rafamadriz/friendly-snippets",
 
         "xzbdmw/colorful-menu.nvim",
+
+        {
+            "folke/lazydev.nvim",
+            ft = "lua", -- only load on lua files
+            opts = {
+                library = {
+                    -- See the configuration section for more details
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            },
+        },
     },
 
     event = {
@@ -147,7 +159,7 @@ return {
         sources = {
             -- Setup sources according to enabled AI related plugins
             default = function()
-                local sources = { "lsp", "path", "snippets", "buffer" }
+                local sources = { "lazydev", "lsp", "path", "snippets", "buffer" }
 
                 if package.loaded["_copilot"] ~= nil then
                     table.insert(sources, "copilot")
@@ -172,6 +184,13 @@ return {
                     module = "blink-copilot",
                     score_offset = 100,
                     async = true,
+                },
+
+                lazydev = {
+                    name = "LazyDev",
+                    module = "lazydev.integrations.blink",
+                    -- make lazydev completions top priority (see `:h blink.cmp`)
+                    score_offset = 100,
                 },
 
                 -- path = {

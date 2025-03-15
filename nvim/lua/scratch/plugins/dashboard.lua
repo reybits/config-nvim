@@ -13,7 +13,7 @@ return {
                     enable = true,
                 },
                 project = {
-                    -- enable = false,
+                    enable = false,
                     limit = 5,
                     icon = " ",
                     label = "Browse Files in Directory",

@@ -8,8 +8,7 @@ This repository contains my custom Neovim configuration for Linux, macOS, and po
 
 For the best experience, use it alongside my [config-tmux](https://github.com/reybits/config-tmux.git) repository.
 
-Kanagawa theme:
-![kanagawa theme](https://github.com/reybits/config-nvim/blob/master/nvim-kanagawa.png?raw=true)
+![blink-cmp](https://private-user-images.githubusercontent.com/1927370/423180406-1d7be7dc-d8b4-4207-8f87-2e33c22b9e36.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDIwOTMyMTAsIm5iZiI6MTc0MjA5MjkxMCwicGF0aCI6Ii8xOTI3MzcwLzQyMzE4MDQwNi0xZDdiZTdkYy1kOGI0LTQyMDctOGY4Ny0yZTMzYzIyYjllMzYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MDMxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTAzMTZUMDI0MTUwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MDgwZmQxN2I3YjE0ZTJjYjYzYTU3YmE2MTM2YmVjMmFhOTg3YWEzYmNkYWZlNTdlM2ZlN2JiN2MyODBmNmVjNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.RxLBfqZA2EewZJgme6Ogc_akcnyXGG9G4QyP1RwC3E8)
 
 ## Install
 
@@ -19,7 +18,10 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 
 ### Dependencies
 
-- Image preview via [viu](https://github.com/atanunq/viu).
+- [fzf](https://github.com/junegunn/fzf): a command-line fuzzy finder.
+- [viu](https://github.com/atanunq/viu): a terminal image viewer with native support for iTerm and Kitty.
+- [fd](https://github.com/sharkdp/fd): a better version of the find utility.
+- [ripgrep(rg)](https://github.com/BurntSushi/ripgrep): a better version of the grep utility.
 
 ## Features
 
@@ -65,6 +67,8 @@ To customize plugins, enable, or disable integration with other tools, inside th
 
 ### Navigation related
 
+![fzf-lua](https://private-user-images.githubusercontent.com/1927370/423180411-b075a508-b0d1-4fc4-b3ee-2686fb94d756.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDIwOTMyMTAsIm5iZiI6MTc0MjA5MjkxMCwicGF0aCI6Ii8xOTI3MzcwLzQyMzE4MDQxMS1iMDc1YTUwOC1iMGQxLTRmYzQtYjNlZS0yNjg2ZmI5NGQ3NTYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MDMxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTAzMTZUMDI0MTUwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YThjNDgyZmQwZjBhNzU3YTA3YTZiYmRjODM2MmQ0NjE0YWQwMTk3MTc5OTU1MWRhMmU0NjIyZTgxNTBlOTU0NCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.QVwGyXOa4Z1YE_Idy6RcQj6aa3gqWuIcucOffZGc4QI)
+
 By default, fzf-lua is used as the navigation plugin, you can change this by creating a `telescope.lua` file with the following content:
 
 ```lua
@@ -77,6 +81,8 @@ return {
 ```
 
 ### Git related
+
+![neogit](https://private-user-images.githubusercontent.com/1927370/423180408-b1860e9e-d4f0-44ff-96d7-57687dcf3c54.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDIwOTMyMTAsIm5iZiI6MTc0MjA5MjkxMCwicGF0aCI6Ii8xOTI3MzcwLzQyMzE4MDQwOC1iMTg2MGU5ZS1kNGYwLTQ0ZmYtOTZkNy01NzY4N2RjZjNjNTQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MDMxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTAzMTZUMDI0MTUwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9OGRhYTI3MzY5OGVjNDgwMWIxZTkwODRiNDYyNzljMzM0NGEzNzNlNzk0N2FkYWM2Njg1MGNhYWRiOGVkNDE0NyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.2-RHIaPnxXK6j7xrtk61o4W5lv6RD8QvGiDjeVMqC0k)
 
 By default, Neogit and vim-fugitive is used as the Git plugin.
 
@@ -125,6 +131,8 @@ return {
 
 #### Copilot
 
+![copilot chat](https://private-user-images.githubusercontent.com/1927370/423180412-bbfb6ab6-2f88-4ffe-a7a1-8cd8a39a42a5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDIwOTM0NTksIm5iZiI6MTc0MjA5MzE1OSwicGF0aCI6Ii8xOTI3MzcwLzQyMzE4MDQxMi1iYmZiNmFiNi0yZjg4LTRmZmUtYTdhMS04Y2Q4YTM5YTQyYTUucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI1MDMxNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNTAzMTZUMDI0NTU5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjI4MGEzMjViZmVlNjdlMTgwNTJkZTRiZTdlMzAwN2E4MWMxMTBlZTEzODAxZTU4Y2U4MDY1NzU4MTA2ZmJlZiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QifQ.xByWApW7lIog-mBYKkDH0OdXBhhJMQcyI8hmiyTTPJM)
+
 Both Copilot and CopilotChat plugins are enabled by defautl. Copilot integrated into the completion menu via blink-cmp.
 
 You can disable Copilot by creating a `copilot.lua` file with the following content:
@@ -168,3 +176,7 @@ return {
     require("scratch.custom.optional.nvim-ufo"),
 }
 ```
+
+## Useful links
+
+- [fzf-lua wiki](https://github.com/ibhagwan/fzf-lua/wiki).

@@ -27,7 +27,6 @@ local isResumeEnabled = createResume()
 
 return {
     "ibhagwan/fzf-lua",
-    enabled = false,
     event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",

@@ -25,6 +25,7 @@ require("lazy").setup({
     { import = "scratch.plugins.ai" },
     { import = "scratch.plugins.dap" },
     { import = "scratch.plugins.lsp" },
+    { import = "scratch.plugins.ui" },
     { import = "scratch.plugins.vcs" },
     { import = "scratch.custom" },
 }, {

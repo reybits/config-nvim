@@ -1,6 +1,5 @@
 return {
     "github/copilot.vim",
-    enabled = false,
     dependencies = {
         "fang2hou/blink-copilot",
     },

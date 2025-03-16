@@ -1,6 +1,5 @@
 return {
     "kdheepak/lazygit.nvim",
-    enabled = false,
     lazy = true,
     dependencies = {
         "nvim-lua/plenary.nvim", -- optional for floating window border decoration

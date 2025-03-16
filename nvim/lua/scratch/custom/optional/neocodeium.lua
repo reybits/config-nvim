@@ -1,7 +1,6 @@
 return {
     -- Alternative version of codeium with blink.cmp support
     "monkoose/neocodeium",
-    enabled = false,
     event = {
         "InsertEnter",
     },

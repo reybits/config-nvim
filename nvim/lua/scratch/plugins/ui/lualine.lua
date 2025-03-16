@@ -143,6 +143,7 @@ return {
                     "NvimTree",
                     "TelescopePrompt",
                     "dashboard",
+                    "neo-tree",
                     "starter",
                     "trouble",
                 },

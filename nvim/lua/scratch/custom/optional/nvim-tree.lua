@@ -19,8 +19,12 @@ return {
         vim.g.loaded_netrwPlugin = 1
 
         nvimtree.setup({
+            sort = {
+                sorter = "name",
+            },
             view = {
                 width = 40,
+                preserve_window_proportions = true,
             },
             renderer = {
                 indent_markers = {

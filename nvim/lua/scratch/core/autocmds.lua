@@ -71,6 +71,7 @@ local function createBufNameFunction()
             "fugitive",
             "git",
             "help",
+            "neo-tree",
         }
         local filetype = vim.bo[event.buf].filetype
         for _, name in ipairs(list) do

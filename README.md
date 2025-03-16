@@ -10,20 +10,20 @@ For the best experience, use it alongside my [config-tmux](https://github.com/re
 
 ![blink-cmp](https://github.com/user-attachments/assets/1d7be7dc-d8b4-4207-8f87-2e33c22b9e36)
 
-## Install
+## 📦 Install
 
 ```sh
 git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 ```
 
-### Dependencies
+## ⚡️ Requirements
 
 - [fzf](https://github.com/junegunn/fzf): a command-line fuzzy finder.
 - [viu](https://github.com/atanunq/viu): a terminal image viewer with native support for iTerm and Kitty.
 - [fd](https://github.com/sharkdp/fd): a better version of the find utility.
 - [ripgrep(rg)](https://github.com/BurntSushi/ripgrep): a better version of the grep utility.
 
-## Features
+## ✨ Features
 
 ### Enabled by default
 
@@ -61,7 +61,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Colorscheme Nightfox [nightfox.nvim](https://github.com/EdenEast/nightfox.nvim).
 - Folding nvim-ufo [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo).
 
-## Customize
+## ⚙️ Customization
 
 To customize plugins, enable, or disable integration with other tools, inside the `nvim/lua/scratch/custom` directory, create a `plugin-name.lua` file with the plugin name and add custom settings.
 
@@ -177,6 +177,7 @@ return {
 }
 ```
 
-## Useful links
+## 🚀 Useful links
 
 - [fzf-lua wiki](https://github.com/ibhagwan/fzf-lua/wiki).
+- [lazydev.nvim](https://github.com/folke/lazydev.nvim).

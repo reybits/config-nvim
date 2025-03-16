@@ -124,6 +124,17 @@ return {
             end,
         })
 
+        -- Close a window on WinLeave event
+        vim.api.nvim_create_autocmd("WinLeave", {
+            pattern = "copilot-chat",
+            callback = function()
+                local win = vim.api.nvim_get_current_win()
+                if vim.api.nvim_win_get_config(win).relative ~= "" then
+                    vim.api.nvim_win_close(win, true)
+                end
+            end,
+        })
+
         local chat = require("CopilotChat")
         chat.setup(opts)
     end,

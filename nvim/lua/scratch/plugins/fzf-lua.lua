@@ -83,9 +83,9 @@ return {
 
         { "<leader>/", "<cmd>FzfLua grep_curbuf<cr>", desc = "Fuzzy Search Buffer" },
 
-        { "<leader>sg", "<cmd>FzfLua grep_project<cr>", desc = "Live Grep" },
+        { "<leader>sg", "<cmd>FzfLua live_grep_native<cr>", desc = "Live Grep" },
         { "<leader>sG", function ()
-                require('fzf-lua').grep_project({ cwd = vim.fn.expand('%:h') })
+                require('fzf-lua').live_grep_native({ cwd = vim.fn.expand('%:h') })
             end, desc = "Live Grep (cwd)" },
 
         { "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep String" },

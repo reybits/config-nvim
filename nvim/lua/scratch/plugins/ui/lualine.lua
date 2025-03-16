@@ -173,7 +173,7 @@ return {
                             if not_diff_cond() then
                                 return str
                             end
-                            return "*diff (close with gq)*"
+                            return "*diff (close with 'q')*"
                         end,
                     },
                     --[[

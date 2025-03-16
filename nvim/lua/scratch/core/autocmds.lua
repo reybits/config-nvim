@@ -104,8 +104,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = { "*" },
     callback = function(event)
         if vim.bo[event.buf].buftype == "acwrite" then
-            vim.api.nvim_buf_set_option(0, "modifiable", false)
-            vim.keymap.set("n", "gq", "<cmd>close<cr>", { buffer = event.buf })
+            vim.api.nvim_set_option_value("modifiable", false, { buf = event.buf })
+            vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf })
         end
     end,
 })

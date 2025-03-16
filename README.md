@@ -32,7 +32,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Startup screen via [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim).
 - Sessions support via [mini.sessions](https://github.com/echasnovski/mini.sessions).
 - Colorscheme via [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim).
-- Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvi).
+- Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), and [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
@@ -44,7 +44,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - TMUX support via [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator).
 - Improved quickfix UI via [quicker.nvim](https://github.com/stevearc/quicker.nvim).
 - Fast navigation, lookup, and more via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
-- Buffer navigation via [flush.nvim](https://github.com/folke/flush.nvim).
+- Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
 - Bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).

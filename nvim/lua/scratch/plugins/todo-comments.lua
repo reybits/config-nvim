@@ -7,6 +7,9 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
+    cmd = {
+        "TodoFzfLua",
+    },
     keys = {
         {
             "]t",

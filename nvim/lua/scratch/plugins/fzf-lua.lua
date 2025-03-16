@@ -30,7 +30,6 @@ return {
     event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "folke/todo-comments.nvim",
     },
     cmd = {
         "FzfLua",

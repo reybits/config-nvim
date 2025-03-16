@@ -192,6 +192,7 @@ return {
             },
             fzf_opts = {
                 ["--layout"] = "default",
+                ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
             },
             previewers = {
                 builtin = {

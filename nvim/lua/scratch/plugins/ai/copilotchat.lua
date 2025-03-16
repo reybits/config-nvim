@@ -25,18 +25,6 @@ return {
         "CopilotChatTests",
         "CopilotChatToggle",
     },
-    opts = function()
-        local user = vim.env.USER or "User"
-        user = user:sub(1, 1):upper() .. user:sub(2)
-        return {
-            auto_insert_mode = true,
-            question_header = "  " .. user .. " ",
-            answer_header = "  Copilot ",
-            window = {
-                width = 0.4,
-            },
-        }
-    end,
     keys = {
         {
             "<c-s>",
@@ -81,18 +69,52 @@ return {
             mode = { "n", "v" },
         },
         {
+            "<leader>ar",
+            "<cmd>CopilotChatReview<cr>",
+            desc = "Copilot Review",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>ae",
+            "<cmd>CopilotChatExplain<cr>",
+            desc = "Copilot Explain",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>ad",
+            "<cmd>CopilotChatDocs<cr>",
+            desc = "Copilot Docs",
+            mode = { "n", "v" },
+        },
+        {
             "<leader>af",
             "<cmd>CopilotChatFix<cr>",
-            desc = "Copilot FixIt",
+            desc = "Copilot Fix",
             mode = { "n", "v" },
         },
         {
             "<leader>ao",
             "<cmd>CopilotChatOptimize<cr>",
-            desc = "Copilot OptimizeIt",
+            desc = "Copilot Optimize",
             mode = { "n", "v" },
         },
     },
+    opts = function()
+        local user = vim.env.USER or "User"
+        user = user:sub(1, 1):upper() .. user:sub(2)
+        return {
+            -- auto_insert_mode = true,
+            question_header = "  " .. user .. " ",
+            answer_header = "  Copilot ",
+            window = {
+                layout = "float", -- 'vertical', 'horizontal', 'float', 'replace'
+                width = 0.6,
+                height = 0.8,
+                border = "rounded", -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+                title = " Copilot Chat ", -- title of chat window
+            },
+        }
+    end,
     config = function(_, opts)
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "copilot-chat",

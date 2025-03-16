@@ -17,6 +17,10 @@ Kanagawa theme:
 git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 ```
 
+### Dependencies
+
+- Image preview via [viu](https://github.com/atanunq/viu).
+
 ## Features
 
 ### Enabled by default

@@ -219,14 +219,23 @@ return {
         local function register_ui_select()
             if is_ui_select_registered == false then
                 is_ui_select_registered = true
-                require("fzf-lua").register_ui_select({
-                    winopts = {
-                        height = 0.5,
-                        width = 0.5,
-                        row = 0.5,
-                        col = 0.5,
-                    },
-                })
+                require("fzf-lua").register_ui_select(function(_, items)
+                    -- Automatic sizing of height of vim.ui.select
+                    local min_h, max_h = 0.15, 0.70
+                    local h = (#items + 4) / vim.o.lines
+                    if h < min_h then
+                        h = min_h
+                    elseif h > max_h then
+                        h = max_h
+                    end
+                    return {
+                        winopts = {
+                            height = h,
+                            width = 0.6,
+                            row = 0.5,
+                        },
+                    }
+                end)
             end
         end
 

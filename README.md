@@ -34,7 +34,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Colorscheme via [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim).
 - Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), and [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim).
-- File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
+- File tree explorer via [oil.nvim](https://github.com/stevearc/oil.nvim).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
 - Code debugging via [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap) and [rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
@@ -56,6 +56,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 
 - Telescope [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
+- File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
 - LazyGit [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Octo [octo.nvim](https://github.com/pwntester/octo.nvim).
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).
@@ -70,7 +71,7 @@ To customize plugins, enable, or disable integration with other tools, inside th
 
 ![fzf-lua](https://github.com/user-attachments/assets/b075a508-b0d1-4fc4-b3ee-2686fb94d756)
 
-By default, fzf-lua and neo-tree used as the navigation plugins.
+By default, fzf-lua and oil.nvim used as the navigation plugins.
 
 #### Telescope
 
@@ -86,6 +87,20 @@ return {
 }
 ```
 
+#### Neo-tree
+
+You can use neo-tree as main plugin by creating a `neo-tree.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/neo-tree.lua
+
+return {
+    -- Use nvim-tree instead of neo-tree
+    require("scratch.custom.optional.neo-tree")
+    { "stevearc/oil.nvim", enabled = false },
+}
+```
+
 #### Nvim-tree
 
 You can use nvim-tree as main plugin by creating a `nvim-tree.lua` file with the following content:
@@ -96,7 +111,7 @@ You can use nvim-tree as main plugin by creating a `nvim-tree.lua` file with the
 return {
     -- Use nvim-tree instead of neo-tree
     require("scratch.custom.optional.nvim-tree")
-    { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+    { "stevearc/oil.nvim", enabled = false },
 }
 ```
 

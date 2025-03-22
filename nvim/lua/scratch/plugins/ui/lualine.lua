@@ -128,7 +128,7 @@ return {
         end
         --]]
 
-        local function not_diff_cond()
+        local function not_acwrite()
             return vim.bo.buftype ~= "acwrite"
         end
 
@@ -166,14 +166,14 @@ return {
                         icon_only = true,
                         separator = "",
                         padding = { left = 1, right = 0 },
-                        cond = not_diff_cond
+                        cond = not_acwrite
                     },
                     { better_fn,
                         fmt = function(str)
-                            if not_diff_cond() then
+                            if not_acwrite() then
                                 return str
                             end
-                            return "*diff (close with 'q')*"
+                            return "-= close with <q> =-"
                         end,
                     },
                     --[[
@@ -194,14 +194,14 @@ return {
                             modified = ' ',
                             removed = ' '
                         },
-                        cond = not_diff_cond
+                        cond = not_acwrite
                     },
                     { "diagnostics",
-                        cond = not_diff_cond
+                        cond = not_acwrite
                     },
                     { lazy_status.updates,
                         cond = function()
-                            return not_diff_cond() and lazy_status.has_updates()
+                            return not_acwrite() and lazy_status.has_updates()
                         end,
                         on_click = function()
                             vim.cmd("Lazy")
@@ -210,7 +210,7 @@ return {
                     },
                     { mason_status,
                         cond = function()
-                            return not_diff_cond()
+                            return not_acwrite()
                         end,
                         icon = "󱌢",
                         on_click = function()
@@ -223,12 +223,12 @@ return {
                     { "fileformat",
                         separator = "",
                         padding = { left = 0, right = 1 },
-                        cond = not_diff_cond
+                        cond = not_acwrite
                     },
                     { "encoding",
                         separator = "",
                         padding = { left = 0, right = 1 },
-                        cond = not_diff_cond
+                        cond = not_acwrite
                     },
                 },
                 lualine_z = {

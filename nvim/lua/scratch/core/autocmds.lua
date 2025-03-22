@@ -97,13 +97,13 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     callback = lastBufNameFunction,
 })
 
---- close diff buffer with <gq> ----------------------------------------------
+--- close diff buffer with <q> ----------------------------------------------
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
-    group = augroup("close_with_gq"),
+    group = augroup("close_with_q"),
     pattern = { "*" },
     callback = function(event)
-        if vim.bo[event.buf].buftype == "acwrite" then
+        if vim.bo[event.buf].buftype == "acwrite" and vim.bo[event.buf].filetype ~= "oil" then
             vim.api.nvim_set_option_value("modifiable", false, { buf = event.buf })
             vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf })
         end

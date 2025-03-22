@@ -103,7 +103,20 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     group = augroup("close_with_q"),
     pattern = { "*" },
     callback = function(event)
-        if vim.bo[event.buf].buftype == "acwrite" and vim.bo[event.buf].filetype ~= "oil" then
+        -- Skip if the filetype is in the list
+        local skip_by_filetypes = {
+            "oil",
+        }
+        if vim.list_contains(skip_by_filetypes, vim.bo[event.buf].filetype) then
+            return
+        end
+
+        -- Close if the buftype is in the list
+        local close_by_buftypes = {
+            "help",
+            "acwrite",
+        }
+        if vim.list_contains(close_by_buftypes, vim.bo[event.buf].buftype) then
             vim.api.nvim_set_option_value("modifiable", false, { buf = event.buf })
             vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf })
         end

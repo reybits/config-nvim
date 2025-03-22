@@ -82,7 +82,7 @@ You can use Telescope as main plugin by creating a `telescope.lua` file with the
 
 return {
     -- Use telescope instead of fzf-lua
-    require("scratch.custom.optional.telescope")
+    require("scratch.custom.optional.telescope"),
     { "ibhagwan/fzf-lua", enabled = false },
 }
 ```
@@ -96,7 +96,7 @@ You can use neo-tree as main plugin by creating a `neo-tree.lua` file with the f
 
 return {
     -- Use nvim-tree instead of neo-tree
-    require("scratch.custom.optional.neo-tree")
+    require("scratch.custom.optional.neo-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }
 ```
@@ -110,7 +110,7 @@ You can use nvim-tree as main plugin by creating a `nvim-tree.lua` file with the
 
 return {
     -- Use nvim-tree instead of neo-tree
-    require("scratch.custom.optional.nvim-tree")
+    require("scratch.custom.optional.nvim-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }
 ```
@@ -145,8 +145,8 @@ You can use Fugitive as main git plugin by creating a `fugitive.lua` file with t
 
 return {
     -- Use vim-fugitive and its companions instead of Neogit
-    require("scratch.custom.optional.vim-rhubarb")
-    require("scratch.custom.optional.vim-flog")
+    require("scratch.custom.optional.vim-rhubarb"),
+    require("scratch.custom.optional.vim-flog"),
     { "NeogitOrg/neogit", enabled = false },
 }
 ```
@@ -159,7 +159,7 @@ You can add support for the Octo plugin to work with GitHub by creating a `octo.
 -- nvim/lua/scratch/custom/octo.lua
 
 return {
-    require("scratch.custom.optional.octo")
+    require("scratch.custom.optional.octo"),
 }
 ```
 

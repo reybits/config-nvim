@@ -20,6 +20,10 @@ return {
 
         -- check for Mason package upgrades
         local function mason_status()
+            if package.loaded["mason"] == nil then
+                return ""
+            end
+
             local registry = require("mason-registry")
             if registry ~= nil then
                 local installed = registry.get_installed_package_names()

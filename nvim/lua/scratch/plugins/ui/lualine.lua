@@ -51,6 +51,38 @@ return {
             return ""
         end
 
+        --[[
+        -- make TS context string
+        local function ts_context_is_enabled()
+            return package.loaded["nvim-treesitter"] ~= nil
+        end
+
+        local function ts_context()
+            local f = require("nvim-treesitter").statusline({
+                indicator_size = 100,
+                type_patterns = {
+                    "class",
+                    "function",
+                    "method",
+                    "interface",
+                    "type_spec",
+                    "table",
+                    "if_statement",
+                    "for_statement",
+                    "for_in_statement",
+                },
+                separator = " » ",
+                allow_duplicates = false,
+            })
+
+            if f == nil or f == "" then
+                return ""
+            end
+
+            return string.format(" %s", f) -- convert to string, it may be a empty ts node
+        end
+        --]]
+
         local better_fn = require("lualine.components.filename"):extend()
         local highlight = require("lualine.highlight")
 
@@ -284,6 +316,14 @@ return {
             tabline = {
                 --[[
                 lualine_b = {
+                    {
+                        function()
+                            return ts_context()
+                        end,
+                        cond = function()
+                            return ts_context_is_enabled()
+                        end,
+                    },
                     {
                         function()
                             return navic.get_location()

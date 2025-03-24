@@ -12,6 +12,9 @@ return {
         },
         --]]
     },
+    init = function()
+        vim.opt.showtabline = 1 -- override lualine's settings
+    end,
     config = function()
         local lualine = require("lualine")
 
@@ -300,7 +303,5 @@ return {
                 },
             },
         })
-
-        vim.opt.showtabline = 1 -- override lualine's settings
     end,
 }

@@ -21,6 +21,7 @@ map("n", "<leader>tm", "<cmd>Mason<cr>", desc("Mason Manager"))
 
 -- hide highligting by <esc>
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
+map("n", "<c-[>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
 
 -- window related stuff
 map("n", "<leader>wv", "<c-w>v<cr>", desc("Split Window Vertically"))

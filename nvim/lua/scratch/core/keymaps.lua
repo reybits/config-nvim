@@ -60,22 +60,22 @@ end, desc("Do 'make build_compile_commands'"))
 
 -- toggle wrap
 local toggle_wrap = ToggleOption:new("<leader>oew", function(state)
-    vim.api.nvim_win_set_option(0, "wrap", state)
-    vim.api.nvim_win_set_option(0, "linebreak", state)
+    vim.wo.wrap = state
+    vim.wo.linebreak = state
 end, "Wrap")
-toggle_wrap:setState(vim.api.nvim_win_get_option(0, "wrap"), false)
+toggle_wrap:setState(vim.wo.wrap, false)
 
 -- toggle numbers
 local toggle_numbers = ToggleOption:new("<leader>oen", function(state)
-    vim.api.nvim_win_set_option(0, "number", state)
+    vim.wo.number = state
 end, "Numbers")
-toggle_numbers:setState(vim.api.nvim_win_get_option(0, "number"), false)
+toggle_numbers:setState(vim.wo.number, false)
 
 -- toggle relative numbers
 local toggle_relative = ToggleOption:new("<leader>oer", function(state)
-    vim.api.nvim_win_set_option(0, "relativenumber", state)
+    vim.wo.relativenumber = state
 end, "Relative Numbers")
-toggle_relative:setState(vim.api.nvim_win_get_option(0, "relativenumber"), false)
+toggle_relative:setState(vim.wo.relativenumber, false)
 
 -- move selected line / block of text in visual mode
 map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))

@@ -115,13 +115,8 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
-        -- local capabilities = cmp_nvim_lsp.default_capabilities()
-        -- capabilities.offsetEncoding = { "utf-16" }
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
-        capabilities = vim.tbl_deep_extend("force", capabilities, blink_capabilities)
-        capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } })
+        local original_capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
 
         local mason_lspconfig = require("mason-lspconfig")
         mason_lspconfig.setup_handlers({

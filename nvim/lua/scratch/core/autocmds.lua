@@ -28,6 +28,17 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     command = 'silent! normal! g`"zv',
 })
 
+--- enable line wrapping only for markdown files -------------------------------
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    pattern = "*.md",
+    callback = function()
+        vim.wo.conceallevel = 2
+        vim.wo.wrap = true
+        vim.wo.linebreak = true
+    end,
+})
+
 --- close some filetypes with <q> ----------------------------------------------
 
 vim.api.nvim_create_autocmd("FileType", {

@@ -27,9 +27,10 @@ return {
     opts = {
         -- Disable blink-cmp for some filetype
         enabled = function()
-            return not vim.tbl_contains({ "typr", "DressingInput" }, vim.bo.filetype)
-                and vim.bo.buftype ~= "prompt"
-                and vim.b.completion ~= false
+            return not vim.tbl_contains(
+                { "typr", "DressingInput", "copilot-chat" },
+                vim.bo.filetype
+            ) and vim.bo.buftype ~= "prompt" and vim.b.completion ~= false
         end,
 
         -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)

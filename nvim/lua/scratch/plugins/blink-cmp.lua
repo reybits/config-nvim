@@ -14,6 +14,7 @@ return {
         "xzbdmw/colorful-menu.nvim",
 
         "folke/lazydev.nvim",
+        "moyiz/blink-emoji.nvim",
     },
 
     event = {
@@ -149,7 +150,7 @@ return {
         sources = {
             -- Setup sources according to enabled AI related plugins
             default = function()
-                local sources = { "lazydev", "lsp", "path", "snippets", "buffer" }
+                local sources = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" }
 
                 if package.loaded["_copilot"] ~= nil then
                     table.insert(sources, "copilot")
@@ -191,6 +192,18 @@ return {
                 --         end,
                 --     },
                 -- },
+
+                emoji = {
+                    module = "blink-emoji",
+                    name = "Emoji",
+                    score_offset = 15, -- Tune by preference
+                    opts = { insert = true }, -- Insert emoji (default) or complete its name
+                    should_show_items = function()
+                        -- By default, enabled for all file-types.
+                        -- Enable emoji completion only for git commits and markdown.
+                        return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype)
+                    end,
+                },
             },
         },
 

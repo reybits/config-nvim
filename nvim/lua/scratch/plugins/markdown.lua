@@ -39,6 +39,9 @@ return {
             rendermd.setup({
                 -- render_modes = { "n", "v", "i", "c" },
                 preset = "obsidian",
+                completions = {
+                    blink = { enabled = true },
+                },
                 sign = {
                     enabled = false,
                 },
@@ -46,10 +49,11 @@ return {
                     style = "normal",
                     border = "thick",
                 },
-                heading = {
-                    border = true,
-                    -- position = "inline",
-                },
+                -- heading = {
+                --     border = true,
+                --     border_virtual = true,
+                --     position = "inline",
+                -- },
                 quote = {
                     repeat_linebreak = true,
                 },

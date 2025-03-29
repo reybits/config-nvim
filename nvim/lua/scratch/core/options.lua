@@ -144,3 +144,8 @@ vim.filetype.add({
         m = "objc",
     },
 })
+
+--- enable virtual line diagnostic --------------------------------------------
+vim.diagnostic.config({
+    virtual_lines = true,
+})

@@ -73,8 +73,6 @@ To customize plugins, enable, or disable integration with other tools, inside th
 
 By default, fzf-lua and oil.nvim used as the navigation plugins.
 
-> Note: Due to a rendering issue in Neovim v0.11, the `fzf-lua` list layout had to be changed from `default` to `reverse`.
-
 #### Telescope
 
 You can use Telescope as main plugin by creating a `telescope.lua` file with the following content:

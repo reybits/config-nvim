@@ -1,14 +1,22 @@
 -- disable plugin by default
 local render_markdown = false
 
+local function toggleMarkdown(state)
+    if state then
+        vim.cmd("RenderMarkdown enable")
+        vim.wo.conceallevel = 2
+        -- vim.wo.wrap = true
+        -- vim.wo.linebreak = true
+    else
+        vim.cmd("RenderMarkdown disable")
+        vim.wo.conceallevel = 0
+    end
+end
+
 local ToggleOption = require("scratch.core.toggleopt")
 
 local toggle_markdown = ToggleOption:new("<leader>oem", function(state)
-    if state then
-        vim.cmd("RenderMarkdown enable")
-    else
-        vim.cmd("RenderMarkdown disable")
-    end
+    toggleMarkdown(state)
 end, "Render Markdown", render_markdown)
 
 return {
@@ -46,7 +54,7 @@ return {
                     enabled = false,
                 },
                 code = {
-                    style = "normal",
+                    -- style = "normal",
                     border = "thick",
                 },
                 -- heading = {
@@ -76,7 +84,10 @@ return {
                 },
             })
 
-            if render_markdown == false then
+            toggleMarkdown(render_markdown)
+            if render_markdown then
+                rendermd.enable()
+            else
                 rendermd.disable()
             end
         end,

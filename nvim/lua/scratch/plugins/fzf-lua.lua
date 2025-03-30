@@ -191,11 +191,7 @@ return {
                 },
             },
             fzf_opts = {
-                -- TODO: remove workaround for neovim v0.11 when fixed
-                -- "default" cause rendering problem in neovim v0.11
-                -- https://github.com/ibhagwan/fzf-lua/issues/1929#issuecomment-2761255585
-                -- ["--layout"] = "default", -- not working in neovim v0.11
-                ["--layout"] = "reverse", -- workaround for neovim v0.11
+                ["--layout"] = "default", -- not working in neovim v0.11
                 ["--history"] = vim.fn.stdpath("data") .. "/fzf-lua-history",
             },
             previewers = {

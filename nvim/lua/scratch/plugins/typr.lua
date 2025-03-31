@@ -9,7 +9,7 @@ return {
     },
     keys = {
         { "<leader>ttt", "<cmd>Typr<cr>", desc = "Open Typr" },
-        { "<leader>tts", "<cmd>Typr<cr>", desc = "Typr Stats" },
+        { "<leader>tts", "<cmd>TyprStats<cr>", desc = "Typr Stats" },
     },
     init = function()
         local wk = require("which-key")

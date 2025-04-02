@@ -139,13 +139,13 @@ return {
         })
 
         vim.api.nvim_create_user_command("FormatDisable", function()
-            toggle_autoformat:setState(true)
+            toggle_autoformat:setState(false)
         end, {
             desc = "Disable Autoformat-on-save",
         })
 
         vim.api.nvim_create_user_command("FormatEnable", function()
-            toggle_autoformat:setState(false)
+            toggle_autoformat:setState(true)
         end, {
             desc = "Enable Autoformat-on-save",
         })

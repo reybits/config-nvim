@@ -37,13 +37,31 @@ return {
                         map("n", keys, fn, desc)
                     end
 
-                    for _, client in ipairs(vim.lsp.get_clients()) do
-                        if client.name == "clangd" then
-                            mapn("gs", "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header")
-                        end
-                    end
-
                     if client ~= nil then
+                        if client.name == "clangd" then
+                            mapn("gs", function()
+                                local params = { uri = vim.uri_from_bufnr(0) }
+                                vim.lsp.buf_request(
+                                    0,
+                                    "textDocument/switchSourceHeader",
+                                    params,
+                                    function(err, result)
+                                        if err then
+                                            return
+                                        end
+                                        if not result then
+                                            vim.notify(
+                                                "No corresponding header/source file found",
+                                                vim.log.levels.WARN
+                                            )
+                                            return
+                                        end
+                                        vim.cmd("edit " .. vim.uri_to_fname(result))
+                                    end
+                                )
+                            end, "Switch Source/Header")
+                        end
+
                         if client.server_capabilities.declarationProvider then
                             mapn("gD", vim.lsp.buf.declaration, "Goto Declaration")
                         end

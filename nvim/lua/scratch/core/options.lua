@@ -146,6 +146,10 @@ vim.filetype.add({
 })
 
 --- enable virtual line diagnostic --------------------------------------------
+-- configuration moved to the plugins/lsp/tiny-inline-diagnostic.lua
+--[[
 vim.diagnostic.config({
-    virtual_lines = true,
+    virtual_text = { current_line = true }, -- current line only
+    -- virtual_lines = true, -- or all warnings
 })
+--]]

@@ -147,6 +147,8 @@ vim.filetype.add({
 
 --- enable line diagnostic ----------------------------------------------------
 vim.diagnostic.config({
+    underline = false,
+
     virtual_lines = {
         current_line = true,
     },

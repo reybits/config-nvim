@@ -145,11 +145,14 @@ vim.filetype.add({
     },
 })
 
---- enable virtual line diagnostic --------------------------------------------
--- configuration moved to the plugins/lsp/tiny-inline-diagnostic.lua
---[[
+--- enable line diagnostic ----------------------------------------------------
 vim.diagnostic.config({
-    virtual_text = { current_line = true }, -- current line only
-    -- virtual_lines = true, -- or all warnings
+    virtual_lines = {
+        current_line = true,
+    },
+
+    -- virtual_text = {
+    --     current_line = true,
+    --     virt_text_pos = "eol_right_align",
+    -- },
 })
---]]

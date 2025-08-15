@@ -107,7 +107,7 @@ return {
 
                         if client.server_capabilities.codeActionProvider then
                         -- stylua: ignore
-                        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
+                            map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
                         end
 
                         local ToggleOption = require("scratch.core.toggleopt")

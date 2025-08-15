@@ -95,7 +95,7 @@ You can use neo-tree as main plugin by creating a `neo-tree.lua` file with the f
 -- nvim/lua/scratch/custom/neo-tree.lua
 
 return {
-    -- Use nvim-tree instead of neo-tree
+    -- Use neo-tree instead of oil
     require("scratch.custom.optional.neo-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }
@@ -109,7 +109,7 @@ You can use nvim-tree as main plugin by creating a `nvim-tree.lua` file with the
 -- nvim/lua/scratch/custom/nvim-tree.lua
 
 return {
-    -- Use nvim-tree instead of neo-tree
+    -- Use nvim-tree instead of oil
     require("scratch.custom.optional.nvim-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }

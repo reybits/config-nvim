@@ -21,6 +21,16 @@ return {
         -- check for Lazy package upgrades
         local lazy_status = require("lazy.status")
 
+        -- update recording status in lualine
+        vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+            callback = function()
+                -- A small delay is needed so that reg_recording() has time to update.
+                vim.defer_fn(function()
+                    require("lualine").refresh()
+                end, 50)
+            end,
+        })
+
         -- check for Mason package upgrades
         local function mason_status()
             if package.loaded["mason"] == nil then
@@ -195,6 +205,15 @@ return {
                             return str:sub(1, 1)
                         end,
                         padding = { left = 1, right = 0 }
+                    },
+                    { -- show recording register
+                        function()
+                            local reg = vim.fn.reg_recording()
+                            if reg == '' then
+                                return ''
+                            end
+                            return '@' .. reg
+                        end,
                     },
                 },
                 lualine_b = {

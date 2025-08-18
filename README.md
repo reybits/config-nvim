@@ -45,7 +45,6 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Improved quickfix UI via [quicker.nvim](https://github.com/stevearc/quicker.nvim).
 - Fast navigation, lookup, and more via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
-- Bookmarks via [harpoon](https://github.com/ThePrimeagen/harpoon) v2.
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - Hide passwords/keys via [cloak.nvim](https://github.com/laytan/cloak.nvim).
@@ -114,6 +113,22 @@ return {
     { "stevearc/oil.nvim", enabled = false },
 }
 ```
+
+#### Harpoon v2
+
+To enable the [Harpoon](https://github.com/ThePrimeagen/harpoon) plugin, create a `harpoon.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/harpoon.lua
+
+return {
+    -- Keys:
+    --   <leader>h - bookmarks list
+    --   <leader>H - add bookmark
+    require("scratch.custom.optional.harpoon"),
+}
+```
+
 
 ### Git related
 

@@ -60,15 +60,30 @@ return {
         --     { default = true, link = "Visual" }
         -- )
 
-        local helpers = require("scratch.core.helpers")
-        for name, sign in pairs(helpers.icons.dap) do
-            sign = type(sign) == "table" and sign or { sign }
-            vim.fn.sign_define("Dap" .. name, {
-                text = sign[1],
-                texthl = sign[2] or "DiagnosticInfo",
-                linehl = sign[3],
-                numhl = sign[3],
-            })
+        -- local helpers = require("scratch.core.helpers")
+
+        -- INFO: Deprecated method
+        -- for name, sign in pairs(helpers.icons.dap) do
+        --     vim.fn.sign_define("Dap" .. name, {
+        --         text = sign[1],
+        --         texthl = sign[2],
+        --         linehl = sign[3],
+        --         numhl = sign[3],
+        --     })
+        -- end
+
+        --[[
+        -- TODO: Research and implement the correct setup for diagnostics in DAP
+        local signs = { text = {}, linehl = {}, numhl = {} }
+        for type, icon in pairs(helpers.icons.dap) do
+            local key = string.upper(type)
+            signs.text[vim.diagnostic.severity[key] ] = icon[1]
+            signs.texthl[vim.diagnostic.severity[key] ] = "Dap" .. icon[2]
+            signs.linehl[vim.diagnostic.severity[key] ] = "Dap" .. icon[3]
         end
+        vim.diagnostic.config({
+            signs = signs,
+        })
+        --]]
     end,
 }

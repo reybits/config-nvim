@@ -15,10 +15,14 @@ return {
         -- local lspconfig = require("lspconfig")
 
         local helpers = require("scratch.core.helpers")
+        local signs = { text = {} }
         for type, icon in pairs(helpers.icons.diagnostics) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+            local key = string.upper(type)
+            signs.text[vim.diagnostic.severity[key]] = icon
         end
+        vim.diagnostic.config({
+            signs = signs,
+        })
 
         local mason_lspconfig = require("mason-lspconfig")
         for _, server in ipairs(mason_lspconfig.get_installed_servers()) do

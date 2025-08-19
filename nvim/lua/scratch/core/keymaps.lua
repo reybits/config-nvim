@@ -7,8 +7,8 @@ local ToggleOption = require("scratch.core.toggleopt")
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-local desc = function(desc)
-    local merged = opts
+local desc = function(desc, override)
+    local merged = override or opts
     merged.desc = desc
     return merged
 end

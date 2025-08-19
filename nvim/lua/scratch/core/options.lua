@@ -125,7 +125,9 @@ opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
 -- Some 'shortmess' flags and similar mechanism might fail to take effect,
 -- causing unwanted hit-enter prompts.
 -- Some informative messages, both from Nvim itself and plugins, will not be displayed.
-opt.cmdheight = 0 -- hide cmdline by default
+-- INFO: The option `cmdheight = 0` is disabled due to incorrect Neovim behavior
+-- in some cases, such as mappings for 'J' and 'K'.
+-- opt.cmdheight = 0 -- hide cmdline by default
 
 --- fold via tree sitter, opened by default -----------------------------------
 -- vim.o.foldenable = false

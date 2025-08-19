@@ -38,27 +38,26 @@ return {
             end
 
             local registry = require("mason-registry")
-            if registry ~= nil then
-                local installed = registry.get_installed_package_names()
-                local outdated = 0
+            if registry == nil then
+                return ""
+            end
 
-                for _, pkg in pairs(installed) do
-                    local p = registry.get_package(pkg)
-                    if p then
-                        p:check_new_version(function(success, _)
-                            if success then
-                                outdated = outdated + 1
-                            end
-                        end)
+            local installed = registry.get_installed_package_names()
+            local outdated = 0
+
+            for _, pkg in pairs(installed) do
+                local p = registry.get_package(pkg)
+                if p then
+                    local new = p:get_latest_version()
+                    local old = p:get_installed_version()
+                    if new ~= old then
+                        -- vim.print(old .. " -> " .. new)
+                        outdated = outdated + 1
                     end
-                end
-
-                if outdated ~= 0 then
-                    return outdated
                 end
             end
 
-            return ""
+            return outdated ~= 0 and outdated or ""
         end
 
         --[[

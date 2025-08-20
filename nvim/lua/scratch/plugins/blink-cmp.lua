@@ -125,6 +125,8 @@ return {
             },
             completion = {
                 menu = {
+                    auto_show = false,
+                    --[[
                     auto_show = function(ctx)
                         return vim.fn.getcmdtype() == ":"
                             -- enable for inputs as well, with:
@@ -132,6 +134,7 @@ return {
                             -- requires by "monkoose/neocodeium"
                             or ctx.mode ~= "default"
                     end,
+                    --]]
                 },
             },
         },

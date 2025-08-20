@@ -119,8 +119,9 @@ map("n", "k", "gk")
 map("n", "<right>", ":tabnext<cr>", desc("Next Tab"))
 map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 
-map("n", "<up>", "<cmd>echo 'Use k to move!'<cr>", desc("Arrow Key Disabled"))
-map("n", "<down>", "<cmd>echo 'Use j to move!'<cr>", desc("Arrow Key Disabled"))
+-- command line up/down arrow alias, useful for searching history by first letters
+map("c", "<C-k>", "<up>", desc("Command line up-arrow ailas"))
+map("c", "<C-j>", "<down>", desc("Command line down-arrow ailas"))
 
 -- show diagnostics in the floating window
 map("n", "<leader>cd", function()

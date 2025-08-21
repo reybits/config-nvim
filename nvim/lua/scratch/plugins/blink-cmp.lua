@@ -204,8 +204,8 @@ return {
                     opts = { insert = true }, -- Insert emoji (default) or complete its name
                     should_show_items = function()
                         -- By default, enabled for all file-types.
-                        -- Enable emoji completion only for git commits and markdown.
-                        return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype)
+                        -- Enable emoji completion only for git commits, markdown, and plain-text.
+                        return vim.tbl_contains({ "gitcommit", "markdown", "text" }, vim.o.filetype)
                     end,
                 },
             },

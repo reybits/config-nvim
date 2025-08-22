@@ -79,8 +79,8 @@ end, "Relative Numbers")
 toggle_relative:setState(vim.wo.relativenumber, false)
 
 -- move selected line / block of text in visual mode
-map("v", "J", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
-map("v", "K", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
+map("v", "<m-j>", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
+map("v", "<m-k>", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
 
 -- quickfix related stuff
 -- moved to quicker.lua plugin

@@ -15,6 +15,9 @@ return {
 
         "folke/lazydev.nvim",
         "moyiz/blink-emoji.nvim",
+
+        -- "fang2hou/blink-copilot",
+        "giuxtaposition/blink-cmp-copilot",
     },
 
     event = {
@@ -50,14 +53,11 @@ return {
 
             ["<c-e>"] = { "hide", "fallback" },
 
-            ["<c-j>"] = { "select_next", "fallback_to_mappings" },
-            ["<c-k>"] = { "select_prev", "fallback_to_mappings" },
+            ["<c-j>"] = { "snippet_forward", "select_next", "fallback" },
+            ["<c-k>"] = { "snippet_backward", "select_prev", "fallback" },
 
-            ["<c-n>"] = { "select_next", "fallback_to_mappings" },
-            ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
-
-            ["<tab>"] = { "snippet_forward", "fallback" },
-            ["<s-tab>"] = { "snippet_backward", "fallback" },
+            ["<c-n>"] = { "snippet_forward", "select_next", "fallback" },
+            ["<c-p>"] = { "snippet_backward", "select_prev", "fallback" },
 
             ["<c-f>"] = { "scroll_documentation_down", "fallback" },
             ["<c-b>"] = { "scroll_documentation_up", "fallback" },
@@ -81,10 +81,9 @@ return {
                 -- treesitter_highlighting = false, -- disable if high CPU usage or stuttering when opening the documentation
             },
 
-            -- Display a preview of the selected item on the current line
+            -- Disable a preview of the selected item on the current line
             ghost_text = {
-                enabled = true,
-                -- show_with_menu = false, -- only show when menu is closed
+                enabled = false,
             },
 
             accept = { auto_brackets = { enabled = false } },
@@ -156,7 +155,13 @@ return {
             default = function()
                 local sources = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" }
 
-                if package.loaded["_copilot"] ~= nil then
+                -- check is plugin 'github/copilot.vim' loaded
+                -- if package.loaded["_copilot"] ~= nil then
+                --     table.insert(sources, "copilot")
+                -- end
+
+                -- check is plugin 'zbirenbaum/copilot.lua' loaded
+                if package.loaded["copilot.api"] ~= nil then
                     table.insert(sources, "copilot")
                 end
 
@@ -164,6 +169,11 @@ return {
             end,
 
             providers = {
+                -- defaults to `{ 'buffer' }`
+                lsp = {
+                    fallbacks = {},
+                },
+
                 snippets = {
                     -- Hide snippets after trigger character
                     should_show_items = function(ctx)
@@ -171,12 +181,24 @@ return {
                     end,
                 },
 
+                -- 'fang2hou/blink-copilot' + 'github/copilot.vim'
+                -- copilot = {
+                --     name = "copilot",
+                --     enabled = function()
+                --         return package.loaded["_copilot"] ~= nil
+                --     end,
+                --     module = "blink-copilot",
+                --     score_offset = 100,
+                --     async = true,
+                -- },
+
+                -- 'giuxtaposition/blink-cmp-copilot' + 'zbirenbaum/copilot.lua'
                 copilot = {
                     name = "copilot",
                     enabled = function()
-                        return package.loaded["_copilot"] ~= nil
+                        return package.loaded["copilot.api"] ~= nil
                     end,
-                    module = "blink-copilot",
+                    module = "blink-cmp-copilot",
                     score_offset = 100,
                     async = true,
                 },

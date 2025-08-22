@@ -22,6 +22,15 @@ return {
         { "-", "<cmd>Oil<cr>", desc = "Oil / goto parent directory" },
     },
     opts = {
+        -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
+        -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
+        default_file_explorer = true,
+
+        columns = {
+            "size",
+            "icon",
+        },
+
         win_options = {
             winbar = "%!v:lua.get_oil_winbar()",
         },
@@ -32,9 +41,9 @@ return {
                 callback = function()
                     detail = not detail
                     if detail then
-                        require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+                        require("oil").set_columns({ "mtime", "permissions", "size", "icon" })
                     else
-                        require("oil").set_columns({ "icon" })
+                        require("oil").set_columns({ "size", "icon" })
                     end
                 end,
             },

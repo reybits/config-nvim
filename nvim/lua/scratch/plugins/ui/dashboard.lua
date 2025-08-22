@@ -71,5 +71,14 @@ return {
                 },
             },
         })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "dashboard",
+            callback = function()
+                vim.defer_fn(function()
+                    vim.opt_local.cursorline = true
+                end, 50)
+            end,
+        })
     end,
 }

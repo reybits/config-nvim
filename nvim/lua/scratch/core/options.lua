@@ -22,9 +22,8 @@ opt.scrolloff = 10
 opt.sidescrolloff = 20
 opt.confirm = false -- Don't ask to save changes before exiting modified buffer
 
--- opt.clipboard:append("unnamedplus")
-opt.clipboard = "unnamedplus,unnamed" -- Sync clipboard between OS and Neovim.
-opt.completeopt = "menuone,noselect" -- Set completeopt to have a better completion experience
+opt.clipboard:append("unnamedplus") -- Sync clipboard between OS and Neovim.
+opt.completeopt = { "menuone", "noselect" } -- Set completeopt to have a better completion experience
 
 opt.mouse = "a" -- Empty to disable, "a" to enable mouse mode
 opt.cursorline = true
@@ -46,6 +45,7 @@ opt.ignorecase = true -- Case-insensitive searching UNLESS \C or capital in sear
 opt.cc = { 81, 101 } -- Column marker
 opt.wrap = false -- Don't wrap wide lines
 
+-- TODO: Investigate why this option matters
 opt.shell = "/bin/zsh"
 
 opt.showcmd = false
@@ -64,7 +64,7 @@ opt.signcolumn = "yes" -- Keep signcolumn on by default
 opt.number = true -- Show line numbers
 opt.relativenumber = false -- Disable relative line numbers
 
-opt.backspace = "indent,eol,start"
+opt.backspace = { "indent", "eol", "start" }
 
 opt.list = true
 opt.listchars = {

@@ -134,6 +134,25 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+--- clear colorcolumn for some filetypes ---------------------------------------
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup("clean_window_opts"),
+    pattern = {
+        "NeogitLogView",
+        "NeogitStatus",
+        "checkhealth",
+        "git",
+        "help",
+        "lspinfo",
+        "oil",
+        "qf",
+        "query",
+    },
+    callback = function()
+        vim.opt_local.cc = ""
+    end,
+})
+
 --- open Trouble quickfix on :copen --------------------------------------------
 -- vim.api.nvim_create_autocmd("BufRead", {
 --     callback = function(ev)

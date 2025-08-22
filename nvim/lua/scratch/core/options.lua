@@ -14,7 +14,7 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
---- Common options -------------------------------------------------------------
+--- common options -------------------------------------------------------------
 
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 20
@@ -127,7 +127,7 @@ vim.opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
 -- in some cases, such as mappings for 'J' and 'K'.
 -- vim.opt.cmdheight = 0 -- hide cmdline by default
 
---- fold via tree sitter, opened by default -----------------------------------
+--- fold via tree sitter, opened by default ------------------------------------
 -- vim.o.foldenable = false
 vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99
@@ -135,7 +135,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
---- set filetype --------------------------------------------------------------
+--- set filetype ---------------------------------------------------------------
 vim.filetype.add({
     extension = {
         frag = "glsl",
@@ -145,7 +145,7 @@ vim.filetype.add({
     },
 })
 
---- enable line diagnostic ----------------------------------------------------
+--- enable line diagnostic -----------------------------------------------------
 vim.diagnostic.config({
     underline = false,
 

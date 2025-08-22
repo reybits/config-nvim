@@ -12,6 +12,7 @@ return {
     },
     opts = {
         graph_style = "unicode",
+        disable_insert_on_commit = true,
     },
     -- stylua: ignore
     keys = {

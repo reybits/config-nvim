@@ -8,14 +8,14 @@ M.toggle_find_files = function(opts, show_ignore, show_hidden)
     show_hidden = vim.F.if_nil(show_hidden, false)
 
     opts.attach_mappings = function(_, map)
-        map({ "n", "i" }, "<c-i>", function(prompt_bufnr)
+        map({ "n", "i" }, "<m-i>", function(prompt_bufnr)
             local prompt = require("telescope.actions.state").get_current_line()
             require("telescope.actions").close(prompt_bufnr)
             show_ignore = not show_ignore
             M.toggle_find_files({ default_text = prompt }, show_ignore, show_hidden)
         end, { desc = "Toggle Ignore Files" })
 
-        map({ "n", "i" }, "<c-h>", function(prompt_bufnr)
+        map({ "n", "i" }, "<m-h>", function(prompt_bufnr)
             local prompt = require("telescope.actions.state").get_current_line()
             require("telescope.actions").close(prompt_bufnr)
             show_hidden = not show_hidden

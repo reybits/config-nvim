@@ -86,6 +86,21 @@ return {
 }
 ```
 
+#### Mini.Files
+
+You can use neo-tree as main plugin by creating a `mini-files.lua` file with the following content:
+
+```lua
+-- nvim/lua/scratch/custom/mini-files.lua
+
+return {
+    -- Enable mini.files
+    require("scratch.custom.optional.mini-files"),
+    -- You can optionally disable oil
+    { "stevearc/oil.nvim", enabled = false },
+}
+```
+
 #### Neo-tree
 
 You can use neo-tree as main plugin by creating a `neo-tree.lua` file with the following content:

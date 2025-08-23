@@ -28,8 +28,12 @@ return {
 
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
 
-        { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Project Files" },
-        { "<leader>fp", "<cmd>Telescope find_files<cr>", desc = "Project Files" },
+        { "<leader><space>", function()
+                require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+            end, desc = "Project Files" },
+        { "<leader>fp", function()
+                require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+            end, desc = "Project Files" },
 
         { "<leader>ff", function()
                 require("telescope.builtin").find_files({
@@ -37,7 +41,7 @@ return {
                 })
             end, desc = "Current Dir Files" },
 
-        { "<leader>fC", function ()
+        { "<leader>fC", function()
                 require("telescope.builtin").find_files({
                     cwd = vim.fn.stdpath("config")
                 })
@@ -69,10 +73,10 @@ return {
 
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
         { "<leader>sm", function()
-            require("telescope.builtin").man_pages({
-                sections={"ALL"}
-            })
-        end, desc = "Search Man" },
+                require("telescope.builtin").man_pages({
+                    sections = { "ALL" },
+                })
+            end, desc = "Search Man" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
 
         { "<leader>cs", function()
@@ -87,7 +91,7 @@ return {
                     fname_width = 50,
                     show_line = true
                 })
-            end,  desc = "Show Incoming Calls" },
+            end, desc = "Show Incoming Calls" },
         { "<leader>cr", function()
                 require("telescope.builtin").lsp_references({
                     fname_width = 40,

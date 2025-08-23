@@ -123,14 +123,6 @@ map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 map("c", "<C-k>", "<up>", desc("Command line up-arrow ailas"))
 map("c", "<C-j>", "<down>", desc("Command line down-arrow ailas"))
 
--- show diagnostics in the floating window
-map("n", "<leader>cd", function()
-    local float_bufnr, _ = vim.diagnostic.open_float({ scope = "line", border = "rounded" })
-    if float_bufnr == nil then
-        vim.notify("No diagnostics found")
-    end
-end, desc("Show Line Diagnostics"))
-
 -- alias to <esc>
 -- map("i", "jk", "<esc>", opts)
 -- map("i", "kj", "<esc>", opts)

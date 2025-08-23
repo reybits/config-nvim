@@ -110,9 +110,18 @@ return {
                         end
 
                         if client.server_capabilities.codeActionProvider then
-                        -- stylua: ignore
+                            -- stylua: ignore
                             map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
                         end
+
+                        -- show diagnostics in the floating window
+                        mapn("<leader>cd", function()
+                            -- stylua: ignore
+                            local float_bufnr, _ = vim.diagnostic.open_float({ scope = "line", border = "rounded" })
+                            if float_bufnr == nil then
+                                vim.notify("No diagnostics found")
+                            end
+                        end, "Show Line Diagnostics")
 
                         local ToggleOption = require("scratch.core.toggleopt")
 

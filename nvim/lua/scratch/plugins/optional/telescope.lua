@@ -1,3 +1,46 @@
+local M = {}
+
+-- Custom Telescope file finder with <c-i> / <c-h> to toggle hidden/ignored files.
+M.toggle_find_files = function(opts, show_ignore, show_hidden)
+    opts = opts or {}
+
+    show_ignore = vim.F.if_nil(show_ignore, false)
+    show_hidden = vim.F.if_nil(show_hidden, false)
+
+    opts.attach_mappings = function(_, map)
+        map({ "n", "i" }, "<c-i>", function(prompt_bufnr)
+            local prompt = require("telescope.actions.state").get_current_line()
+            require("telescope.actions").close(prompt_bufnr)
+            show_ignore = not show_ignore
+            M.toggle_find_files({ default_text = prompt }, show_ignore, show_hidden)
+        end, { desc = "Toggle Ignore Files" })
+
+        map({ "n", "i" }, "<c-h>", function(prompt_bufnr)
+            local prompt = require("telescope.actions.state").get_current_line()
+            require("telescope.actions").close(prompt_bufnr)
+            show_hidden = not show_hidden
+            M.toggle_find_files({ default_text = prompt }, show_ignore, show_hidden)
+        end, { desc = "Toggle show_Hidden Files" })
+        return true
+    end
+
+    opts.prompt_title = "Find Files"
+    if show_hidden or show_ignore then
+        opts.prompt_title = opts.prompt_title .. " <"
+        if show_ignore then
+            opts.no_ignore = true
+            opts.prompt_title = opts.prompt_title .. "I"
+        end
+        if show_hidden then
+            opts.hidden = true
+            opts.prompt_title = opts.prompt_title .. "H"
+        end
+        opts.prompt_title = opts.prompt_title .. ">"
+    end
+
+    require("telescope.builtin").find_files(opts)
+end
+
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
@@ -28,12 +71,8 @@ return {
 
         { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
 
-        { "<leader><space>", function()
-                require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
-            end, desc = "Project Files" },
-        { "<leader>fp", function()
-                require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
-            end, desc = "Project Files" },
+        { "<leader><space>", function() M.toggle_find_files() end, desc = "Project Files" },
+        { "<leader>fp", function() M.toggle_find_files() end, desc = "Project Files" },
 
         { "<leader>ff", function()
                 require("telescope.builtin").find_files({

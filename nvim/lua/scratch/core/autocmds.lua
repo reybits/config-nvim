@@ -58,7 +58,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 --- show buffer name on switch -----------------------------------------------
-
+--- disabled due to mess notification and not useful enough
+--[[
 --- Checks if the given name is the same as the last used name.
 --- @return function Returns lastBufNameFunction function
 local function createBufNameFunction()
@@ -97,6 +98,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = augroup("show_buffer_name"),
     callback = lastBufNameFunction,
 })
+--]]
 
 --- close diff buffer with <q> ----------------------------------------------
 

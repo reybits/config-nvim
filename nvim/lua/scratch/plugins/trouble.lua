@@ -73,6 +73,12 @@ return {
     config = function()
         require("trouble").setup({
             use_diagnostic_signs = true,
+            win = {
+                wo = {
+                    signcolumn = "no",
+                    colorcolumn = "",
+                },
+            },
         })
 
         -- Open Trouble quickfix on :copen

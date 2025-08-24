@@ -193,7 +193,7 @@ return {
                     "dashboard",
                     "neo-tree",
                     "starter",
-                    "trouble",
+                    -- "trouble",
                 },
             },
             -- stylua: ignore

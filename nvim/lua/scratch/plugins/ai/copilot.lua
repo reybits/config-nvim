@@ -60,7 +60,7 @@ return {
             },
         })
 
-        -- FIXME: Ugly hack to toggle copilot off and on again to make it work with blink-cmp.
+        -- HACK: Ugly hack to toggle copilot off and on again to make it work with blink-cmp.
         vim.cmd("Copilot! attach")
 
         -- Hide copilot suggestions when blink-cmp menu is open

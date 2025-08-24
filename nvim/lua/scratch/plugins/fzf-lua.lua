@@ -30,6 +30,7 @@ return {
     event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
+        "echasnovski/mini.pick", -- required if mini.pick is used for vim.ui.select
     },
     cmd = {
         "FzfLua",
@@ -209,35 +210,72 @@ return {
             },
         })
 
+        ------------------------------------------------------------------------
+        -- vim.ui.select related section
+        ------------------------------------------------------------------------
+
+        -- mini.pick as vim.ui.select
+        local mini_select = function()
+            local fn = function(items, opts, on_choice)
+                local win_config = function()
+                    -- Automatic sizing of height of vim.ui.select
+                    local scale = #items / vim.o.lines
+                    scale = math.max(scale, 0.1)
+                    scale = math.min(scale, 0.4)
+
+                    local height = math.floor(scale * vim.o.lines)
+                    local width = math.floor(0.5 * vim.o.columns)
+                    return {
+                        border = "double",
+                        anchor = "NW",
+                        height = height,
+                        width = width,
+                        row = math.floor(0.5 * (vim.o.lines - height)),
+                        col = math.floor(0.5 * (vim.o.columns - width)),
+                    }
+                end
+                local start_opts = { window = { config = win_config } }
+                return require("mini.pick").ui_select(items, opts, on_choice, start_opts)
+            end
+
+            vim.ui.select = fn
+        end
+
+        --[[
+        -- fzf-lua as vim.ui.select
+        -- Disabled due to bug in fzf-lua.
+        local fzf_select = function()
+            require("fzf-lua").register_ui_select(function(_, items)
+                -- Automatic sizing of height of vim.ui.select
+                local h = (#items + 4) / vim.o.lines
+                h = math.max(h, 0.15)
+                h = math.min(h, 0.70)
+
+                return {
+                    winopts = {
+                        height = h,
+                        width = 0.6,
+                        row = 0.5,
+                    },
+                }
+            end)
+        end
+        --]]
+
         local is_ui_select_registered = false
         local function register_ui_select()
             if is_ui_select_registered == false then
                 is_ui_select_registered = true
-                require("fzf-lua").register_ui_select(function(_, items)
-                    -- Automatic sizing of height of vim.ui.select
-                    local min_h, max_h = 0.15, 0.70
-                    local h = (#items + 4) / vim.o.lines
-                    if h < min_h then
-                        h = min_h
-                    elseif h > max_h then
-                        h = max_h
-                    end
-                    return {
-                        winopts = {
-                            height = h,
-                            width = 0.6,
-                            row = 0.5,
-                        },
-                    }
-                end)
+                mini_select()
+                -- fzf_select()
             end
         end
-
-        register_ui_select()
 
         -- Create command to register vim.ui.select handler
         vim.api.nvim_create_user_command("UiHandleSelect", function()
             register_ui_select()
         end, {})
+
+        register_ui_select()
     end,
 }

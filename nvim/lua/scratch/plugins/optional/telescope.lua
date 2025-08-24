@@ -289,6 +289,12 @@ return {
             },
         })
 
+        telescope.load_extension("fzf")
+
+        ------------------------------------------------------------------------
+        -- vim.ui.select related section
+        ------------------------------------------------------------------------
+
         local is_ui_select_registered = false
         local function register_ui_select()
             if is_ui_select_registered == false then
@@ -302,9 +308,6 @@ return {
             register_ui_select()
         end, {})
 
-        -- set telescope as ui-select's default picker
         register_ui_select()
-
-        telescope.load_extension("fzf")
     end,
 }

@@ -118,26 +118,26 @@ return {
             end, desc = "Search Man" },
         { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
 
-        { "<leader>cs", function()
-                require("telescope.builtin").lsp_document_symbols({
-                    symbol_width = 50,
-                    symbol_type_width = 11,
-                    show_line = true
-                })
-            end, desc = "Show Document Symbols" },
-        { "<leader>ci", function()
-                require("telescope.builtin").lsp_incoming_calls({
-                    fname_width = 50,
-                    show_line = true
-                })
-            end, desc = "Show Incoming Calls" },
-        { "<leader>cr", function()
-                require("telescope.builtin").lsp_references({
-                    fname_width = 40,
-                    show_line = true
-                })
-            end, desc = "Show References" },
-        { "<leader>cD", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
+        -- { "<leader>cs", function()
+        --         require("telescope.builtin").lsp_document_symbols({
+        --             symbol_width = 50,
+        --             symbol_type_width = 11,
+        --             show_line = true
+        --         })
+        --     end, desc = "Show Document Symbols" },
+        -- { "<leader>ci", function()
+        --         require("telescope.builtin").lsp_incoming_calls({
+        --             fname_width = 50,
+        --             show_line = true
+        --         })
+        --     end, desc = "Show Incoming Calls" },
+        -- { "<leader>cr", function()
+        --         require("telescope.builtin").lsp_references({
+        --             fname_width = 40,
+        --             show_line = true
+        --         })
+        --     end, desc = "Show References" },
+        -- { "<leader>cD", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
     },
     config = function()
         local telescope = require("telescope")
@@ -145,7 +145,7 @@ return {
         local actions_layout = require("telescope.actions.layout")
         -- local trouble = require("trouble.sources.telescope")
 
-        -- Dashboard commands support
+        -- Support for dashboard-specific commands.
         vim.api.nvim_create_user_command("DashFiles", function(opts)
             opts = opts or {}
             local args = {}

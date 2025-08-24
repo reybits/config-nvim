@@ -99,19 +99,20 @@ return {
         { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Search Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Search Keymaps" },
 
-        { "<leader>cs", function()
-                require('fzf-lua').lsp_document_symbols({
-                    winopts = { preview = { layout = "horizontal" } } })
-            end, desc = "Show Document Symbols" },
-        { "<leader>ci", "<cmd>FzfLua lsp_incoming_calls<cr>",  desc = "Show Incoming Calls" },
-        { "<leader>cr", "<cmd>FzfLua lsp_references<cr>", desc = "Show References" },
-        { "<leader>cD", "<cmd>FzfLua diagnostics_document<cr>", desc = "Show Diagnostics" },
+        -- Moved to the Trouble plugin.
+        -- { "<leader>cs", function()
+        --         require('fzf-lua').lsp_document_symbols({
+        --             winopts = { preview = { layout = "horizontal" } } })
+        --     end, desc = "Show Document Symbols" },
+        -- { "<leader>ci", "<cmd>FzfLua lsp_incoming_calls<cr>",  desc = "Show Incoming Calls" },
+        -- { "<leader>cr", "<cmd>FzfLua lsp_references<cr>", desc = "Show References" },
+        -- { "<leader>cD", "<cmd>FzfLua diagnostics_document<cr>", desc = "Show Diagnostics" },
     },
     config = function()
         local fzflua = require("fzf-lua")
         local actions = fzflua.actions
 
-        -- Dashboard commands support
+        -- Support for dashboard-specific commands.
         vim.api.nvim_create_user_command("DashFiles", function(opts)
             opts = opts or {}
             local args = {}

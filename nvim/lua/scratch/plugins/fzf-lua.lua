@@ -116,13 +116,9 @@ return {
         vim.api.nvim_create_user_command("DashFiles", function(opts)
             opts = opts or {}
             local args = {}
-
             for key, value in string.gmatch(opts.args, "([^%s=]+)=([^{%s]+)") do
                 args[key] = value
             end
-
-            -- print("r: " .. vim.inspect(args))
-
             require("fzf-lua").files(args)
         end, { nargs = "*" })
         vim.api.nvim_create_user_command("DashGrep", function()

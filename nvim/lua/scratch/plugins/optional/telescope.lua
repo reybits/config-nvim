@@ -48,7 +48,7 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
-        "folke/todo-comments.nvim",
+        -- "folke/todo-comments.nvim",
 
         "nvim-telescope/telescope-ui-select.nvim",
 
@@ -108,7 +108,8 @@ return {
                 })
             end, desc = "Grep String (cwd)" },
 
-        { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
+        -- Key binding for TODO comments has been moved to the "folke/todo-comments.nvim" plugin.
+        -- { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
 
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
         { "<leader>sm", function()

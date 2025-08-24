@@ -33,9 +33,9 @@ return {
         },
 
         {
-            "<leader>cs",
+            "<leader>co",
             "<cmd>Trouble lsp_document_symbols toggle focus=true win.position=left<cr>",
-            desc = "Symbols",
+            desc = "Code Outline",
         },
         -- {
         --     "<leader>cs",
@@ -70,7 +70,28 @@ return {
             desc = "Diagnostics (workspace)",
         },
     },
-    opts = {
-        use_diagnostic_signs = true,
-    },
+    config = function()
+        require("trouble").setup({
+            use_diagnostic_signs = true,
+        })
+
+        -- Open Trouble quickfix on :copen
+        vim.api.nvim_create_autocmd("BufRead", {
+            callback = function(ev)
+                if vim.bo[ev.buf].buftype == "quickfix" then
+                    vim.schedule(function()
+                        vim.cmd([[cclose]])
+                        vim.cmd([[Trouble qflist open]])
+                    end)
+                end
+            end,
+        })
+
+        -- Automatically open Trouble quickfix
+        vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+            callback = function()
+                vim.cmd([[Trouble qflist open]])
+            end,
+        })
+    end,
 }

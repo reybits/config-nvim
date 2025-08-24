@@ -16,8 +16,8 @@ return {
         "folke/lazydev.nvim",
         "moyiz/blink-emoji.nvim",
 
-        -- "fang2hou/blink-copilot",
-        "giuxtaposition/blink-cmp-copilot",
+        "fang2hou/blink-copilot",
+        -- "giuxtaposition/blink-cmp-copilot",
     },
 
     event = {
@@ -156,14 +156,14 @@ return {
                 local sources = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" }
 
                 -- check is plugin 'github/copilot.vim' loaded
-                -- if package.loaded["_copilot"] ~= nil then
-                --     table.insert(sources, "copilot")
-                -- end
-
-                -- check is plugin 'zbirenbaum/copilot.lua' loaded
-                if package.loaded["copilot.api"] ~= nil then
+                if package.loaded["_copilot"] ~= nil then
                     table.insert(sources, "copilot")
                 end
+
+                -- check is plugin 'zbirenbaum/copilot.lua' loaded
+                -- if package.loaded["copilot.api"] ~= nil then
+                --     table.insert(sources, "copilot")
+                -- end
 
                 return sources
             end,
@@ -182,26 +182,26 @@ return {
                 },
 
                 -- 'fang2hou/blink-copilot' + 'github/copilot.vim'
-                -- copilot = {
-                --     name = "copilot",
-                --     enabled = function()
-                --         return package.loaded["_copilot"] ~= nil
-                --     end,
-                --     module = "blink-copilot",
-                --     score_offset = 100,
-                --     async = true,
-                -- },
-
-                -- 'giuxtaposition/blink-cmp-copilot' + 'zbirenbaum/copilot.lua'
                 copilot = {
                     name = "copilot",
                     enabled = function()
-                        return package.loaded["copilot.api"] ~= nil
+                        return package.loaded["_copilot"] ~= nil
                     end,
-                    module = "blink-cmp-copilot",
+                    module = "blink-copilot",
                     score_offset = 100,
                     async = true,
                 },
+
+                -- 'giuxtaposition/blink-cmp-copilot' + 'zbirenbaum/copilot.lua'
+                -- copilot = {
+                --     name = "copilot",
+                --     enabled = function()
+                --         return package.loaded["copilot.api"] ~= nil
+                --     end,
+                --     module = "blink-cmp-copilot",
+                --     score_offset = 100,
+                --     async = true,
+                -- },
 
                 lazydev = {
                     name = "LazyDev",

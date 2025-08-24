@@ -1,7 +1,4 @@
 return {
-    --[[
-    -- Plugin disabled due error described in the issue below.
-    -- https://github.com/ibhagwan/fzf-lua/issues/2247#issuecomment-3192963942
     -- Use 'zbirenbaum/copilot.lua' instead.
     "github/copilot.vim",
     cmd = {
@@ -29,8 +26,8 @@ return {
         })
         vim.fn["copilot#OnFileType"]()
     end,
-    --]]
 
+    --[[
     -- INFO: Suggestion mappings:
     -- accept = "<M-l>" or <tab>
     -- next = "<M-]>"
@@ -79,4 +76,5 @@ return {
             end,
         })
     end,
+    --]]
 }

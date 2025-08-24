@@ -60,7 +60,6 @@ return {
     cmd = {
         "Telescope",
         "DashFiles",
-        "DashRecent",
         "DashGrep",
         "UiHandleSelect",
     },
@@ -159,9 +158,6 @@ return {
 
             require("telescope.builtin").find_files(args)
         end, { nargs = "*" })
-        vim.api.nvim_create_user_command("DashRecent", function()
-            require("telescope.builtin").oldfiles()
-        end, {})
         vim.api.nvim_create_user_command("DashGrep", function()
             require("telescope.builtin").live_grep()
         end, {})

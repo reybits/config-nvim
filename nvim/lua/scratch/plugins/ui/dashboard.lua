@@ -48,13 +48,6 @@ return {
                         key = "f",
                     },
                     {
-                        icon = "󰔠 ", -- "󱑍  ",
-                        desc = "Recent",
-                        group = "Label",
-                        action = "DashRecent",
-                        key = "o",
-                    },
-                    {
                         icon = "󱘢 ", -- " ",
                         desc = "Grep",
                         group = "Label",

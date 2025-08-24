@@ -34,7 +34,6 @@ return {
     cmd = {
         "FzfLua",
         "DashFiles",
-        "DashRecent",
         "DashGrep",
         "UiHandleSelect",
     },
@@ -125,9 +124,6 @@ return {
 
             require("fzf-lua").files(args)
         end, { nargs = "*" })
-        vim.api.nvim_create_user_command("DashRecent", function()
-            require("fzf-lua").oldfiles()
-        end, {})
         vim.api.nvim_create_user_command("DashGrep", function()
             require("fzf-lua").live_grep()
         end, {})

@@ -114,16 +114,17 @@ return {
                 map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
             end
 
-            -- show diagnostics in the floating window
-            if client.server_capabilities.diagnosticProvider then
-                mapn("<leader>cd", function()
-                    local float_opts = { scope = "line", border = "rounded" }
-                    local float_bufnr, _ = vim.diagnostic.open_float(float_opts)
-                    if float_bufnr == nil then
-                        vim.notify("No diagnostics found")
-                    end
-                end, "Show Line Diagnostics")
-            end
+            -- Show diagnostics in the floating window.
+            -- TODO: Investigate which server capability requires this.
+            -- if client.server_capabilities.diagnosticProvider then
+            mapn("<leader>cf", function()
+                local float_opts = { scope = "line", border = "rounded" }
+                local float_bufnr, _ = vim.diagnostic.open_float(float_opts)
+                if float_bufnr == nil then
+                    vim.notify("No diagnostics found")
+                end
+            end, "Show Line Diagnostics")
+            -- end
 
             if client.server_capabilities.inlayHintProvider then
                 local ToggleOption = require("scratch.core.toggleopt")

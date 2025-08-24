@@ -30,7 +30,7 @@ return {
     event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "echasnovski/mini.pick", -- required if mini.pick is used for vim.ui.select
+        -- "echasnovski/mini.pick", -- required if mini.pick is used for vim.ui.select
     },
     cmd = {
         "FzfLua",
@@ -214,7 +214,8 @@ return {
         -- vim.ui.select related section
         ------------------------------------------------------------------------
 
-        -- mini.pick as vim.ui.select
+        --[[
+        -- Setup mini.pick as vim.ui.select.
         local mini_select = function()
             local fn = function(items, opts, on_choice)
                 local win_config = function()
@@ -240,13 +241,27 @@ return {
 
             vim.ui.select = fn
         end
+        --]]
 
-        --[[
-        -- fzf-lua as vim.ui.select
-        -- Disabled due to bug in fzf-lua.
+        -- Setup fzf-lua as vim.ui.select.
         local fzf_select = function()
-            require("fzf-lua").register_ui_select(function(_, items)
-                -- Automatic sizing of height of vim.ui.select
+            require("fzf-lua").register_ui_select(function(opts, items)
+                if not opts.prompt:match("[: ]$") then
+                    opts.prompt = opts.prompt .. "❯ "
+                end
+
+                -- Default behavior for non vim.ui.select calls.
+                if opts.kind ~= nil then
+                    return {
+                        winopts = {
+                            height = 0.6,
+                            width = 0.6,
+                            row = 0.5,
+                        },
+                    }
+                end
+
+                -- Automatic sizing of height of vim.ui.select.
                 local h = (#items + 4) / vim.o.lines
                 h = math.max(h, 0.15)
                 h = math.min(h, 0.70)
@@ -260,18 +275,17 @@ return {
                 }
             end)
         end
-        --]]
 
         local is_ui_select_registered = false
         local function register_ui_select()
             if is_ui_select_registered == false then
                 is_ui_select_registered = true
-                mini_select()
-                -- fzf_select()
+                -- mini_select()
+                fzf_select()
             end
         end
 
-        -- Create command to register vim.ui.select handler
+        -- Create command to register vim.ui.select handler.
         vim.api.nvim_create_user_command("UiHandleSelect", function()
             register_ui_select()
         end, {})

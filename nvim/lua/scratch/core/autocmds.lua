@@ -126,16 +126,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end,
 })
 
---- highlight when yanking (copying) text --------------------------------------
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = augroup("highlight-yank"),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
-
 --- clear colorcolumn for some filetypes ---------------------------------------
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("clean_window_opts"),
@@ -156,3 +146,12 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+--- highlight when yanking (copying) text --------------------------------------
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight when yanking (copying) text",
+    group = augroup("highlight-yank"),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})

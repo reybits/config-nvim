@@ -4,14 +4,26 @@
 
 return {
     "b0o/incline.nvim",
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+    },
     event = {
         "BufRead",
     },
     config = function()
         require("incline").setup({
             render = function(props)
-                local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+                local bufname = vim.api.nvim_buf_get_name(props.buf)
+                if bufname == nil then
+                    -- TODO: Remove notification after debugging
+                    vim.notify("[Incline] Wrong buffer name", vim.log.level.WARNIG)
+                    bufname = ""
+                end
+
+                local filename = vim.fn.fnamemodify(bufname, ":t")
                 if filename == "" then
+                    -- TODO: Remove notification after debugging
+                    vim.notify("[Incline] Wrong file name", vim.log.level.WARNIG)
                     filename = "[No Name]"
                 end
 

@@ -152,6 +152,27 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
     group = augroup("highlight-yank"),
     callback = function()
-        vim.highlight.on_yank()
+        vim.hl.on_yank()
+        -- TODO: vim.highlight deprecated, remove it.
+        -- vim.highlight.on_yank()
+    end,
+})
+
+-- Open Trouble quickfix on :copen
+vim.api.nvim_create_autocmd("BufRead", {
+    callback = function(ev)
+        if vim.bo[ev.buf].buftype == "quickfix" then
+            vim.schedule(function()
+                vim.cmd([[cclose]])
+                vim.cmd([[Trouble qflist open]])
+            end)
+        end
+    end,
+})
+
+-- Automatically open Trouble quickfix
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    callback = function()
+        vim.cmd([[Trouble qflist open]])
     end,
 })

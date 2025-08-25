@@ -46,10 +46,12 @@ return {
             desc = toggle_fzfresume:getCurrentDescription(),
         },
         { "<leader>,", function()
-                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
+                local opts = { ignore_current_buffer = true, sort_lastused = true, resume = isResumeEnabled("buffers") }
+                require('fzf-lua').buffers(opts)
             end, desc = "Buffers List" },
         { "<leader>bb", function()
-                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
+                local opts = { ignore_current_buffer = true, sort_lastused = true, resume = isResumeEnabled("buffers") }
+                require('fzf-lua').buffers(opts)
             end, desc = "Buffers List" },
 
         { "<leader>fr", function()

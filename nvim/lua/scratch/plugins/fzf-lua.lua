@@ -46,12 +46,10 @@ return {
             desc = toggle_fzfresume:getCurrentDescription(),
         },
         { "<leader>,", function()
-                local opts = { ignore_current_buffer = true, sort_lastused = true, resume = isResumeEnabled("buffers") }
-                require('fzf-lua').buffers(opts)
+                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
             end, desc = "Buffers List" },
         { "<leader>bb", function()
-                local opts = { ignore_current_buffer = true, sort_lastused = true, resume = isResumeEnabled("buffers") }
-                require('fzf-lua').buffers(opts)
+                require('fzf-lua').buffers({ resume = isResumeEnabled("buffers") })
             end, desc = "Buffers List" },
 
         { "<leader>fr", function()
@@ -132,6 +130,9 @@ return {
             -- profile
             "hide", -- or "telescope",
 
+            defaults = {
+                no_header_i = true, -- Hides "header" hints.
+            },
             winopts = {
                 width = 0.96,
                 height = 0.96,
@@ -169,6 +170,8 @@ return {
             },
             buffers = {
                 prompt = "❯ ",
+                ignore_current_buffer = true,
+                sort_lastused = true,
             },
             keymaps = {
                 prompt = "❯ ",

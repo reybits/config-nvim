@@ -257,7 +257,7 @@ return {
                     return {
                         winopts = {
                             height = 0.6,
-                            width = 0.6,
+                            width = 0.8,
                             row = 0.5,
                         },
                     }

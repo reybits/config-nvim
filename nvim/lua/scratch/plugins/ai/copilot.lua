@@ -1,5 +1,12 @@
 return {
-    -- Use 'zbirenbaum/copilot.lua' instead.
+    -- INFO: Suggestion mappings:
+    -- <C-]> - Dismiss the current suggestion.
+    -- <M-]> - Cycle to the next suggestion, if one is available.
+    -- <M-[> - Cycle to the previous suggestion.
+    -- <M-\> - Explicitly request a suggestion, even if Copilot <Plug>(copilot-suggest) is disabled.
+    -- <M-Right> or <M-l> - Accept the next word of the current suggestion.
+    -- <M-C-Right> or <M-j> - Accept the next line of the current suggestion.
+
     "github/copilot.vim",
     cmd = {
         "Copilot",
@@ -8,22 +15,43 @@ return {
         -- Only "BufWinEnter" is required for Copilot to work when using the blink-cmp plugin.
         -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
         -- "BufWinEnter",
-        "InsertEnter", -- load copilot when entering insert mode instead of BufWinEnter event
+        -- Load copilot when entering insert mode instead of BufWinEnter event.
+        "InsertEnter",
     },
-    init = function()
-        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
-        vim.g.copilot_no_maps = true
-    end,
+    -- init = function()
+    --     -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
+    --     vim.g.copilot_no_maps = true
+    -- end,
     config = function()
-        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
-        -- Block the normal Copilot suggestions
-        vim.api.nvim_create_augroup("github_copilot", { clear = true })
-        vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
-            group = "github_copilot",
-            callback = function(args)
-                vim.fn["copilot#On" .. args.event]()
-            end,
+        --     -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
+        --     -- Block the normal Copilot suggestions
+        --     vim.api.nvim_create_augroup("github_copilot", { clear = true })
+        --     vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+        --         group = "github_copilot",
+        --         callback = function(args)
+        --             vim.notify("Event: " .. args.event, vim.log.levels.INFO)
+        --             vim.notify("FileType: " .. vim.bo[args.buf].filetype, vim.log.levels.INFO)
+        --             vim.fn["copilot#On" .. args.event]()
+        --         end,
+        --     })
+
+        -- Alias for <m-right>
+        vim.keymap.set("i", "<m-l>", "copilot#AcceptWord()", {
+            expr = true,
+            silent = true,
+            script = true,
+            desc = "Copilot: Accept next word",
         })
+
+        -- Alias for <m-c-right>
+        vim.keymap.set("i", "<m-j>", "copilot#AcceptLine()", {
+            expr = true,
+            silent = true,
+            script = true,
+            desc = "Copilot: Accept next Line",
+        })
+
+        -- Atach copilot to the current buffer when entering insert mode.
         vim.fn["copilot#OnFileType"]()
     end,
 

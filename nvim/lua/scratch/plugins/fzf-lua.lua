@@ -102,14 +102,17 @@ return {
         { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
 
+        { "<leader>co", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Code Outline" },
+
         -- Moved to the Trouble plugin.
         -- { "<leader>cs", function()
         --         require('fzf-lua').lsp_document_symbols({
         --             winopts = { preview = { layout = "horizontal" } } })
         --     end, desc = "Show Document Symbols" },
-        -- { "<leader>ci", "<cmd>FzfLua lsp_incoming_calls<cr>",  desc = "Show Incoming Calls" },
-        -- { "<leader>cr", "<cmd>FzfLua lsp_references<cr>", desc = "Show References" },
-        -- { "<leader>cD", "<cmd>FzfLua diagnostics_document<cr>", desc = "Show Diagnostics" },
+        { "<leader>ci", "<cmd>FzfLua lsp_incoming_calls<cr>",  desc = "Incoming Calls" },
+        { "<leader>cr", "<cmd>FzfLua lsp_references<cr>", desc = "References" },
+        { "<leader>cd", "<cmd>FzfLua diagnostics_document<cr>", desc = "Diagnostics" },
+        { "<leader>cD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Diagnostics (workspace)" },
     },
     config = function()
         local fzflua = require("fzf-lua")

@@ -38,7 +38,7 @@ return {
     keys = {
         { "]t", function() require("todo-comments").jump_next() end, desc = "Next TODO" },
         { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev TODO" },
-        -- { "<leader>st", "<cmd>TodoQuickFix<cr>", desc = "Show TODOs in quickfix" },
+        { "<leader>st", "<cmd>TodoQuickFix<cr>", desc = "TODOs" },
     },
     opts = {},
 }

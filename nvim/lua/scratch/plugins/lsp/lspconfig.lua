@@ -150,6 +150,7 @@ return {
             -- end, "List Workspace Folders")
         end
 
+        --[[
         --
         -- Customize the capabilities to ensure utf-16 encoding is used.
         --
@@ -170,8 +171,8 @@ return {
                 on_attach = on_attach,
             })
         end
+        --]]
 
-        --[[
         --
         -- Second method using LspAttach autocommand.
         --
@@ -187,6 +188,5 @@ return {
                 on_attach(client, bufnr)
             end,
         })
-        --]]
     end,
 }

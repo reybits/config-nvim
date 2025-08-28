@@ -57,8 +57,9 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
---- show buffer name on switch -----------------------------------------------
---- disabled due to mess notification and not useful enough
+--- show buffer name on switch -------------------------------------------------
+
+-- INFO: disabled due to mess notification and not useful enough
 --[[
 --- Checks if the given name is the same as the last used name.
 --- @return function Returns lastBufNameFunction function
@@ -100,7 +101,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 --]]
 
---- close diff buffer with <q> ----------------------------------------------
+--- close diff buffer with <q> -------------------------------------------------
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
     group = augroup("close_with_q"),
@@ -127,6 +128,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 --- clear colorcolumn for some filetypes ---------------------------------------
+
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("clean_window_opts"),
     pattern = {
@@ -147,7 +149,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 --- highlight when yanking (copying) text --------------------------------------
---  See `:help vim.highlight.on_yank()`
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
     group = augroup("highlight-yank"),

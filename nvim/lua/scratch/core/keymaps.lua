@@ -90,8 +90,7 @@ map("n", "<leader>q", function()
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         if
             vim.api.nvim_win_get_config(win).relative == ""
-            and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win), "buftype")
-                == "quickfix"
+            and vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "quickfix"
         then
             qf_exists = true
             break

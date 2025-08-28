@@ -5,7 +5,7 @@ local toggle_session = ToggleOption:new("<leader>os", function(state)
 end, "Session Save", true)
 
 return {
-    "echasnovski/mini.sessions",
+    "nvim-mini/mini.sessions",
     version = false,
     cmd = {
         "SessionsList",

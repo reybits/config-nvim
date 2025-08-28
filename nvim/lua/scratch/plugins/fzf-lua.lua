@@ -30,7 +30,7 @@ return {
     event = "BufRead",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        -- "echasnovski/mini.pick", -- required if mini.pick is used for vim.ui.select
+        -- "nvim-mini/mini.pick", -- required if mini.pick is used for vim.ui.select
     },
     cmd = {
         "FzfLua",

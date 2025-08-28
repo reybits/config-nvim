@@ -81,24 +81,26 @@ return {
                     resume = isResumeEnabled("filescwd") })
             end, desc = "Neovim Plugin Files" },
 
-        { "<leader>/", "<cmd>FzfLua grep_curbuf<cr>", desc = "Fuzzy Search Buffer" },
+        { "<leader>/", "<cmd>FzfLua grep_curbuf<cr>", desc = "Grep Buffer" },
 
         { "<leader>sg", "<cmd>FzfLua live_grep_native<cr>", desc = "Live Grep" },
         { "<leader>sG", function ()
                 require('fzf-lua').live_grep_native({ cwd = vim.fn.expand('%:h') })
             end, desc = "Live Grep (cwd)" },
 
-        { "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep String" },
+        { "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep Word" },
         { "<leader>sW", function ()
                 require('fzf-lua').grep_cword({ cwd = vim.fn.expand('%:h') })
             end, desc = "Grep Word (cwd)" },
 
         -- Key binding for TODO comments has been moved to the "folke/todo-comments.nvim" plugin.
-        -- { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "Find TODO/INFO/..." },
+        -- { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "TODOs" },
 
-        { "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Search Help" },
-        { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Search Man" },
-        { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Search Keymaps" },
+        { "<leader>sc", "<cmd>FzfLua commands<cr>", desc = "Commands" },
+
+        { "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Help" },
+        { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Man" },
+        { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
 
         -- Moved to the Trouble plugin.
         -- { "<leader>cs", function()

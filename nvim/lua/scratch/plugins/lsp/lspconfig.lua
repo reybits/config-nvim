@@ -111,7 +111,7 @@ return {
             end
 
             if client.server_capabilities.codeActionProvider then
-                map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Show Code Action")
+                map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code Action")
             end
 
             -- Show diagnostics in the floating window.
@@ -123,7 +123,7 @@ return {
                 if float_bufnr == nil then
                     vim.notify("No diagnostics found")
                 end
-            end, "Show Line Diagnostics")
+            end, "Line Diagnostics")
             -- end
 
             if client.server_capabilities.inlayHintProvider then

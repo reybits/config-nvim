@@ -105,8 +105,9 @@ return {
         user = user:sub(1, 1):upper() .. user:sub(2)
         return {
             -- auto_insert_mode = true,
-            question_header = "  " .. user .. " ",
-            answer_header = "  Copilot ",
+            -- separator = "━━",
+            -- auto_fold = true, -- Automatically folds non-assistant messages
+
             window = {
                 layout = "float", -- 'vertical', 'horizontal', 'float', 'replace'
                 width = 0.6,
@@ -114,20 +115,30 @@ return {
                 border = "rounded", -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
                 title = " Copilot Chat ", -- title of chat window
             },
+
+            headers = {
+                -- Icons: 👤 🤖
+                user = "   " .. user .. " ",
+                assistant = "   Copilot ",
+                tool = " 🔧 Tool ",
+            },
         }
     end,
     config = function(_, opts)
         vim.api.nvim_create_autocmd("BufEnter", {
-            pattern = "copilot-chat",
+            pattern = "copilot-*",
             callback = function()
                 vim.opt_local.relativenumber = false
                 vim.opt_local.number = false
+                vim.opt_local.conceallevel = 0
             end,
         })
 
+        --[[
+        -- INFO: Removed because this autocmd is not listed in the plugin page.
         -- Close a window on WinLeave event
         vim.api.nvim_create_autocmd("WinLeave", {
-            pattern = "copilot-chat",
+            pattern = "copilot-*",
             callback = function()
                 local win = vim.api.nvim_get_current_win()
                 if vim.api.nvim_win_get_config(win).relative ~= "" then
@@ -135,6 +146,7 @@ return {
                 end
             end,
         })
+        --]]
 
         local chat = require("CopilotChat")
         chat.setup(opts)

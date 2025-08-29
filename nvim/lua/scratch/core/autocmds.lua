@@ -28,12 +28,15 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     command = 'silent! normal! g`"zv',
 })
 
---- close some filetypes with <q> ----------------------------------------------
+--- close with <q> by filetype -------------------------------------------------
+
+local close_with_q = augroup("close_with_q")
 
 vim.api.nvim_create_autocmd("FileType", {
-    group = augroup("close_with_q"),
+    group = close_with_q,
     pattern = {
         "PlenaryTestPopup",
+        "acwrite",
         "checkhealth",
         "git",
         "gitsigns-blame",
@@ -56,6 +59,59 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
+--- close with <q> by buftype (not filetype) -----------------------------------
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = close_with_q,
+    callback = function(event)
+        -- Skip if filetype is in the list
+        local skip_by_filetypes = {
+            oil = true,
+        }
+        local ft = vim.bo[event.buf].filetype
+        if skip_by_filetypes[ft] then
+            return
+        end
+
+        -- Close if buftype is in the list
+        local close_by_buftypes = {
+            acwrite = true,
+            quickfix = true,
+        }
+        local bt = vim.bo[event.buf].buftype
+        if close_by_buftypes[bt] then
+            vim.bo[event.buf].modifiable = false
+            vim.keymap.set(
+                "n",
+                "q",
+                "<cmd>close<cr>",
+                { buffer = event.buf, silent = true, noremap = true }
+            )
+        end
+    end,
+})
+
+--- trouble.nvim releated autocmds ---------------------------------------------
+
+-- open Trouble quickfix on :copen
+-- vim.api.nvim_create_autocmd("BufRead", {
+--     callback = function(ev)
+--         if vim.bo[ev.buf].buftype == "quickfix" then
+--             vim.schedule(function()
+--                 vim.cmd([[cclose]])
+--                 vim.cmd([[Trouble qflist open]])
+--             end)
+--         end
+--     end,
+-- })
+
+-- automatically open Trouble quickfix
+-- vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+--     callback = function()
+--         vim.cmd([[Trouble qflist open]])
+--     end,
+-- })
 
 --- show buffer name on switch -------------------------------------------------
 
@@ -101,32 +157,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 --]]
 
---- close diff buffer with <q> -------------------------------------------------
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-    group = augroup("close_with_q"),
-    pattern = { "*" },
-    callback = function(event)
-        -- Skip if the filetype is in the list
-        local skip_by_filetypes = {
-            "oil",
-        }
-        if vim.list_contains(skip_by_filetypes, vim.bo[event.buf].filetype) then
-            return
-        end
-
-        -- Close if the buftype is in the list
-        local close_by_buftypes = {
-            "help",
-            "acwrite",
-        }
-        if vim.list_contains(close_by_buftypes, vim.bo[event.buf].buftype) then
-            vim.api.nvim_set_option_value("modifiable", false, { buf = event.buf })
-            vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf })
-        end
-    end,
-})
-
 --- clear colorcolumn for some filetypes ---------------------------------------
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -159,24 +189,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         -- vim.highlight.on_yank()
     end,
 })
-
---- trouble.nvim releated autocmds ---------------------------------------------
-
--- open Trouble quickfix on :copen
--- vim.api.nvim_create_autocmd("BufRead", {
---     callback = function(ev)
---         if vim.bo[ev.buf].buftype == "quickfix" then
---             vim.schedule(function()
---                 vim.cmd([[cclose]])
---                 vim.cmd([[Trouble qflist open]])
---             end)
---         end
---     end,
--- })
-
--- automatically open Trouble quickfix
--- vim.api.nvim_create_autocmd("QuickFixCmdPost", {
---     callback = function()
---         vim.cmd([[Trouble qflist open]])
---     end,
--- })

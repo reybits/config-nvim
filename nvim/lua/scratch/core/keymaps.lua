@@ -83,23 +83,26 @@ map("v", "<m-j>", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
 map("v", "<m-k>", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
 
 -- quickfix related stuff
-map("n", "<leader>q", function()
-    local qf_exists = false
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if
-            vim.api.nvim_win_get_config(win).relative == ""
-            and vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "quickfix"
-        then
-            qf_exists = true
-            break
-        end
-    end
-    if qf_exists then
+vim.keymap.set("n", "<leader>q", function()
+    local qf = vim.fn.getqflist({ winid = 0 })
+    if qf.winid ~= 0 then
         vim.cmd("cclose")
     else
         vim.cmd("copen")
     end
-end, desc("Toggle Quick List"))
+end, { desc = "Toggle quickfix" })
+
+-- location list related stuff
+vim.keymap.set("n", "<leader>Q", function()
+    local loclist = vim.fn.getloclist(0, { winid = 0, size = 0 })
+    if loclist.winid ~= 0 then
+        vim.cmd("lclose")
+    elseif loclist.size > 0 then
+        vim.cmd("lopen")
+    else
+        vim.notify("No location list", vim.log.levels.WARN)
+    end
+end, { desc = "Toggle location list" })
 
 map("n", "<m-j>", "<cmd>cnext<cr>", desc("Next Item in Quicklist"))
 map("n", "<m-k>", "<cmd>cprev<cr>", desc("Prev Item in Quicklist"))

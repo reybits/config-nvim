@@ -1,3 +1,17 @@
+local function dismissCopilotSuggetion()
+    if package.loaded["_copilot"] ~= nil then
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<Plug>(copilot-dismiss)", true, true, true),
+            "i",
+            false
+        )
+    end
+
+    -- if package.loaded["copilot.api"] ~= nil then
+    --     require("copilot.suggestion").dismiss()
+    -- end
+end
+
 return {
     "saghen/blink.cmp",
     -- use a release tag to download pre-built binaries
@@ -16,7 +30,7 @@ return {
         "folke/lazydev.nvim",
         "moyiz/blink-emoji.nvim",
 
-        "fang2hou/blink-copilot",
+        -- "fang2hou/blink-copilot",
         -- "giuxtaposition/blink-cmp-copilot",
     },
 
@@ -49,7 +63,16 @@ return {
         -- keymap = { preset = "default" },
         keymap = {
             -- preset = "enter",
-            ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<c-space>"] = {
+                function()
+                    dismissCopilotSuggetion()
+                    return false -- passthrough to the next command
+                end,
+                "show",
+                "hide",
+            },
+
+            ["<c-h>"] = { "show_documentation", "hide_documentation" },
 
             ["<c-e>"] = { "hide", "fallback" },
 
@@ -65,7 +88,11 @@ return {
             ["<c-d>"] = { "scroll_documentation_down", "fallback" },
             ["<c-u>"] = { "scroll_documentation_up", "fallback" },
 
+            -- TODO: Remove this mapping and use <tab> instead.
             ["<cr>"] = { "accept", "fallback" },
+
+            -- Use <tab> to accept completion to comply with github-copilot.
+            ["<tab>"] = { "accept", "fallback" },
         },
 
         completion = {
@@ -81,15 +108,26 @@ return {
                 -- treesitter_highlighting = false, -- disable if high CPU usage or stuttering when opening the documentation
             },
 
-            -- Disable a preview of the selected item on the current line
             ghost_text = {
-                enabled = false,
+                -- Show ghost text only when the completion menu is visible; hide otherwise.
+                enabled = true,
+                show_with_menu = true,
+                show_without_menu = false,
             },
 
             accept = { auto_brackets = { enabled = false } },
 
             menu = {
                 -- border = "single",
+
+                -- Disable auto show completion menu by default...
+                auto_show = false,
+                -- or Automatically show completion menu and dismiss Copilot suggestion initially.
+                -- auto_show = function(ctx)
+                --     dismissCopilotSuggetion()
+                --     return true
+                -- end,
+
                 draw = {
                     -- We don't need label_description now because label and label_description are already
                     -- combined together in label by colorful-menu.nvim.
@@ -156,9 +194,9 @@ return {
                 local sources = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" }
 
                 -- check is plugin 'github/copilot.vim' loaded
-                if package.loaded["_copilot"] ~= nil then
-                    table.insert(sources, "copilot")
-                end
+                -- if package.loaded["_copilot"] ~= nil then
+                --     table.insert(sources, "copilot")
+                -- end
 
                 -- check is plugin 'zbirenbaum/copilot.lua' loaded
                 -- if package.loaded["copilot.api"] ~= nil then
@@ -182,15 +220,15 @@ return {
                 },
 
                 -- 'fang2hou/blink-copilot' + 'github/copilot.vim'
-                copilot = {
-                    name = "copilot",
-                    enabled = function()
-                        return package.loaded["_copilot"] ~= nil
-                    end,
-                    module = "blink-copilot",
-                    score_offset = 100,
-                    async = true,
-                },
+                -- copilot = {
+                --     name = "copilot",
+                --     enabled = function()
+                --         return package.loaded["_copilot"] ~= nil
+                --     end,
+                --     module = "blink-copilot",
+                --     score_offset = 100,
+                --     async = true,
+                -- },
 
                 -- 'giuxtaposition/blink-cmp-copilot' + 'zbirenbaum/copilot.lua'
                 -- copilot = {

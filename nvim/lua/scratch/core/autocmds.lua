@@ -74,12 +74,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
             return
         end
 
+        local bt = vim.bo[event.buf].buftype
+
         -- Close if buftype is in the list
         local close_by_buftypes = {
+            help = true, -- For help in markdown files when not detected by FileType.
             acwrite = true,
             quickfix = true,
         }
-        local bt = vim.bo[event.buf].buftype
+
         if close_by_buftypes[bt] then
             vim.bo[event.buf].modifiable = false
             vim.keymap.set(
@@ -88,6 +91,19 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
                 "<cmd>close<cr>",
                 { buffer = event.buf, silent = true, noremap = true }
             )
+        end
+
+        -- Set options by buftype
+        local opts_by_buftypes = {
+            help = function()
+                vim.opt_local.cc = ""
+                vim.opt_local.signcolumn = "no"
+                vim.opt_local.wrap = true
+            end,
+        }
+
+        if opts_by_buftypes[bt] then
+            opts_by_buftypes[bt]()
         end
     end,
 })

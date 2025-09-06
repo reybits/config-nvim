@@ -33,6 +33,7 @@ return {
             { "<leader>g", group = "Git Related" },
             { "<leader>gb", group = "Blame" },
             { "<leader>gh", group = "Hunks" },
+            { "<leader>gm", group = "Merge Tool" },
             { "<leader>o", group = "Options" },
             { "<leader>oc", group = "Code" },
             { "<leader>oe", group = "Editor" },

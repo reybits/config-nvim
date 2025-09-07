@@ -37,27 +37,215 @@ map(
     desc("Toggle Split Layout")
 )
 
-local custom_make = function(cmd)
+-- Disabled in favor of 'reybits/anvil.nvim' plugin.
+--[[
+local custom_make = function(cmd, on_exit, opts)
+    -- vim.notify("Exec command: '" .. cmd .. "'.", vim.log.levels.INFO)
+    opts = opts or {}
+
+    local tmpfile = vim.fn.tempname() .. ".ret"
+    os.remove(tmpfile)
+
+    local outfile = vim.fn.tempname() .. ".log"
+    if opts.log_to_qf then
+        os.remove(outfile)
+    end
+
     if os.getenv("TMUX") then
-        os.execute(
-            "tmux split-window -v -l 30% '" .. cmd .. " || exec $SHELL' ; tmux select-pane -U"
-        )
+        local tmux_cmd
+        if opts.log_to_qf then
+            tmux_cmd = string.format(
+                "tmux split-window -v -l 30%% '(%s 2>&1 | tee %s); echo $? > %s || exec $SHELL'; tmux select-pane -U",
+                cmd,
+                outfile,
+                tmpfile
+            )
+        else
+            tmux_cmd = string.format(
+                "tmux split-window -v -l 30%% '%s; echo $? > %s || exec $SHELL'; tmux select-pane -U",
+                cmd,
+                tmpfile
+            )
+        end
+
+        vim.fn.jobstart(tmux_cmd, { shell = true })
     else
-        vim.cmd("12split | terminal " .. cmd)
-        vim.cmd("normal G") -- scroll to the bottom
-        vim.cmd("wincmd p") -- return focus to previous window
+        vim.api.nvim_create_autocmd("TermClose", {
+            group = vim.api.nvim_create_augroup("scratch_close_term_buffer", { clear = true }),
+            callback = function()
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                    local buf = vim.api.nvim_win_get_buf(win)
+                    if vim.bo[buf].buftype == "terminal" then
+                        vim.api.nvim_win_close(win, true)
+                        vim.api.nvim_buf_delete(buf, { force = true })
+                        return
+                    end
+                end
+            end,
+        })
+
+        local prev_win = vim.api.nvim_get_current_win()
+
+        -- make split for terminal window and run terminal command
+        local term_cmd
+        if opts.log_to_qf then
+            term_cmd = string.format("terminal %s; echo $? > %s", cmd, tmpfile)
+        else
+            term_cmd =
+                string.format("terminal (%s 2>&1 | tee %s); echo $? > %s", cmd, outfile, tmpfile)
+        end
+        vim.cmd("split | " .. term_cmd)
+
+        -- scroll to the bottom
+        vim.cmd("normal G")
+
+        -- move terminal window to the bottom
+        vim.cmd("wincmd J")
+
+        -- reseize terminal window to fixed height
+        local height = math.floor(0.3 * vim.o.lines)
+        vim.cmd("resize " .. height)
+
+        -- return focus to previous window
+        if vim.api.nvim_win_is_valid(prev_win) then
+            vim.api.nvim_set_current_win(prev_win)
+        end
+    end
+
+    -- Wait for the command to finish
+    local timer = vim.uv.new_timer()
+    if timer ~= nil then
+        timer:start(
+            500,
+            500,
+            vim.schedule_wrap(function()
+                local f = io.open(tmpfile, "r")
+                if f then
+                    local code = tonumber(f:read("*a"))
+                    f:close()
+
+                    timer:stop()
+                    timer:close()
+
+                    os.remove(tmpfile)
+
+                    if opts.log_to_qf then
+                        local o = io.open(outfile, "r")
+                        if o then
+                            local lines = {}
+                            for line in o:lines() do
+                                table.insert(lines, line)
+                            end
+                            o:close()
+                            os.remove(outfile)
+
+                            vim.fn.setqflist({}, "r", { title = "Make Output", lines = lines })
+                        end
+                    end
+
+                    if on_exit then
+                        on_exit(code)
+                    else
+                        vim.notify(
+                            "Command '" .. cmd .. "' finished: " .. code .. ".",
+                            code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+                        )
+                    end
+                end
+            end)
+        )
     end
 end
 
+map("n", "<leader>ra", function()
+    custom_make("make android", function(code)
+        if code == 0 then
+            vim.notify("Android Release finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Android Release failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make android'"))
+
+map("n", "<leader>rA", function()
+    custom_make("make .android", function(code)
+        if code == 0 then
+            vim.notify("Android Debug finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Android Debug failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make .android'"))
+
+map("n", "<leader>rb", function()
+    custom_make("make release", function(code)
+        if code == 0 then
+            vim.notify("Build Release finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Build Release failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make release'"))
+
+map("n", "<leader>rB", function()
+    custom_make("make .debug", function(code)
+        if code == 0 then
+            vim.notify("Build Debug finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Build Debug failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make .debug'"))
+
+map("n", "<leader>rw", function()
+    custom_make("make web", function(code)
+        if code == 0 then
+            vim.notify("Web Release finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Web Release failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make web'"))
+
+map("n", "<leader>rW", function()
+    custom_make("make .web", function(code)
+        if code == 0 then
+            vim.notify("Web Debug finished.", vim.log.levels.INFO)
+        else
+            vim.notify("Web Debug failed.", vim.log.levels.ERROR)
+            vim.cmd("copen | wincmd J")
+        end
+    end, { log_to_qf = true })
+end, desc("Do 'make .web'"))
+
 -- build resources
 map("n", "<leader>rr", function()
-    custom_make("make resources")
+    custom_make("make resources", function(code)
+        if code == 0 then
+            vim.notify("Resources builded.", vim.log.levels.INFO)
+        else
+            vim.notify("Resource build failed.", vim.log.levels.ERROR)
+        end
+    end)
 end, desc("Do 'make resources'"))
 
 -- build compile_commands.json
 map("n", "<leader>rc", function()
-    custom_make("make build_compile_commands")
+    custom_make("make build_compile_commands", function(code)
+        if code == 0 then
+            vim.notify("Rebuild compile_commands.json successfully.", vim.log.levels.INFO)
+            vim.cmd("LspRestart")
+        else
+            vim.notify("Failed to rebuild compile_commands.json.", vim.log.levels.ERROR)
+        end
+    end)
 end, desc("Do 'make build_compile_commands'"))
+--]]
 
 -- toggle wrap
 local toggle_wrap = ToggleOption:new("<leader>oew", function(state)
@@ -88,7 +276,7 @@ vim.keymap.set("n", "<leader>q", function()
     if qf.winid ~= 0 then
         vim.cmd("cclose")
     else
-        vim.cmd("copen")
+        vim.cmd("copen | wincmd J")
     end
 end, { desc = "Toggle quickfix" })
 

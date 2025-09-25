@@ -272,7 +272,7 @@ return {
                 end
 
                 -- Automatic sizing of height of vim.ui.select.
-                local h = (#items + 4) / vim.o.lines
+                local h = (#items + 4 + 1) / vim.o.lines
                 h = math.max(h, 0.15)
                 h = math.min(h, 0.70)
 

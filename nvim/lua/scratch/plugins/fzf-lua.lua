@@ -133,6 +133,7 @@ return {
 
         fzflua.setup({
             -- profile
+            -- "hide" means hide fzf instead of closing it.
             "hide", -- or "telescope",
 
             defaults = {

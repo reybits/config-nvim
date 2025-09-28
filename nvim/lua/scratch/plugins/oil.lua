@@ -1,4 +1,4 @@
-local detail = false
+local showFileDetails = false
 
 -- Declare a global function to retrieve the current directory
 function _G.get_oil_winbar()
@@ -39,8 +39,8 @@ return {
             ["gd"] = {
                 desc = "Toggle file detail view",
                 callback = function()
-                    detail = not detail
-                    if detail then
+                    showFileDetails = not showFileDetails
+                    if showFileDetails then
                         require("oil").set_columns({ "mtime", "permissions", "size", "icon" })
                     else
                         require("oil").set_columns({ "size", "icon" })

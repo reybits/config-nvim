@@ -27,6 +27,7 @@ return {
                 if vim.wo.diff then
                     vim.cmd.normal({ "]c", bang = true })
                 else
+                    ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("next")
                 end
             end, { desc = "Next Hunk" })
@@ -35,6 +36,7 @@ return {
                 if vim.wo.diff then
                     vim.cmd.normal({ "[c", bang = true })
                 else
+                    ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("prev")
                 end
             end, { desc = "Prev Hunk" })
@@ -45,7 +47,10 @@ return {
             map("n", "<leader>gbi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
 
             -- Diff Buffer
-            map("n", "<leader>gd", function() gitsigns.diffthis(nil, { split="botright" }) end, { desc = "Diff Buffer" })
+            map("n", "<leader>gd", function()
+                ---@diagnostic disable-next-line: param-type-mismatch
+                gitsigns.diffthis(nil, { split="botright" })
+            end, { desc = "Diff Buffer" })
 
             -- Preview Hunk
             map("n", "<leader>ghp", gitsigns.preview_hunk_inline, { desc = "Preview Hunk" })

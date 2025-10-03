@@ -11,6 +11,7 @@ return {
         -- R is the version from branch FEATURE (remote)
         -- L is the version from branch MASTER (local)
         -- M is the version that git has auto-merged (if possible)
-        vim.g.mergetool_layout = "BR,M"
+        -- vim.g.mergetool_layout = "BR,M"
+        vim.g.mergetool_layout = "LBR,M"
     end,
 }

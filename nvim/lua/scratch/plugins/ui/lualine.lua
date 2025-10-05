@@ -279,6 +279,16 @@ return {
                         padding = { left = 0, right = 1 },
                         cond = not_acwrite
                     },
+                    {
+                        function()
+                            if vim.g.autoformat_toggle == nil or vim.g.autoformat_toggle then
+                            return "󰗴"
+                        end
+                            return "󰉥"
+                        end,
+                        separator = "",
+                        padding = { left = 0, right = 1 },
+                    },
                     { "encoding",
                         separator = "",
                         padding = { left = 0, right = 1 },

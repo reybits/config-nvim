@@ -50,7 +50,7 @@ return {
                 "stylua", -- (Formatter) Lua, Luau
                 -- "google-java-format", --  (Formatter) Java
                 "prettier", -- (Formatter) Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML
-                -- "shfmt", -- (Formatter) Bash, Mksh, Shell
+                "shfmt", -- (Formatter) Bash, Mksh, Shell
                 -- "codelldb", -- (DAP) C, C++, Rust
                 -- "cpplint", -- (Linter) C, C++
                 "shellcheck", -- (Linter) BASH

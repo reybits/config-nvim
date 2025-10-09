@@ -53,7 +53,7 @@ vim.opt.showcmd = false
 vim.opt.laststatus = 3
 
 vim.opt.splitbelow = true
--- vim.opt.splitright = true
+vim.opt.splitright = true
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"

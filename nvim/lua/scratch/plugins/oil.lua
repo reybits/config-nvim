@@ -47,6 +47,11 @@ return {
                     end
                 end,
             },
+            ["<C-s>"] = false,
+            ["<C-h>"] = false,
+            ["<C-t>"] = false,
+            ["<C-l>"] = false,
+            ["<C-r>"] = "actions.refresh",
         },
         view_options = {
             case_insensitive = true,

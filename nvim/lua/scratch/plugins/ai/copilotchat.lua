@@ -108,13 +108,30 @@ return {
             -- separator = "━━",
             -- auto_fold = true, -- Automatically folds non-assistant messages
 
+            mappings = {
+                complete = false, -- disable completion mapping
+
+                reset = {
+                    normal = "<C-r>",
+                    insert = "<C-r>",
+                    callback = function()
+                        require("CopilotChat").reset()
+                    end,
+                },
+            },
+
             window = {
-                layout = "float", -- 'vertical', 'horizontal', 'float', 'replace'
+                -- valid layouts: 'vertical', 'horizontal', 'float', 'replace'
+                layout = "vertical",
+                width = 0.5,
+                --[[
+                layout = "float",
                 width = 0.6,
                 height = 0.8,
                 blend = 10,
                 border = "rounded", -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
                 title = " Copilot Chat ", -- title of chat window
+                --]]
             },
 
             headers = {

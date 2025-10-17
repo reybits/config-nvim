@@ -26,6 +26,9 @@ return {
         -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
         default_file_explorer = true,
 
+        -- Delete files permanently, skipping the trash.
+        delete_to_trash = false,
+
         columns = {
             "size",
             "icon",
@@ -55,6 +58,15 @@ return {
         },
         view_options = {
             case_insensitive = true,
+        },
+        float = {
+            border = "rounded",
+        },
+        confirmation = {
+            border = "rounded",
+        },
+        keymaps_help = {
+            border = "rounded",
         },
     },
 }

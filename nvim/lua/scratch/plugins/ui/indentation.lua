@@ -9,6 +9,8 @@ local exclude_filetypes = {
     "neo-tree",
     "notify",
     "nvimtree",
+    "oil",
+    "oil_preview",
     "toggleterm",
     "trouble",
 }

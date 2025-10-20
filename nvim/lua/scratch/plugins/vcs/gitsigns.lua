@@ -48,6 +48,10 @@ return {
 
             -- Diff Buffer
             map("n", "<leader>gd", function()
+                -- Ensure 'closeoff' is in 'diffopt' to correctly close diff splits.
+                if not vim.tbl_contains(vim.opt.diffopt:get(), "closeoff") then
+                    vim.opt.diffopt:append("closeoff")
+                end
                 ---@diagnostic disable-next-line: param-type-mismatch
                 gitsigns.diffthis(nil, { split="botright" })
             end, { desc = "Diff Buffer" })

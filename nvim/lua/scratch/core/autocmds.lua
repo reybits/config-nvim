@@ -85,20 +85,10 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
         if close_by_buftypes[bt] then
             vim.bo[event.buf].modifiable = false
-            local function close_buffer()
-                vim.cmd("close")
-
-                -- INFO: Workaround for diff mode not turning off on acwrite buftype
-                -- In some cases, acwrite buftype openend by gitsigns.diffthis stays in
-                -- diff mode even after closing the buffer. This turns off diff mode.
-                if bt == "acwrite" then
-                    vim.cmd("diffoff")
-                end
-            end
             vim.keymap.set(
                 "n",
                 "q",
-                close_buffer,
+                "<cmd>close<cr>",
                 { buffer = event.buf, silent = true, noremap = true }
             )
         end

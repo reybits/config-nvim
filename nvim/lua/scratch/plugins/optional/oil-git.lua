@@ -3,6 +3,7 @@ return {
     dependencies = {
         "stevearc/oil.nvim",
     },
+    ft = "oil",
     opts = {
         -- No opts or config needed! Works automatically
     },

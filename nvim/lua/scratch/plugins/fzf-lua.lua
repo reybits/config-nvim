@@ -93,6 +93,8 @@ return {
                 require('fzf-lua').grep_cword({ cwd = vim.fn.expand('%:h') })
             end, desc = "Grep Word (cwd)" },
 
+        { "<leader>sq", "<cmd>FzfLua quickfix<cr>", desc = "QuickFix List" },
+
         -- Key binding for TODO comments has been moved to the "folke/todo-comments.nvim" plugin.
         -- { "<leader>st", "<cmd>TodoFzfLua<cr>", desc = "TODOs" },
 

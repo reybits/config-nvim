@@ -41,7 +41,6 @@ return {
             { "<leader>s", group = "Search" },
             { "<leader>t", group = "Tools" },
             { "<leader>w", group = "Window" },
-            { "<leader>x", group = "Diagnostics" },
 
             { "`", group = "Marks" },
             { "'", group = "Marks" },

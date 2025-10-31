@@ -42,7 +42,6 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Code formatting via [conform.nvim](https://github.com/stevearc/conform.nvim).
 - Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 - TMUX support via [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator).
-- Improved quickfix UI via [quicker.nvim](https://github.com/stevearc/quicker.nvim).
 - Fast navigation, lookup, and more via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).

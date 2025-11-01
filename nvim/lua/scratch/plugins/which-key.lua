@@ -46,6 +46,7 @@ return {
             { '"', group = "Registers" },
             { "<c-w>", group = "Window" },
             { "g", group = "Goto" },
+            { "gr", group = "LSP" },
             { "z", group = "Folding" },
             { "[", group = "Jump Prev" },
             { "]", group = "Jump Next" },

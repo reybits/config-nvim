@@ -104,7 +104,16 @@ return {
         { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
 
-        { "<leader>cc", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Code Outline" },
+        { "<leader>cc", function()
+                require('fzf-lua').lsp_document_symbols({
+                    winopts = {
+                        preview = {
+                            layout = "horizontal",
+                            horizontal = "right:60%"
+                        }
+                    }
+                })
+            end, desc = "Code Outline" },
 
         -- Moved to the Trouble plugin.
         -- { "<leader>cs", function()

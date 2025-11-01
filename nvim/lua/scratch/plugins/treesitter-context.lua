@@ -1,10 +1,10 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_tscontext = ToggleOption:new("<leader>occ", function(state)
+local toggle_tscontext = ToggleOption:new("<leader>coc", function(state)
     if state then
-        vim.cmd("TSContextEnable")
+        vim.cmd("TSContext enable")
     else
-        vim.cmd("TSContextDisable")
+        vim.cmd("TSContext disable")
     end
 end, "TS Context", false) -- disable ts context by default
 
@@ -12,9 +12,7 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = true,
     cmd = {
-        "TSContextEnable",
-        "TSContextDisable",
-        "TSContextToggle",
+        "TSContext",
     },
     keys = {
         {
@@ -23,6 +21,12 @@ return {
             desc = toggle_tscontext:getCurrentDescription(),
         },
     },
+    init = function()
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>co", group = "Options" },
+        })
+    end,
     opts = {
         enable = false,
         max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.

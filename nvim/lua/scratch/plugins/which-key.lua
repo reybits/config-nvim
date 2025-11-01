@@ -35,7 +35,6 @@ return {
             { "<leader>gh", group = "Hunks" },
             { "<leader>gm", group = "Merge Tool" },
             { "<leader>o", group = "Options" },
-            { "<leader>oc", group = "Code" },
             { "<leader>oe", group = "Editor" },
             { "<leader>r", group = "Run" },
             { "<leader>s", group = "Search" },

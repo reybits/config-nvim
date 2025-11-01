@@ -104,7 +104,7 @@ return {
         { "<leader>sm", "<cmd>FzfLua manpages<cr>", desc = "Man" },
         { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
 
-        { "<leader>co", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Code Outline" },
+        { "<leader>cc", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Code Outline" },
 
         -- Moved to the Trouble plugin.
         -- { "<leader>cs", function()

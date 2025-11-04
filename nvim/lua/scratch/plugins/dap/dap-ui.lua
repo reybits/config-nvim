@@ -1,4 +1,41 @@
 return {
+    -- How to add support for disasm:
+    -- https://igorlfs.github.io/nvim-dap-view/disassembly
+    -- {
+    --     "Jorenar/nvim-dap-disasm",
+    --     dependencies = {
+    --         "igorlfs/nvim-dap-view",
+    --     },
+    --     opts = {},
+    -- },
+
+    {
+        "igorlfs/nvim-dap-view",
+        dependencies = {
+            "mfussenegger/nvim-dap",
+        },
+        cmd = {
+            "DapViewOpen",
+            "DapViewClose",
+            "DapViewToggle",
+            "DapViewWatch",
+            "DapViewJump",
+            "DapViewShow",
+            "DapViewNavigate",
+        },
+        -- stylua: ignore
+        keys = {
+            { "<leader>dd", "<cmd>DapViewToggle<cr>", desc = "Toggle Debug Panel" },
+        },
+        opts = {
+            switchbuf = "uselast,useopen",
+            winbar = {
+                controls = { enabled = true },
+            },
+        },
+    },
+
+    --[[
     -- fancy UI for the debugger
     "rcarriga/nvim-dap-ui",
     dependencies = {
@@ -27,4 +64,5 @@ return {
             dapui.close({})
         end
     end,
+    --]]
 }

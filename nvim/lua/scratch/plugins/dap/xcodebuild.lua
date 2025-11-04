@@ -1,3 +1,8 @@
+---@diagnostic disable-next-line: undefined-field
+if vim.loop.os_uname().sysname ~= "Darwin" then
+    return {}
+end
+
 return {
     "wojciech-kulik/xcodebuild.nvim",
     dependencies = {
@@ -13,10 +18,16 @@ return {
         -- "nvim-tree/nvim-tree.lua", -- (optional) to manage project files
         "stevearc/oil.nvim", -- (optional) to manage project files
         -- "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
+
+        "mfussenegger/nvim-dap",
     },
     keys = {
         { "<leader>X", "<cmd>XcodebuildPicker<cr>", desc = "Show Xcodebuild Actions" },
-        { "<leader>xf", "<cmd>XcodebuildProjectManager<cr>", desc = "Show Project Manager Actions" },
+        {
+            "<leader>xf",
+            "<cmd>XcodebuildProjectManager<cr>",
+            desc = "Show Project Manager Actions",
+        },
 
         { "<leader>xb", "<cmd>XcodebuildBuild<cr>", desc = "Build Project" },
         { "<leader>xB", "<cmd>XcodebuildBuildForTesting<cr>", desc = "Build For Testing" },
@@ -169,5 +180,43 @@ return {
                 end,
             },
         })
+
+        local xcodebuild = require("xcodebuild.integrations.dap")
+        xcodebuild.setup()
+
+        vim.keymap.set("n", "<leader>xd", xcodebuild.build_and_debug, { desc = "Build & Debug" })
+        --[[
+        vim.keymap.set(
+            "n",
+            "<leader>xdr",
+            xcodebuild.debug_without_build,
+            { desc = "Debug Without Building" }
+        )
+        vim.keymap.set("n", "<leader>xdt", xcodebuild.debug_tests, { desc = "Debug Tests" })
+        vim.keymap.set(
+            "n",
+            "<leader>xdT",
+            xcodebuild.debug_class_tests,
+            { desc = "Debug Class Tests" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>xdb",
+            xcodebuild.toggle_breakpoint,
+            { desc = "Toggle Breakpoint" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>xdB",
+            xcodebuild.toggle_message_breakpoint,
+            { desc = "Toggle Message Breakpoint" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>xdx",
+            xcodebuild.terminate_session,
+            { desc = "Terminate Debugger" }
+        )
+        --]]
     end,
 }

@@ -6,10 +6,13 @@ return {
     },
 
     -- Neovim plugin for locking a buffer to a window.
+    --[[
+    -- INFO: This plugin is temporarily disabled due to isues with nvim-dap-view.
     {
         "stevearc/stickybuf.nvim",
         opts = {},
     },
+    --]]
 
     -- Minimal Eye-candy keys screencaster
     {

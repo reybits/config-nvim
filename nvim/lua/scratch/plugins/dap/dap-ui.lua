@@ -25,7 +25,7 @@ return {
         },
         -- stylua: ignore
         keys = {
-            { "<leader>dd", "<cmd>DapViewToggle<cr>", desc = "Toggle Debug Panel" },
+            { "<leader>du", "<cmd>DapViewToggle<cr>", desc = "Dap UI" },
         },
         config = function()
             vim.api.nvim_create_autocmd({ "FileType" }, {

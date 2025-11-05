@@ -37,6 +37,13 @@ map(
     desc("Toggle Split Layout")
 )
 
+-- navigate terminal windows more easily
+map("t", "<Esc>", "<C-\\><C-n>", desc("Exit Terminal Mode"))
+map("t", "<c-h>", "<C-\\><C-N><C-w>h", desc("Switch to Left Window"))
+map("t", "<c-j>", "<C-\\><C-N><C-w>j", desc("Switch to Bottom Window"))
+map("t", "<c-k>", "<C-\\><C-N><C-w>k", desc("Switch to Top Window"))
+map("t", "<c-l>", "<C-\\><C-N><C-w>l", desc("Switch to Right Window"))
+
 -- Disabled in favor of 'reybits/anvil.nvim' plugin.
 --[[
 local custom_make = function(cmd, on_exit, opts)

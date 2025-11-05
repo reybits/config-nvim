@@ -4,13 +4,13 @@
     "body": [
       "/**********************************************\\",
       "*",
-      "*  Andrey A. Ugolnik",
-      "*  andrey@ugolnik.info",
-      "*  https://www.ugolnik.info",
+      "*  ${1:Andrey A. Ugolnik}",
+      "*  ${2:andrey@ugolnik.info}",
+      "*  ${3:https://www.ugolnik.info}",
       "*",
       "\\**********************************************/",
       "",
-      "${1}"
+      "${4}"
     ]
   },
   "head_github": {
@@ -19,12 +19,12 @@
       "/**********************************************\\",
       "*",
       "*  ${1:Project Name}",
-      "*  by Andrey A. Ugolnik",
-      "*  https://github.com/reybits",
+      "*  by ${2:Andrey A. Ugolnik}",
+      "*  ${3:https://github.com/reybits}",
       "*",
       "\\**********************************************/",
       "",
-      "${2}"
+      "${4}"
     ]
   },
   "head_age": {

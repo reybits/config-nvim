@@ -27,10 +27,27 @@ return {
         keys = {
             { "<leader>dd", "<cmd>DapViewToggle<cr>", desc = "Toggle Debug Panel" },
         },
+        config = function()
+            vim.api.nvim_create_autocmd({ "FileType" }, {
+                pattern = {
+                    "dap-view",
+                    "dap-view-term",
+                    "dap-repl", -- dap-repl is set by `nvim-dap`
+                },
+                callback = function(args)
+                    vim.opt_local.cc = ""
+                    vim.opt_local.signcolumn = "no"
+                    vim.opt_local.wrap = true
+                    vim.keymap.set("n", "q", "<C-w>q", { buffer = args.buf })
+                end,
+            })
+        end,
         opts = {
             switchbuf = "uselast,useopen",
             winbar = {
-                controls = { enabled = true },
+                controls = {
+                    enabled = true,
+                },
             },
         },
     },

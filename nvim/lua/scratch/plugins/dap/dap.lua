@@ -36,13 +36,13 @@ return {
     },
     -- stylua: ignore
     keys = {
-        { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+        { "<leader>dd", function() require("dap").continue({ new = true }) end, desc = "Run & Debug" },
 
         { "<leader>db", "<cmd>DapToggleBreakpoint<cr>", desc = "Toggle Breakpoint" },
         { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
 
         { "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue" },
-        { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+        { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Continue to Cursor" },
         { "<leader>di", "<cmd>DapStepInto<cr>", desc = "Step Into" },
         { "<leader>do", "<cmd>DapStepOver<cr>", desc = "Step Over" },
         { "<leader>dO", "<cmd>DapStepOut<cr>", desc = "Step Out" },
@@ -54,7 +54,7 @@ return {
         -- { "<leader>dk", function() require("dap").up() end, desc = "Up" },
 
         -- { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-        { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+        -- { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
         { "<leader>ds", function() require("dap").session() end, desc = "Session" },
         -- { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
 

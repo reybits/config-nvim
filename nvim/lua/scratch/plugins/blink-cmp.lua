@@ -97,7 +97,10 @@ return {
 
         completion = {
             list = {
-                selection = { preselect = true, auto_insert = false },
+                selection = {
+                    preselect = true,
+                    auto_insert = false,
+                },
             },
 
             -- Show documentation when selecting a completion item
@@ -115,7 +118,11 @@ return {
                 show_without_menu = false,
             },
 
-            accept = { auto_brackets = { enabled = false } },
+            accept = {
+                auto_brackets = {
+                    enabled = false,
+                },
+            },
 
             menu = {
                 -- border = "single",
@@ -132,7 +139,10 @@ return {
                     -- We don't need label_description now because label and label_description are already
                     -- combined together in label by colorful-menu.nvim.
                     -- columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } },
-                    columns = { { "kind_icon" }, { "label", gap = 1 } },
+                    columns = {
+                        { "kind_icon" },
+                        { "label", gap = 1 },
+                    },
                     components = {
                         label = {
                             text = function(ctx)
@@ -276,7 +286,9 @@ return {
         -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
         --
         -- See the fuzzy documentation for more information
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = {
+            implementation = "prefer_rust_with_warning",
+        },
     },
     opts_extend = { "sources.default" },
 }

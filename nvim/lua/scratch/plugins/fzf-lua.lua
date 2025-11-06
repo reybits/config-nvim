@@ -157,6 +157,16 @@ return {
                     layout = "vertical",
                     vertical = "up:70%",
                 },
+                on_create = function()
+                    -- called once upon creation of the fzf main window
+                    -- can be used to add custom fzf-lua mappings, e.g:
+                    local opts = { silent = true, buffer = true }
+                    vim.keymap.set("t", "<Esc>", "<Esc>", opts)
+                    vim.keymap.set("t", "<c-h>", "<Left>", opts)
+                    vim.keymap.set("t", "<c-j>", "<Down>", opts)
+                    vim.keymap.set("t", "<c-k>", "<Up>", opts)
+                    vim.keymap.set("t", "<c-l>", "<Right>", opts)
+                end,
             },
             keymap = {
                 builtin = {

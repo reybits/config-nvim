@@ -277,8 +277,8 @@ return {
                     {
                         function()
                             if vim.g.autoformat_toggle == nil or vim.g.autoformat_toggle then
-                            return "󰗴"
-                        end
+                                return "󰗴"
+                            end
                             return "󰉥"
                         end,
                         separator = "",

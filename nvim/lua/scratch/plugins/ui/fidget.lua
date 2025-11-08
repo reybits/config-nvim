@@ -4,17 +4,17 @@
 
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_truncte = ToggleOption:new("<leader>ot", nil, "Truncate Notifications", true)
+local toggle_truncte = ToggleOption:new("<leader>ot", function(state)
+    vim.g.fidget_truncate_notifications = state
+end, function()
+    return vim.g.fidget_truncate_notifications ~= false
+end, "Truncate Notifications")
 
 return {
     "j-hui/fidget.nvim",
     event = "VeryLazy",
     keys = {
-        {
-            toggle_truncte:getMapping(),
-            toggle_truncte:getToggleFunc(),
-            desc = toggle_truncte:getCurrentDescription(),
-        },
+        toggle_truncte:getMappingTable(),
     },
     opts = {
         notification = {

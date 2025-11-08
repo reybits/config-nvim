@@ -1,22 +1,22 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
+-- Cloak enabled by default.
 local toggle_cloak = ToggleOption:new("<leader>oec", function(state)
+    vim.g.cloak_enabled = state
     if state then
         vim.cmd("CloakEnable")
     else
         vim.cmd("CloakDisable")
     end
-end, "Cloak", true)
+end, function()
+    return vim.g.cloak_enabled ~= false
+end, "Cloak")
 
 return {
     "laytan/cloak.nvim",
     event = "BufReadPre",
     keys = {
-        {
-            toggle_cloak:getMapping(),
-            toggle_cloak:getToggleFunc(),
-            desc = toggle_cloak:getCurrentDescription(),
-        },
+        toggle_cloak:getMappingTable(),
     },
     cmd = {
         "CloakEnable",

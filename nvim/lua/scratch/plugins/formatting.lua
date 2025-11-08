@@ -1,8 +1,11 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_autoformat = ToggleOption:new("<leader>of", function(state)
+-- Autoformat enabled by default.
+local toggle_autoformat = ToggleOption:new("<leader>oef", function(state)
     vim.g.autoformat_toggle = state
-end, "Autoformat", vim.g.autoformat_toggle or true)
+end, function()
+    return vim.g.autoformat_toggle ~= false
+end, "Autoformat")
 
 return {
     "stevearc/conform.nvim",
@@ -25,12 +28,7 @@ return {
             "<cmd>FormatBuffer<cr>",
             desc = "Format Buffer/Range",
         },
-        {
-            mode = "n",
-            toggle_autoformat:getMapping(),
-            toggle_autoformat:getToggleFunc(),
-            desc = toggle_autoformat:getCurrentDescription(),
-        },
+        toggle_autoformat:getMappingTable(),
     },
     config = function()
         local conform = require("conform")

@@ -2,7 +2,9 @@ local ToggleOption = require("scratch.core.toggleopt")
 
 local toggle_session = ToggleOption:new("<leader>os", function(state)
     vim.g.minisessions_disable = not state
-end, "Session Save", true)
+end, function()
+    return vim.g.minisessions_disable ~= true
+end, "Session Save")
 
 return {
     "nvim-mini/mini.sessions",
@@ -14,11 +16,7 @@ return {
         "SessionWrite",
     },
     keys = {
-        {
-            toggle_session:getMapping(),
-            toggle_session:getToggleFunc(),
-            desc = toggle_session:getCurrentDescription(),
-        },
+        toggle_session:getMappingTable(),
     },
     config = function()
         local session = require("mini.sessions")
@@ -29,7 +27,9 @@ return {
             directory = vim.fn.stdpath("state") .. "/sessions/",
         })
 
+        -- Enable session saving by default.
         vim.g.minisessions_disable = false
+
         -- stylua: ignore
         vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 

@@ -130,9 +130,11 @@ return {
                 local ToggleOption = require("scratch.core.toggleopt")
                 local toggle_inlineHint = ToggleOption:new("<leader>coh", function(state)
                     vim.lsp.inlay_hint.enable(state)
+                end, function()
+                    return vim.lsp.inlay_hint.is_enabled({})
                 end, "Inline Hint")
                 toggle_inlineHint:setOpts(opts)
-                toggle_inlineHint:setState(vim.lsp.inlay_hint.is_enabled({}), false)
+                toggle_inlineHint:setState(toggle_inlineHint:getState(), false)
             end
 
             -- Instead of use "stevearc/conform.nvim" plugin

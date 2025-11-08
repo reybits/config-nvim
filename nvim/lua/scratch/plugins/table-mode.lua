@@ -6,7 +6,9 @@ local toggle_table = ToggleOption:new("<leader>oet", function(state)
     else
         vim.cmd("TableModeDisable")
     end
-end, "Table Mode", false)
+end, function()
+    return vim.b.table_mode_active ~= nil and vim.b.table_mode_active ~= 0
+end, "Table Mode")
 
 return {
     "dhruvasagar/vim-table-mode",
@@ -21,11 +23,7 @@ return {
         "Tableize",
     },
     keys = {
-        {
-            toggle_table:getMapping(),
-            toggle_table:getToggleFunc(),
-            desc = toggle_table:getCurrentDescription(),
-        },
+        toggle_table:getMappingTable(),
     },
     init = function()
         vim.g.table_mode_verbose = 0

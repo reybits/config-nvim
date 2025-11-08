@@ -26,41 +26,62 @@
 --    function(state)                            -- Callback function
 --        print("Option state: " .. tostring(state))
 --    end,
+--    function()                                 -- Current state
+--        return vim.wo.wrap
+--    end
 --    "Option Title",                            -- Option tile used in notifications and descriptions
---    state                                      -- Initial state (default: false)
 -- )
 --
 -- -- Lazy key mapping integration:
 --
 -- keys = {
---     {
---         mode = "n",
---         my_opt:getMapping(),
---         my_opt:getToggleFunc(),
---         desc = my_opt:getCurrentDescription(),
---     },
+--     my_opt:getMappingTable(),
 -- },
 --
 -------------------------------------------------------------------------------
 
 local ToggleOption = {}
 
+--- Updates mapping and its description.
+local function updateMapping(obj)
+    -- Extend table with custom options.
+    local opts = {
+        desc = obj:getCurrentDescription(),
+    }
+    opts = vim.tbl_extend("keep", opts, obj.opts)
+
+    -- Update the key mapping with a new description.
+    vim.keymap.set("n", obj:getMapping(), function()
+        obj:toggle()
+    end, opts)
+end
+
+-- TODO: Add support for different modes (normal, visual, etc.)
+
 --- Creates a new ToggleOption object.
 --- @param map string Key mapping for the toggle.
---- @param callback function|nil Callback function triggered on state change.
 --- @param title string Title used as description and notification.
---- @param state? boolean Initial state (default: false).
+--- @param on_set function Callback function triggered on state change.
+--- @param on_get function Callback function that holds the current state.
 --- @return table New ToggleOption instance.
-function ToggleOption:new(map, callback, title, state)
+function ToggleOption:new(map, on_set, on_get, title)
     local o = {
         map = map or "",
-        callback = callback,
+        on_set = on_set,
+        on_get = on_get,
         title = title or "Title Undefined",
-        state = state or false,
         opts = {},
     }
     setmetatable(o, self)
     self.__index = self
+
+    -- Update mapping on buffer enter and window enter
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+        callback = function()
+            updateMapping(o)
+        end,
+    })
+
     return o
 end
 
@@ -71,42 +92,29 @@ function ToggleOption:setOpts(opts)
 end
 
 --- Gets the current state.
---- @return boolean The current toggle state (true = enabled, false = disabled).
+--- @return boolean The current state.
 function ToggleOption:getState()
-    return self.state
+    return self.on_get()
 end
 
 --- Sets a new state and updates the key mapping.
 --- @param state boolean The new state.
---- @param notify? boolean If true, then notify and call callback.
+--- @param notify? boolean If true, then notify and call on_set.
 function ToggleOption:setState(state, notify)
-    self.state = state
-    if notify == nil then
-        notify = true
-    end
+    self.on_set(state)
 
-    -- Extend table with custom options.
-    local opts = {
-        desc = self:getCurrentDescription(),
-    }
-    opts = vim.tbl_extend("keep", opts, self.opts)
+    notify = notify ~= false
 
-    -- Update the key mapping with a new description.
-    vim.keymap.set("n", self:getMapping(), function()
-        self:toggle()
-    end, opts)
+    updateMapping(self)
 
     if notify == false then
         return
     end
 
-    -- Call the callback function if defined.
-    if self.callback ~= nil then
-        self.callback(state)
-    end
+    -- Call the on_set function if defined.
 
     -- Display a notification about the state change.
-    local msg = state and (self.title .. " Enabled") or (self.title .. " Disabled")
+    local msg = self.on_get() and (self.title .. " Enabled") or (self.title .. " Disabled")
     ---@diagnostic disable-next-line: missing-fields
     vim.notify(msg, nil, { key = self.title })
 end
@@ -118,9 +126,11 @@ function ToggleOption:getMapping()
 end
 
 --- Gets the current state description.
---- @return string The description of the current state.
+--- @return function Function that returns the description of the current state.
 function ToggleOption:getCurrentDescription()
-    return self.state and ("Disable " .. self.title) or ("Enable " .. self.title)
+    -- return function()
+    return self.on_get() and ("Disable " .. self.title) or ("Enable " .. self.title)
+    -- end
 end
 
 --- Returns a function that toggles the state.
@@ -134,7 +144,16 @@ end
 
 --- Toggles the state between enabled and disabled.
 function ToggleOption:toggle()
-    self:setState(not self.state)
+    self:setState(not self.on_get())
+end
+
+function ToggleOption:getMappingTable()
+    return {
+        -- mode = "n",
+        self:getMapping(),
+        self:getToggleFunc(),
+        desc = self:getCurrentDescription(),
+    }
 end
 
 return ToggleOption

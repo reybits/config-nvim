@@ -106,7 +106,7 @@ return {
             -- Show documentation when selecting a completion item
             documentation = {
                 -- window = { border = "single" },
-                auto_show = false,
+                auto_show = true,
                 -- auto_show_delay_ms = 500,
                 -- treesitter_highlighting = false, -- disable if high CPU usage or stuttering when opening the documentation
             },
@@ -114,7 +114,7 @@ return {
             ghost_text = {
                 -- Show ghost text only when the completion menu is visible; hide otherwise.
                 enabled = true,
-                show_with_menu = true,
+                show_with_menu = false,
                 show_without_menu = false,
             },
 

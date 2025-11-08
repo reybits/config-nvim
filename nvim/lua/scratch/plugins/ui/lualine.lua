@@ -284,6 +284,16 @@ return {
                         separator = "",
                         padding = { left = 0, right = 1 },
                     },
+                    {
+                        function()
+                            if vim.wo.wrap then
+                                return "󰖶"
+                            end
+                            return "󰯟"
+                        end,
+                        separator = "",
+                        padding = { left = 0, right = 1 },
+                    },
                     { "fileformat",
                         separator = "",
                         padding = { left = 0, right = 1 },

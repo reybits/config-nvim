@@ -1,95 +1,76 @@
--- disable plugin by default
-local render_markdown = false
-
-local function toggleMarkdown(state)
-    if state then
-        vim.cmd("RenderMarkdown enable")
-        vim.wo.conceallevel = 2
-        -- vim.wo.wrap = true
-        -- vim.wo.linebreak = true
-    else
-        vim.cmd("RenderMarkdown disable")
-        vim.wo.conceallevel = 0
-    end
-end
-
-local ToggleOption = require("scratch.core.toggleopt")
-
-local toggle_markdown = ToggleOption:new("<leader>oem", function(state)
-    toggleMarkdown(state)
-end, "Render Markdown", render_markdown)
-
 return {
     -- inline preview
     {
-        "MeanderingProgrammer/render-markdown.nvim",
-        cmd = {
-            "RenderMarkdown",
-        },
+        "OXY2DEV/markview.nvim",
         ft = {
             "markdown",
         },
+        cmd = {
+            "Markview",
+        },
         keys = {
             {
-                mode = "n",
-                toggle_markdown:getMapping(),
-                toggle_markdown:getToggleFunc(),
-                desc = toggle_markdown:getCurrentDescription(),
+                "<leader>omm",
+                "<cmd>Markview toggle<cr>",
+                desc = "Inline Markdown",
+            },
+            {
+                "<leader>omp",
+                "<cmd>Markview splitToggle<cr>",
+                desc = "Preview Markdown",
             },
         },
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons",
-        },
+        -- dependencies = {
+        --     -- Completion for `blink.cmp`
+        --     "saghen/blink.cmp",
+        -- },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>om", group = "Markdown" },
+            })
+        end,
         config = function()
-            local rendermd = require("render-markdown")
+            local presets = require("markview.presets")
 
-            rendermd.setup({
-                -- render_modes = { "n", "v", "i", "c" },
-                preset = "obsidian",
-                completions = {
-                    blink = { enabled = true },
+            require("markview").setup({
+                preview = {
+                    enable = false,
+                    icon_provider = "devicons", -- "internal", -- "mini" or "devicons"
                 },
-                sign = {
-                    enabled = false,
-                },
-                code = {
-                    -- style = "normal",
-                    border = "thick",
-                },
-                -- heading = {
-                --     border = true,
-                --     border_virtual = true,
-                --     position = "inline",
-                -- },
-                quote = {
-                    repeat_linebreak = true,
-                },
-                pipe_table = {
-                    preset = "round",
-                    alignment_indicator = "┅",
-                },
-                win_options = {
-                    showbreak = { default = "", rendered = "  " },
-                    breakindent = { default = false, rendered = true },
-                    breakindentopt = { default = "", rendered = "" },
-                    conceallevel = {
-                        default = vim.api.nvim_get_option_value("conceallevel", {}),
-                        rendered = 3,
+                markdown = {
+                    -- headings = presets.headings.arrowed,
+                    -- headings = presets.headings.numbered,
+                    headings = {
+                        shift_width = 0,
+                        heading_1 = { icon = " 󰎤 [%d] " },
+                        heading_2 = { icon = " 󰎧 [%d.%d] " },
+                        heading_3 = { icon = " 󰎪 [%d.%d.%d] " },
+                        heading_4 = { icon = " 󰎭 [%d.%d.%d.%d] " },
+                        heading_5 = { icon = " 󰎱 [%d.%d.%d.%d.%d] " },
+                        heading_6 = { icon = " 󰎳 [%d.%d.%d.%d.%d.%d] " },
                     },
-                    concealcursor = {
-                        default = vim.api.nvim_get_option_value("concealcursor", {}),
-                        rendered = "",
+
+                    tables = presets.tables.rounded,
+
+                    list_items = {
+                        shift_width = function(buffer, item)
+                            ---@type integer Parent list items indent. Must be at least 1.
+                            local parent_indnet =
+                                math.max(1, item.indent - vim.bo[buffer].shiftwidth)
+                            return item.indent * (1 / (parent_indnet * 2))
+                        end,
+                        marker_minus = {
+                            add_padding = function(_, item)
+                                return item.indent > 1
+                            end,
+                        },
                     },
+                },
+                code_blocks = {
+                    style = "simple",
                 },
             })
-
-            toggleMarkdown(render_markdown)
-            if render_markdown then
-                rendermd.enable()
-            else
-                rendermd.disable()
-            end
         end,
     },
 

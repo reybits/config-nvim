@@ -85,6 +85,26 @@ M.icons = {
 }
 
 --- Truncates a string to a maximum length, keeping both ends.
+--- @param line string The string to be truncated.
+--- @param max_length number The maximum allowed length.
+--- @return string The truncated string with an ellipsis if needed.
+M.truncateLine = function(line, max_length)
+    local content_length = vim.fn.strcharlen(line)
+    if content_length <= max_length then
+        return line
+    end
+
+    local ELLIPSIS = "…"
+    local half_length = math.floor(max_length / 2)
+    local tail_length = (max_length - half_length) - vim.fn.strcharlen(ELLIPSIS)
+
+    local left = vim.fn.strcharpart(line, 0, half_length)
+    local right = vim.fn.strcharpart(line, content_length - tail_length, tail_length)
+
+    return left .. ELLIPSIS .. right
+end
+
+--- Truncates a string to a maximum length, keeping both ends.
 --- @param content string The string to be truncated.
 --- @param max_length number The maximum allowed length.
 --- @return string The truncated string with an ellipsis if needed.
@@ -93,19 +113,13 @@ M.truncate = function(content, max_length)
         return ""
     end
 
-    local content_length = vim.fn.strcharlen(content)
-    if content_length <= max_length then
-        return content
+    local result = ""
+
+    for n, line in ipairs(vim.split(content, "\n")) do
+        result = result .. (result and "\n" or "") .. M.truncateLine(line, max_length)
     end
 
-    local ELLIPSIS = "…"
-    local half_length = math.floor(max_length / 2)
-    local tail_length = (max_length - half_length) - vim.fn.strcharlen(ELLIPSIS)
-
-    local left = vim.fn.strcharpart(content, 0, half_length)
-    local right = vim.fn.strcharpart(content, content_length - tail_length, tail_length)
-
-    return left .. ELLIPSIS .. right
+    return result
 end
 
 --- Custom formatter for nvim-cmp completion menu.

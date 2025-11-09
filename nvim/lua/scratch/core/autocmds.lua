@@ -22,47 +22,10 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 
 --- restore cursor position ----------------------------------------------------
 
--- Use BufReadPost to restore the cursor position only after a file is loaded.
--- local restore_params = {
---     events = { "BufReadPost" },
---     schedule = true,
---     skip_by_filetypes = {},
--- }
--- Use BufEnter to restore the cursor position every time you enter a buffer.
-local restore_params = {
-    events = { "BufEnter" },
-    schedule = false,
-    skip_by_filetypes = {
-        NeogitLogView = true,
-    },
-}
-vim.api.nvim_create_autocmd(restore_params.events, {
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     group = augroup("restore_cursor"),
-    callback = function(args)
-        -- skip some filetypes
-        local ft = vim.bo[args.buf].filetype
-        if restore_params.skip_by_filetypes[ft] then
-            return
-        end
-
-        local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-        local line_cnt = vim.api.nvim_buf_line_count(args.buf)
-        if mark[1] > 0 and mark[1] <= line_cnt then
-            -- restore cursor position
-            pcall(vim.api.nvim_win_set_cursor, 0, mark)
-
-            -- open folds and center cursor
-            if restore_params.schedule then
-                vim.schedule(function()
-                    vim.cmd("silent! normal! zv")
-                    vim.cmd("silent! normal! zz")
-                end)
-            else
-                vim.cmd("silent! normal! zv")
-                vim.cmd("silent! normal! zz")
-            end
-        end
-    end,
+    pattern = { "*" },
+    command = 'silent! normal! g`"zvzz',
 })
 
 --- close with <q> by filetype -------------------------------------------------

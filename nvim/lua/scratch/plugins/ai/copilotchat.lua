@@ -28,19 +28,19 @@ return {
     },
     keys = {
         {
-            "<c-s>",
-            "<cr>",
-            ft = "copilot-chat",
-            desc = "Submit Prompt",
-            mode = { "n", "v" },
-            remap = true,
-        },
-        {
             "<leader>aa",
             function()
                 return require("CopilotChat").toggle()
             end,
             desc = "Toggle Copilot Chat",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>ap",
+            function()
+                require("CopilotChat").select_prompt()
+            end,
+            desc = "Select Copilot Prompt",
             mode = { "n", "v" },
         },
         {
@@ -55,7 +55,7 @@ return {
             "<leader>aq",
             function()
                 vim.ui.input({ prompt = " Quick Chat: " }, function(input)
-                    if input ~= "" then
+                    if input and input ~= "" then
                         require("CopilotChat").ask(input)
                     end
                 end)
@@ -104,13 +104,29 @@ return {
         local user = vim.env.USER or "User"
         user = user:sub(1, 1):upper() .. user:sub(2)
         return {
+            model = "gpt-4.1", -- AI model to use
+            temperature = 0.1, -- Lower = focused, higher = creative
+
+            prompts = {
+                BetterNamings = "Please provide better names for the following variables and functions.",
+                Concise = "Please rewrite the following text to make it more concise.",
+                FixCode = "Please fix the following code to make it work as intended.",
+                FixError = "Please explain the error in the following text and provide a solution.",
+                Refactor = "Please refactor the following code to improve its clarity and readability.",
+                Review = "Please review the following code and provide suggestions for improvement.",
+                Summarize = "Please summarize the following text.",
+                Wording = "Please improve the grammar and wording of the following text.",
+            },
+
             -- auto_insert_mode = true,
-            -- separator = "━━",
+            separator = "·", -- "━━",
             -- auto_fold = true, -- Automatically folds non-assistant messages
 
             mappings = {
-                complete = false, -- disable completion mapping
-
+                complete = false, -- disable default complete mapping due to conflict with copilot.vim
+                show_help = {
+                    normal = "g?",
+                },
                 reset = {
                     normal = "<C-r>",
                     insert = "<C-r>",
@@ -121,17 +137,8 @@ return {
             },
 
             window = {
-                -- valid layouts: 'vertical', 'horizontal', 'float', 'replace'
                 layout = "vertical",
                 width = 0.5,
-                --[[
-                layout = "float",
-                width = 0.6,
-                height = 0.8,
-                blend = 10,
-                border = "rounded", -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-                title = " Copilot Chat ", -- title of chat window
-                --]]
             },
 
             headers = {
@@ -148,25 +155,9 @@ return {
             callback = function()
                 vim.opt_local.relativenumber = false
                 vim.opt_local.number = false
-                vim.opt_local.conceallevel = 0
             end,
         })
 
-        --[[
-        -- INFO: Removed because this autocmd is not listed in the plugin page.
-        -- Close a window on WinLeave event
-        vim.api.nvim_create_autocmd("WinLeave", {
-            pattern = "copilot-*",
-            callback = function()
-                local win = vim.api.nvim_get_current_win()
-                if vim.api.nvim_win_get_config(win).relative ~= "" then
-                    vim.api.nvim_win_close(win, true)
-                end
-            end,
-        })
-        --]]
-
-        local chat = require("CopilotChat")
-        chat.setup(opts)
+        require("CopilotChat").setup(opts)
     end,
 }

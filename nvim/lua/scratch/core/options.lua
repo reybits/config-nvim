@@ -43,8 +43,8 @@ vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or capital in 
 vim.opt.cc = { 81, 101 } -- Column marker
 vim.opt.wrap = false -- Don't wrap wide lines
 
--- TODO: Investigate why this option matters
-vim.opt.shell = "/bin/zsh"
+-- INFO: Commented out to use the default shell (vim.env.SHELL)
+-- vim.opt.shell = "/bin/zsh"
 
 vim.opt.showcmd = false
 

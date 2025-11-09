@@ -1,3 +1,21 @@
+-- If you get "Conflict markers miss common base revision" error message,
+-- put the following in your ~/.gitconfig to use diff3 conflict style as a default:
+--
+-- ```gitconfig
+-- [merge]
+--     conflictStyle = diff3
+-- ```
+--
+-- If something goes absolutely wrong, you can always reset conflict markers in
+-- a file to their initial state. It's safe to do it only during ongoing merge,
+-- otherwise you'd overwrite file in a working tree with version from index.
+--
+-- ```bash
+-- git checkout --conflict=diff3 {file}
+-- ```
+--
+-- Source: https://github.com/samoshkin/vim-mergetool
+
 return {
     "samoshkin/vim-mergetool",
     keys = {

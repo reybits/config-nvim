@@ -43,17 +43,13 @@
 local ToggleOption = {}
 
 --- Updates mapping and its description.
-local function updateMapping(obj)
-    -- Extend table with custom options.
-    local opts = {
-        desc = obj:getCurrentDescription(),
-    }
-    opts = vim.tbl_extend("keep", opts, obj.opts)
+local function updateMapping(instance)
+    instance.opts.desc = instance:getCurrentDescription()
 
     -- Update the key mapping with a new description.
-    vim.keymap.set("n", obj:getMapping(), function()
-        obj:toggle()
-    end, opts)
+    vim.keymap.set("n", instance:getMapping(), function()
+        instance:toggle()
+    end, instance.opts)
 end
 
 -- TODO: Add support for different modes (normal, visual, etc.)
@@ -75,12 +71,16 @@ function ToggleOption:new(map, on_set, on_get, title)
     setmetatable(o, self)
     self.__index = self
 
+    -- TODO: Investigate how to properly update key mappings on buffer/window enter
+    -- and prevent redundant autocommands.
+    --[[
     -- Update mapping on buffer enter and window enter
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
         callback = function()
             updateMapping(o)
         end,
     })
+    --]]
 
     return o
 end
@@ -111,12 +111,9 @@ function ToggleOption:setState(state, notify)
         return
     end
 
-    -- Call the on_set function if defined.
-
     -- Display a notification about the state change.
     local msg = self.on_get() and (self.title .. " Enabled") or (self.title .. " Disabled")
-    ---@diagnostic disable-next-line: missing-fields
-    vim.notify(msg, nil, { key = self.title })
+    vim.notify(msg, vim.log.levels.INFO, { key = self.title })
 end
 
 --- Gets the key mapping.
@@ -126,11 +123,9 @@ function ToggleOption:getMapping()
 end
 
 --- Gets the current state description.
---- @return function Function that returns the description of the current state.
+--- @return string Description of the current state.
 function ToggleOption:getCurrentDescription()
-    -- return function()
     return self.on_get() and ("Disable " .. self.title) or ("Enable " .. self.title)
-    -- end
 end
 
 --- Returns a function that toggles the state.
@@ -147,9 +142,10 @@ function ToggleOption:toggle()
     self:setState(not self.on_get())
 end
 
+--- Returns a table containing the mapping, toggle function, and description for this option.
+--- @return table: { mapping, toggle_func, desc = description }
 function ToggleOption:getMappingTable()
     return {
-        -- mode = "n",
         self:getMapping(),
         self:getToggleFunc(),
         desc = self:getCurrentDescription(),

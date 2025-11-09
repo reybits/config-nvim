@@ -26,15 +26,25 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 -- local restore_params = {
 --     events = { "BufReadPost" },
 --     schedule = true,
+--     skip_by_filetypes = {},
 -- }
 -- Use BufEnter to restore the cursor position every time you enter a buffer.
 local restore_params = {
     events = { "BufEnter" },
     schedule = false,
+    skip_by_filetypes = {
+        NeogitLogView = true,
+    },
 }
 vim.api.nvim_create_autocmd(restore_params.events, {
     group = augroup("restore_cursor"),
     callback = function(args)
+        -- skip some filetypes
+        local ft = vim.bo[args.buf].filetype
+        if restore_params.skip_by_filetypes[ft] then
+            return
+        end
+
         local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
         local line_cnt = vim.api.nvim_buf_line_count(args.buf)
         if mark[1] > 0 and mark[1] <= line_cnt then

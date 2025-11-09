@@ -124,7 +124,7 @@ vim.opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
 -- causing unwanted hit-enter prompts.
 -- Some informative messages, both from Nvim itself and plugins, will not be displayed.
 -- INFO: The option `cmdheight = 0` is disabled due to incorrect Neovim behavior
--- in some cases, such as mappings for 'J' and 'K'.
+-- in some cases, such as mappings for <m-j> and <m-k>.
 -- vim.opt.cmdheight = 0 -- hide cmdline by default
 
 --- fold via tree sitter, opened by default ------------------------------------

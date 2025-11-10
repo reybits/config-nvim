@@ -55,9 +55,12 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
 - Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
+- Oil git integration via [oil-git.nvim](https://github.com/benomahony/oil-git.nvim).
 - LazyGit [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Octo [octo.nvim](https://github.com/pwntester/octo.nvim).
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).
+- Tiny inline diagnostics via [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim).
+- Marker Groups via [marker-groups.nvim](https://github.com/rachartier/jameswolensky/marker-groups.nvim).
 - Colorscheme Nightfox [nightfox.nvim](https://github.com/EdenEast/nightfox.nvim).
 - Folding nvim-ufo [kevinhwang91/nvim-ufo](https://github.com/kevinhwang91/nvim-ufo).
 

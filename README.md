@@ -43,7 +43,6 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 - TMUX support via [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator).
 - Fast navigation, lookup, and more via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
-- Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - Hide passwords/keys via [cloak.nvim](https://github.com/laytan/cloak.nvim).
@@ -55,6 +54,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Telescope [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
+- Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
 - LazyGit [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Octo [octo.nvim](https://github.com/pwntester/octo.nvim).
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).

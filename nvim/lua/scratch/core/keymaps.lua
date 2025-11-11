@@ -15,15 +15,15 @@ end
 
 --------------------------------------------------------------------------------
 
--- plugins and tools managers
+--- plugins and tools managers -------------------------------------------------
 map("n", "<leader>tl", "<cmd>Lazy<cr>", desc("Lazy Manager"))
 map("n", "<leader>tm", "<cmd>Mason<cr>", desc("Mason Manager"))
 
--- hide highligting by <esc>
+--- hide highligting by <esc> --------------------------------------------------
 map("n", "<esc>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
 map("n", "<c-[>", "<cmd>nohl<cr>", desc("Clear Highligted text"))
 
--- window related stuff
+--- window related stuff -------------------------------------------------------
 map("n", "<leader>wv", "<c-w>v<cr>", desc("Split Window Vertically"))
 map("n", "<leader>wh", "<c-w>s<cr>", desc("Split Window Horizontally"))
 
@@ -37,14 +37,14 @@ map(
     desc("Toggle Split Layout")
 )
 
--- navigate terminal windows more easily
+--- navigate terminal windows more easily --------------------------------------
 map("t", "<Esc>", "<C-\\><C-n>", desc("Exit Terminal Mode"))
 map("t", "<c-h>", "<C-\\><C-N><C-w>h", desc("Switch to Left Window"))
 map("t", "<c-j>", "<C-\\><C-N><C-w>j", desc("Switch to Bottom Window"))
 map("t", "<c-k>", "<C-\\><C-N><C-w>k", desc("Switch to Top Window"))
 map("t", "<c-l>", "<C-\\><C-N><C-w>l", desc("Switch to Right Window"))
 
--- Disabled in favor of 'reybits/anvil.nvim' plugin.
+--- Disabled in favor of 'reybits/anvil.nvim' plugin ---------------------------
 --[[
 local custom_make = function(cmd, on_exit, opts)
     -- vim.notify("Exec command: '" .. cmd .. "'.", vim.log.levels.INFO)
@@ -230,7 +230,7 @@ map("n", "<leader>rW", function()
     end, { log_to_qf = true })
 end, desc("Do 'make .web'"))
 
--- build resources
+--- build resources
 map("n", "<leader>rr", function()
     custom_make("make resources", function(code)
         if code == 0 then
@@ -241,7 +241,7 @@ map("n", "<leader>rr", function()
     end)
 end, desc("Do 'make resources'"))
 
--- build compile_commands.json
+--- build compile_commands.json
 map("n", "<leader>rc", function()
     custom_make("make build_compile_commands", function(code)
         if code == 0 then
@@ -254,7 +254,7 @@ map("n", "<leader>rc", function()
 end, desc("Do 'make build_compile_commands'"))
 --]]
 
--- toggle wrap
+--- toggle wrap ----------------------------------------------------------------
 local toggle_wrap = ToggleOption:new("<leader>oew", function(state)
     vim.wo.wrap = state
     vim.wo.linebreak = state
@@ -262,25 +262,25 @@ end, function()
     return vim.wo.wrap
 end, "Wrap")
 
--- toggle numbers
+--- toggle numbers -------------------------------------------------------------
 local toggle_numbers = ToggleOption:new("<leader>oen", function(state)
     vim.wo.number = state
 end, function()
     return vim.wo.number
 end, "Numbers")
 
--- toggle relative numbers
+--- toggle relative numbers ----------------------------------------------------
 local toggle_relative = ToggleOption:new("<leader>oer", function(state)
     vim.wo.relativenumber = state
 end, function()
     return vim.wo.relativenumber
 end, "Relative Numbers")
 
--- move selected line / block of text in visual mode
+--- move selected line / block of text in visual mode --------------------------
 map("x", "<m-j>", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))
 map("x", "<m-k>", ":m '<-2<cr>gv=gv", desc("Move Selected Up"))
 
--- quickfix related stuff
+--- quickfix related stuff -----------------------------------------------------
 vim.keymap.set("n", "<leader>q", function()
     local qf = vim.fn.getqflist({ winid = 0 })
     if qf.winid ~= 0 then
@@ -290,7 +290,7 @@ vim.keymap.set("n", "<leader>q", function()
     end
 end, { desc = "Toggle quickfix" })
 
--- location list related stuff
+--- location list related stuff ------------------------------------------------
 vim.keymap.set("n", "<leader>Q", function()
     local loclist = vim.fn.getloclist(0, { winid = 0, size = 0 })
     if loclist.winid ~= 0 then
@@ -305,22 +305,23 @@ end, { desc = "Toggle location list" })
 map("n", "<m-j>", "<cmd>cnext<cr>", desc("Next Item in Quicklist"))
 map("n", "<m-k>", "<cmd>cprev<cr>", desc("Prev Item in Quicklist"))
 
--- paste over currently selected text without yanking it
+--- paste over currently selected text without yanking it ----------------------
 map("v", "p", '"_dp', desc("Paste Over Selected Text"))
 map("v", "P", '"_dP', desc("Paste Over Selected Text"))
 
---- better movement in wrap mode
+--- better movement in wrap mode -----------------------------------------------
 map("n", "j", "gj")
 map("n", "k", "gk")
 
--- navigate tabs
+--- navigate tabs --------------------------------------------------------------
 map("n", "<right>", ":tabnext<cr>", desc("Next Tab"))
 map("n", "<left>", ":tabprevious<cr>", desc("Prev Tab"))
 
--- command line up/down arrow alias, useful for searching history by first letters
+--- command line up/down arrow alias -------------------------------------------
+-- useful for searching history by first letters
 map("c", "<C-k>", "<up>", desc("Command line up-arrow ailas"))
 map("c", "<C-j>", "<down>", desc("Command line down-arrow ailas"))
 
--- alias to <esc>
+--- alias to <esc> -------------------------------------------------------------
 -- map("i", "jk", "<esc>", opts)
 -- map("i", "kj", "<esc>", opts)

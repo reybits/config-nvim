@@ -28,6 +28,13 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     command = 'silent! normal! g`"zvzz',
 })
 
+--- equalize window sizes on VimResized ----------------------------------------
+
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+    group = augroup("vim_resized"),
+    command = "wincmd =",
+})
+
 --- close with <q> by filetype -------------------------------------------------
 
 local close_with_q = augroup("close_with_q")

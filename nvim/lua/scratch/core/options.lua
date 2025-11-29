@@ -23,7 +23,7 @@ vim.opt.confirm = false -- Don't ask to save changes before exiting modified buf
 vim.opt.clipboard:append("unnamedplus") -- Sync clipboard between OS and Neovim.
 vim.opt.completeopt = { "menuone", "noselect" } -- Set completeopt to have a better completion experience
 
-vim.opt.mouse = "a" -- Empty to disable, "a" to enable mouse mode
+vim.opt.mouse = "" -- Empty to disable, "a" to enable mouse mode
 vim.opt.cursorline = true
 vim.opt.showmode = false
 

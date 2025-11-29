@@ -306,8 +306,9 @@ map("n", "<m-j>", "<cmd>cnext<cr>", desc("Next Item in Quicklist"))
 map("n", "<m-k>", "<cmd>cprev<cr>", desc("Prev Item in Quicklist"))
 
 --- paste over currently selected text without yanking it ----------------------
-map("v", "p", '"_dp', desc("Paste Over Selected Text"))
-map("v", "P", '"_dP', desc("Paste Over Selected Text"))
+-- disabled in favor of native behavior of Neovim
+-- map("v", "p", '"_dp', desc("Paste Over Selected Text"))
+-- map("v", "P", '"_dP', desc("Paste Over Selected Text"))
 
 --- better movement in wrap mode -----------------------------------------------
 map("n", "j", "gj")

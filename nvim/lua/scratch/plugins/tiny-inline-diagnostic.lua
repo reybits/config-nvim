@@ -1,7 +1,11 @@
 return {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
-    priority = 1000,
+    -- event = "VeryLazy",
+    -- priority = 1000,
+    event = {
+        "BufReadPre",
+        "BufNewFile",
+    },
     config = function()
         require("tiny-inline-diagnostic").setup({
             preset = "powerline",

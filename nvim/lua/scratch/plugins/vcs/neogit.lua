@@ -18,6 +18,7 @@ return {
     keys = {
         { "<leader>gG", "<cmd>Neogit cwd=%:p:h<cr>", desc = "Neogit (cwd)" },
         { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (project)" },
-        { "<leader>gl", "<cmd>Neogit log<cr>", desc = "Neogit Log (project)" },
+        { "<leader>gl", "<cmd>NeogitLog .<cr>", desc = "Neogit Log (project)" },
+        { "<leader>gL", "<cmd>NeogitLog<cr>", desc = "Neogit Log (file)" },
     },
 }

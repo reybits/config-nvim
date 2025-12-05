@@ -1,12 +1,3 @@
-local function on_exit(code, title)
-    if code == 0 then
-        vim.notify(title .. " finished.", vim.log.levels.INFO)
-    else
-        vim.notify(title .. " failed.", vim.log.levels.ERROR)
-        vim.cmd("copen | wincmd J")
-    end
-end
-
 return {
     "reybits/anvil.nvim",
     lazy = true,
@@ -14,9 +5,11 @@ return {
         {
             "<leader>ra",
             function()
-                require("anvil").run("make android", function(code)
-                    on_exit(code, "Android Release")
-                end, { log_to_qf = true })
+                require("anvil").run("make android", {
+                    title = "Android Release",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make android'",
         },
@@ -24,9 +17,11 @@ return {
         {
             "<leader>rA",
             function()
-                require("anvil").run("make .android", function(code)
-                    on_exit(code, "Android Debug")
-                end, { log_to_qf = true })
+                require("anvil").run("make .android", {
+                    title = "Android Debug",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make .android'",
         },
@@ -34,9 +29,11 @@ return {
         {
             "<leader>rb",
             function()
-                require("anvil").run("make release", function(code)
-                    on_exit(code, "Build Release")
-                end, { log_to_qf = true })
+                require("anvil").run("make release", {
+                    title = "Build Release",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make release'",
         },
@@ -44,9 +41,11 @@ return {
         {
             "<leader>rB",
             function()
-                require("anvil").run("make .debug", function(code)
-                    on_exit(code, "Build Debug")
-                end, { log_to_qf = true })
+                require("anvil").run("make .debug", {
+                    title = "Build Debug",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make .debug'",
         },
@@ -54,9 +53,11 @@ return {
         {
             "<leader>rw",
             function()
-                require("anvil").run("make web", function(code)
-                    on_exit(code, "Web Release")
-                end, { log_to_qf = true })
+                require("anvil").run("make web", {
+                    title = "Web Release",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make web'",
         },
@@ -64,9 +65,11 @@ return {
         {
             "<leader>rW",
             function()
-                require("anvil").run("make .web", function(code)
-                    on_exit(code, "Web Debug")
-                end, { log_to_qf = true })
+                require("anvil").run("make .web", {
+                    title = "Web Debug",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make .web'",
         },
@@ -75,9 +78,11 @@ return {
         {
             "<leader>rr",
             function()
-                require("anvil").run("make resources", function(code)
-                    on_exit(code, "Resources")
-                end)
+                require("anvil").run("make resources", {
+                    title = "Resources",
+                    log_to_qf = false,
+                    close_on_success = true,
+                })
             end,
             desc = "Do 'make resources'",
         },
@@ -86,12 +91,22 @@ return {
         {
             "<leader>rc",
             function()
-                require("anvil").run("make build_compile_commands", function(code)
-                    on_exit(code, "Compile Commands")
-                    if code == 0 then
-                        vim.cmd("LspRestart")
-                    end
-                end)
+                require("anvil").run("make build_compile_commands", {
+                    title = "Compile Commands",
+                    log_to_qf = false,
+                    close_on_success = true,
+                    on_exit = function(code, o)
+                        if code == 0 then
+                            vim.notify(o.title .. " completed successfully.", vim.log.levels.INFO)
+                            vim.cmd("LspRestart")
+                        else
+                            vim.notify(
+                                o.title .. " failed with exit code: " .. code,
+                                vim.log.levels.ERROR
+                            )
+                        end
+                    end,
+                })
             end,
             desc = "Do 'make build_compile_commands'",
         },
@@ -99,5 +114,7 @@ return {
     cmd = {
         "Anvil",
     },
-    opts = {},
+    opts = {
+        -- mode = "term", -- Use internal terminal to run commands.
+    },
 }

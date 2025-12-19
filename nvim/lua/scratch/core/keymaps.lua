@@ -37,6 +37,9 @@ map(
     desc("Toggle Split Layout")
 )
 
+--- show documentation in a popup window ---------------------------------------
+map("n", "<leader>k", "<cmd>normal! K<cr>", desc("Show Documentation"))
+
 --- navigate terminal windows more easily --------------------------------------
 map("t", "<Esc>", "<C-\\><C-n>", desc("Exit Terminal Mode"))
 map("t", "<c-h>", "<C-\\><C-N><C-w>h", desc("Switch to Left Window"))

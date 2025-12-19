@@ -36,6 +36,9 @@ return {
                 winblend = 80,
                 zindex = 9999,
                 align = "top",
+                avoid = {
+                    "TestExplorer",
+                },
             },
         },
     },

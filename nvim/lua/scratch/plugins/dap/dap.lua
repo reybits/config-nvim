@@ -89,4 +89,7 @@ return {
             })
         end
     end,
+    opts = {
+        switchbuf = "uselast,useopen",
+    },
 }

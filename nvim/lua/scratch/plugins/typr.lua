@@ -7,6 +7,7 @@ return {
         "Typr",
         "TyprStats",
     },
+    --[[
     keys = {
         { "<leader>ttt", "<cmd>Typr<cr>", desc = "Open Typr" },
         { "<leader>tts", "<cmd>TyprStats<cr>", desc = "Typr Stats" },
@@ -17,5 +18,6 @@ return {
             { "<leader>tt", group = "Typr" },
         })
     end,
+    --]]
     opts = {},
 }

@@ -154,7 +154,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNew" }, {
             local bufname = vim.api.nvim_buf_get_name(buf)
             if last_buf_path ~= bufname then
                 last_buf_path = bufname
-                vim.api.nvim_echo({ { bufname, "Normal" } }, false, {})
+                local relpath = vim.fn.fnamemodify(bufname, ":.")
+                vim.api.nvim_echo({ { relpath, "Normal" } }, false, {})
             end
         end, 50)
     end,

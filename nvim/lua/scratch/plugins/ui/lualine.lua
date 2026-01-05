@@ -244,9 +244,9 @@ return {
                 lualine_x = {
                     { "diff",
                         symbols = {
-                            added = ' ',
-                            modified = ' ',
-                            removed = ' '
+                            added = '+', --  ',
+                            modified = '*', -- ',
+                            removed = '-', --  '
                         },
                         cond = not_acwrite
                     },

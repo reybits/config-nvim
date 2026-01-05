@@ -37,6 +37,9 @@ map(
     desc("Toggle Split Layout")
 )
 
+--- show buffer path after switching buffer ------------------------------------
+map("n", "<c-^>", "<c-^>:normal! <c-g><CR>", desc("Show Buffer Path"))
+
 --- show documentation in a popup window ---------------------------------------
 map("n", "<leader>k", "<cmd>normal! K<cr>", desc("Show Documentation"))
 

@@ -136,49 +136,29 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 --     end,
 -- })
 
---- show buffer name on switch -------------------------------------------------
+--- show buffer path after switching buffer ------------------------------------
 
--- INFO: disabled due to mess notification and not useful enough
---[[
---- Checks if the given name is the same as the last used name.
---- @return function Returns lastBufNameFunction function
-local function createBufNameFunction()
-    local lastBufName = ""
+local last_buf_path = nil
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNew" }, {
+    group = augroup("show_buffer_path"),
+    callback = function()
+        vim.defer_fn(function()
+            local buf = 0
 
-    return function(event)
-        local list = {
-            "Neogit",
-            "NvimTree",
-            "floggraph",
-            "fugitive",
-            "git",
-            "help",
-            "neo-tree",
-        }
-        local filetype = vim.bo[event.buf].filetype
-        for _, name in ipairs(list) do
-            if filetype == name then
-                lastBufName = name
+            if not vim.api.nvim_buf_is_valid(buf) or not vim.bo[buf].buflisted then
+                last_buf_path = nil
+                vim.api.nvim_echo({ { "", "Normal" } }, false, {})
                 return
             end
-        end
 
-        local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname ~= "" and lastBufName ~= bufname then
-            lastBufName = bufname
-            local relname = vim.fn.fnamemodify(bufname, ":.")
-            ---@diagnostic disable-next-line: missing-fields
-            vim.notify(relname, nil, { key = "file_switch", annote = "󰈔" })
-        end
-    end
-end
-local lastBufNameFunction = createBufNameFunction()
-
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = augroup("show_buffer_name"),
-    callback = lastBufNameFunction,
+            local bufname = vim.api.nvim_buf_get_name(buf)
+            if last_buf_path ~= bufname then
+                last_buf_path = bufname
+                vim.api.nvim_echo({ { bufname, "Normal" } }, false, {})
+            end
+        end, 50)
+    end,
 })
---]]
 
 --- clear colorcolumn for some filetypes ---------------------------------------
 

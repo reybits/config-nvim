@@ -188,7 +188,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup("highlight-yank"),
     callback = function()
         vim.hl.on_yank()
-        -- TODO: vim.highlight deprecated, remove it.
-        -- vim.highlight.on_yank()
     end,
 })

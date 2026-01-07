@@ -45,12 +45,12 @@ return {
                     -- headings = presets.headings.numbered,
                     headings = {
                         shift_width = 0,
-                        heading_1 = { icon = " 󰎤 [%d] " },
-                        heading_2 = { icon = " 󰎧 [%d.%d] " },
-                        heading_3 = { icon = " 󰎪 [%d.%d.%d] " },
-                        heading_4 = { icon = " 󰎭 [%d.%d.%d.%d] " },
-                        heading_5 = { icon = " 󰎱 [%d.%d.%d.%d.%d] " },
-                        heading_6 = { icon = " 󰎳 [%d.%d.%d.%d.%d.%d] " },
+                        heading_1 = { icon = " 󰎤 " }, -- [%d] " },
+                        heading_2 = { icon = " 󰎧 " }, -- [%d.%d] " },
+                        heading_3 = { icon = " 󰎪 " }, -- [%d.%d.%d] " },
+                        heading_4 = { icon = " 󰎭 " }, -- [%d.%d.%d.%d] " },
+                        heading_5 = { icon = " 󰎱 " }, -- [%d.%d.%d.%d.%d] " },
+                        heading_6 = { icon = " 󰎳 " }, -- [%d.%d.%d.%d.%d.%d] " },
                     },
 
                     tables = presets.tables.rounded,

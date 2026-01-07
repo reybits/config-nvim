@@ -37,13 +37,14 @@ return {
         },
 
         -- Bring back cursors if you accidentally clear them.
-        {
-            "<leader>gv",
-            function()
-                require("multicursor-nvim").restoreCursors()
-            end,
-            desc = "Restore multicursors",
-        },
+        -- INFO: Disabled due to confilcts with other mappings.
+        -- {
+        --     "<leader>gv",
+        --     function()
+        --         require("multicursor-nvim").restoreCursors()
+        --     end,
+        --     desc = "Restore multicursors",
+        -- },
 
         -- Add a cursor for all matches of cursor word/selection in the document.
         {

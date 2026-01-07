@@ -149,6 +149,12 @@ return {
             },
         }
     end,
+    init = function()
+        local wk = require("which-key")
+        wk.add({
+            { "<leader>a", group = "AI" },
+        })
+    end,
     config = function(_, opts)
         vim.api.nvim_create_autocmd("BufEnter", {
             pattern = "copilot-*",

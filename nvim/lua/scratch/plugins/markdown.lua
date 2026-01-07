@@ -14,11 +14,13 @@ return {
                 "<cmd>Markview toggle<cr>",
                 desc = "Inline Markdown",
             },
-            {
-                "<leader>omp",
-                "<cmd>Markview splitToggle<cr>",
-                desc = "Preview Markdown",
-            },
+            -- INFO: Disabled in favor of browser preview.
+            -- Look to "iamcco/markdown-preview.nvim" below for browser preview.
+            -- {
+            --     "<leader>omp",
+            --     "<cmd>Markview splitToggle<cr>",
+            --     desc = "Preview Markdown",
+            -- },
         },
         -- dependencies = {
         --     -- Completion for `blink.cmp`
@@ -77,13 +79,20 @@ return {
     -- browser preview
     {
         "iamcco/markdown-preview.nvim",
+        ft = {
+            "markdown",
+        },
         cmd = {
             "MarkdownPreviewToggle",
             "MarkdownPreview",
             "MarkdownPreviewStop",
         },
-        ft = {
-            "markdown",
+        keys = {
+            {
+                "<leader>omp",
+                "<cmd>MarkdownPreviewToggle<cr>",
+                desc = "Preview Markdown in Browser",
+            },
         },
         build = function(plugin)
             if vim.fn.executable("npx") then

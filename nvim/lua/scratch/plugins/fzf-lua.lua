@@ -275,9 +275,66 @@ return {
 
         -- Setup fzf-lua as vim.ui.select.
         local fzf_select = function()
+            local make_winopts = function(max_width, item_count)
+                -- Calculate width based on max width.
+                local w = max_width / vim.o.columns
+                w = math.max(w, 0.50)
+                w = math.min(w, 0.90)
+
+                -- Calculate height based on number of items.
+                local h = (item_count + 4 + 1) / vim.o.lines
+                h = math.max(h, 0.15)
+                h = math.min(h, 0.70)
+
+                return {
+                    winopts = {
+                        width = w,
+                        height = h,
+                        row = 0.5,
+                    },
+                }
+            end
+
             require("fzf-lua").register_ui_select(function(opts, items)
                 if not opts.prompt:match("[: ]$") then
                     opts.prompt = opts.prompt .. "❯ "
+                end
+
+                -- Automatic sizing of window of vim.ui.select.
+                if opts.kind == nil then
+                    local max_width = 0
+                    for _, item in ipairs(items) do
+                        local width = vim.fn.strdisplaywidth(item)
+                        max_width = math.max(max_width, width)
+                    end
+
+                    return make_winopts(max_width + 4, #items)
+                end
+
+                -- CodeCompanion specific item structure.
+                if opts.kind == "codecompanion.nvim" then
+                    local max_width = 0
+                    local max_width_interaction = 0
+                    local max_width_description = 0
+                    for _, item in ipairs(items) do
+                        if item.name then
+                            local width = vim.fn.strdisplaywidth(item.name)
+                            max_width = math.max(max_width, width)
+                        end
+                        if item.interaction then
+                            local width = vim.fn.strdisplaywidth(item.interaction)
+                            max_width_interaction = math.max(max_width_interaction, width)
+                        end
+                        if item.description then
+                            local width = vim.fn.strdisplaywidth(item.description)
+                            max_width_description = math.max(max_width_description, width)
+                        end
+                    end
+
+                    max_width = max_width
+                        + (max_width_interaction > 0 and (max_width_interaction + 3) or 0)
+                        + (max_width_description > 0 and (max_width_description + 3) or 0)
+                    return make_winopts(max_width + 8, #items)
                 end
 
                 -- Default behavior for non vim.ui.select calls.
@@ -290,19 +347,6 @@ return {
                         },
                     }
                 end
-
-                -- Automatic sizing of height of vim.ui.select.
-                local h = (#items + 4 + 1) / vim.o.lines
-                h = math.max(h, 0.15)
-                h = math.min(h, 0.70)
-
-                return {
-                    winopts = {
-                        height = h,
-                        width = 0.6,
-                        row = 0.5,
-                    },
-                }
             end)
         end
 

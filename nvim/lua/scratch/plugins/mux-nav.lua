@@ -18,5 +18,8 @@ return {
     opts = {
         float_win_behavior = "mux",
         at_edge = "stop",
+
+        -- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
+        log_level = "error",
     },
 }

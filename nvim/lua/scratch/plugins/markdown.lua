@@ -1,9 +1,11 @@
+---@diagnostic disable: missing-fields
 return {
     -- inline preview
     {
         "OXY2DEV/markview.nvim",
         ft = {
             "markdown",
+            "codecompanion",
         },
         cmd = {
             "Markview",
@@ -39,6 +41,8 @@ return {
                 preview = {
                     enable = false,
                     icon_provider = "devicons", -- "internal", -- "mini" or "devicons"
+                    filetypes = { "markdown", "codecompanion" },
+                    ignore_buftypes = {},
                 },
                 markdown = {
                     -- headings = presets.headings.arrowed,

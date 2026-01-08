@@ -31,6 +31,7 @@ return {
             automatic_installation = true,
             ensure_installed = {
                 "clangd", -- (LSP) C, C++
+                -- "copilot", -- (LSP) GitHub Copilot
                 -- "java_language_server", -- (LSP, DAP) Java
                 "jdtls", -- (LSP) Java
                 "jsonls", -- (LSP) Json

@@ -51,7 +51,7 @@ return {
             desc = "Copilot: Accept next Line",
         })
 
-        -- Atach copilot to the current buffer when entering insert mode.
+        -- Attach copilot to the current buffer when entering insert mode.
         vim.fn["copilot#OnFileType"]()
     end,
 

@@ -1,6 +1,6 @@
 local M = {}
 
--- Custom Telescope file finder with <c-i> / <c-h> to toggle hidden/ignored files.
+-- Custom Telescope file finder with <m-i> / <m-h> to toggle hidden/ignored files.
 M.toggle_find_files = function(opts, show_ignore, show_hidden)
     opts = opts or {}
 
@@ -43,7 +43,6 @@ end
 
 return {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
     event = "BufRead",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -91,7 +90,7 @@ return {
                 })
             end, desc = "Neovim Plugin Files" },
 
-        { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Search Buffer" },
+        { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Grep Buffer" },
 
         { "<leader>sg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
         { "<leader>sG", function()
@@ -100,44 +99,46 @@ return {
                 })
             end, desc = "Live Grep (cwd)" },
 
-        { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Grep String" },
+        { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Grep Word" },
         { "<leader>sW", function()
                 require("telescope.builtin").grep_string({
                     cwd = require("telescope.utils").buffer_dir(),
                 })
-            end, desc = "Grep String (cwd)" },
+            end, desc = "Grep Word (cwd)" },
+
+        -- { "<leader>sq", "", desc = "QuickFix List" },
 
         -- Key binding for TODO comments has been moved to the "folke/todo-comments.nvim" plugin.
         -- { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Find TODO/INFO/..." },
 
-        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help" },
         { "<leader>sm", function()
                 require("telescope.builtin").man_pages({
                     sections = { "ALL" },
                 })
-            end, desc = "Search Man" },
-        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search Keymaps" },
+            end, desc = "Man" },
+        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
 
-        -- { "<leader>cs", function()
-        --         require("telescope.builtin").lsp_document_symbols({
-        --             symbol_width = 50,
-        --             symbol_type_width = 11,
-        --             show_line = true
-        --         })
-        --     end, desc = "Show Document Symbols" },
-        -- { "<leader>ci", function()
-        --         require("telescope.builtin").lsp_incoming_calls({
-        --             fname_width = 50,
-        --             show_line = true
-        --         })
-        --     end, desc = "Show Incoming Calls" },
-        -- { "<leader>cr", function()
-        --         require("telescope.builtin").lsp_references({
-        --             fname_width = 40,
-        --             show_line = true
-        --         })
-        --     end, desc = "Show References" },
-        -- { "<leader>cD", "<cmd>Telescope diagnostics<cr>", desc = "Show Diagnostics" },
+        { "<leader>cc", function()
+                require("telescope.builtin").lsp_document_symbols({
+                    symbol_width = 50,
+                    symbol_type_width = 11,
+                    show_line = true
+                })
+            end, desc = "Code Outline" },
+        { "<leader>ci", function()
+                require("telescope.builtin").lsp_incoming_calls({
+                    fname_width = 50,
+                    show_line = true
+                })
+            end, desc = "Incoming Calls" },
+        { "<leader>cr", function()
+                require("telescope.builtin").lsp_references({
+                    fname_width = 40,
+                    show_line = true
+                })
+            end, desc = "References" },
+        { "<leader>cD", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics (workspace)" },
     },
     config = function()
         local telescope = require("telescope")
@@ -161,7 +162,7 @@ return {
         telescope.setup({
             defaults = {
                 scroll_strategy = "limit",
-                winblend = 20,
+                winblend = 0,
                 layout_strategy = "vertical",
                 layout_config = {
                     width = 0.96,

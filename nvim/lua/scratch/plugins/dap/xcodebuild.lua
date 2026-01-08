@@ -10,8 +10,8 @@ return {
         -- useful to show previews and failing snapshots.
 
         -- You must select at least one:
-        -- "nvim-telescope/telescope.nvim",
-        "ibhagwan/fzf-lua",
+        "nvim-telescope/telescope.nvim",
+        -- "ibhagwan/fzf-lua",
         -- "folke/snacks.nvim", -- (optional) to show previews
 
         "MunifTanjim/nui.nvim",

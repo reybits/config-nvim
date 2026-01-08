@@ -42,7 +42,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Code formatting via [conform.nvim](https://github.com/stevearc/conform.nvim).
 - Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
 - TMUX support via [smart-splits.nvim](https://github.com/mrjones2014/smart-splits.nvim).
-- Fast navigation, lookup, and more via [fzf-lua](https://github.com/ibhagwan/fzf-lua).
+- Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - Hide passwords/keys via [cloak.nvim](https://github.com/laytan/cloak.nvim).
@@ -51,8 +51,8 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 
 ### Optional
 
+- FZF [fzf-lua](https://github.com/ibhagwan/fzf-lua).
 - Multicursor [multicursor.nvim](https://github.com/jake-stewart/multicursor.nvim).
-- Telescope [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
 - Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).
@@ -75,15 +75,15 @@ To customize plugins, enable, or disable integration with other tools, inside th
 
 By default, fzf-lua and oil.nvim used as the navigation plugins.
 
-#### Telescope
+#### Fzf-lua
 
-You can use Telescope as main plugin by creating a `telescope.lua` file with the following content:
+You can use Telescope as main plugin by creating a `fzf-lua.lua` file with the following content:
 
 ```lua
 return {
     -- Use telescope instead of fzf-lua
-    require("scratch.plugins.optional.telescope"),
-    { "ibhagwan/fzf-lua", enabled = false },
+    require("scratch.plugins.optional.nav.fzf-lua"),
+    { "nvim-telescope/telescope.nvim", enabled = false },
 }
 ```
 
@@ -94,7 +94,7 @@ You can use neo-tree as main plugin by creating a `mini-files.lua` file with the
 ```lua
 return {
     -- Enable mini.files
-    require("scratch.plugins.optional.mini-files"),
+    require("scratch.plugins.optional.nav.mini-files"),
     -- You can optionally disable oil
     { "stevearc/oil.nvim", enabled = false },
 }
@@ -107,7 +107,7 @@ You can use neo-tree as main plugin by creating a `neo-tree.lua` file with the f
 ```lua
 return {
     -- Use neo-tree instead of oil
-    require("scratch.plugins.optional.neo-tree"),
+    require("scratch.plugins.optional.nav.neo-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }
 ```
@@ -119,7 +119,7 @@ You can use nvim-tree as main plugin by creating a `nvim-tree.lua` file with the
 ```lua
 return {
     -- Use nvim-tree instead of oil
-    require("scratch.plugins.optional.nvim-tree"),
+    require("scratch.plugins.optional.nav.nvim-tree"),
     { "stevearc/oil.nvim", enabled = false },
 }
 ```
@@ -133,7 +133,7 @@ return {
     -- Keys:
     --   <leader>h - bookmarks list
     --   <leader>H - add bookmark
-    require("scratch.plugins.optional.harpoon"),
+    require("scratch.plugins.optional.nav.harpoon"),
 }
 ```
 
@@ -151,7 +151,7 @@ You can use LazyGit as main git plugin by creating a `lazygit.lua` file with the
 ```lua
 return {
     -- Use LazyGit instead of Neogit and vim-fugitive
-    require("scratch.plugins.optional.lazygit"),
+    require("scratch.plugins.optional.vcs.lazygit"),
     { "NeogitOrg/neogit", enabled = false },
     { "tpope/vim-fugitive", enabled = false },
 }
@@ -164,8 +164,8 @@ You can use Fugitive as main git plugin by creating a `fugitive.lua` file with t
 ```lua
 return {
     -- Use vim-fugitive and its companions instead of Neogit
-    require("scratch.plugins.optional.vim-rhubarb"),
-    require("scratch.plugins.optional.vim-flog"),
+    require("scratch.plugins.optional.vcs.vim-rhubarb"),
+    require("scratch.plugins.optional.vcs.vim-flog"),
     { "NeogitOrg/neogit", enabled = false },
 }
 ```
@@ -176,7 +176,7 @@ You can add support for the Octo plugin to work with GitHub by creating a `octo.
 
 ```lua
 return {
-    require("scratch.plugins.optional.octo"),
+    require("scratch.plugins.optional.vcs.octo"),
 }
 ```
 
@@ -208,7 +208,7 @@ return {
     -- use mappings instead:
     -- <tab> to accept suggestion
     -- <a-e> to cycle through suggestions
-    require("scratch.plugins.optional.neocodeium"),
+    require("scratch.plugins.optional.ai.neocodeium"),
 }
 ```
 

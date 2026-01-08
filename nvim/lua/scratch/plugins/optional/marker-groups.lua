@@ -2,7 +2,9 @@ return {
     "jameswolensky/marker-groups.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim", -- Required
-        "ibhagwan/fzf-lua",
+        -- "ibhagwan/fzf-lua", -- Optional: fzf-lua picker
+        -- "folke/snacks.nvim", -- Optional: Snacks picker
+        "nvim-telescope/telescope.nvim", -- Optional: Telescope picker
     },
     keys = {
         { "<leader>ma", nil, mode = { "n", "v" }, desc = "Add marker" },

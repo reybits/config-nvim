@@ -300,19 +300,17 @@ return {
                     opts.prompt = opts.prompt .. "❯ "
                 end
 
-                -- Automatic sizing of window of vim.ui.select.
-                if opts.kind == nil then
+                if opts.kind == "sidekick_cli" then
+                    -- Sidekick specific item structure.
                     local max_width = 0
                     for _, item in ipairs(items) do
-                        local width = vim.fn.strdisplaywidth(item)
+                        local width = vim.fn.strdisplaywidth(item.name)
                         max_width = math.max(max_width, width)
                     end
 
                     return make_winopts(max_width + 4, #items)
-                end
-
-                -- CodeCompanion specific item structure.
-                if opts.kind == "codecompanion.nvim" then
+                elseif opts.kind == "codecompanion.nvim" then
+                    -- CodeCompanion specific item structure.
                     local max_width = 0
                     local max_width_interaction = 0
                     local max_width_description = 0
@@ -337,16 +335,25 @@ return {
                     return make_winopts(max_width + 8, #items)
                 end
 
-                -- Default behavior for non vim.ui.select calls.
-                if opts.kind ~= nil then
-                    return {
-                        winopts = {
-                            height = 0.6,
-                            width = 0.8,
-                            row = 0.5,
-                        },
-                    }
+                if opts.kind == nil then
+                    -- Automatic sizing of window of vim.ui.select.
+                    local max_width = 0
+                    for _, item in ipairs(items) do
+                        local width = vim.fn.strdisplaywidth(item)
+                        max_width = math.max(max_width, width)
+                    end
+
+                    return make_winopts(max_width + 4, #items)
                 end
+
+                -- Default behavior for non vim.ui.select calls.
+                return {
+                    winopts = {
+                        height = 0.6,
+                        width = 0.8,
+                        row = 0.5,
+                    },
+                }
             end)
         end
 

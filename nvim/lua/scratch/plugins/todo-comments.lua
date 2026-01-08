@@ -30,7 +30,8 @@ return {
         "nvim-lua/plenary.nvim",
     },
     cmd = {
-        "TodoFzfLua",
+        -- "TodoFzfLua",
+        "TodoTelescope",
         "TodoLocList",
         "TodoQuickFix",
     },

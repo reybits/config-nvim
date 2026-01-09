@@ -37,6 +37,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
+- LLM via [copilot.vim](https://github.com/github/copilot.vim) and [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim).
 - Code debugging via [nvim-dap](https://github.com/mfussenegger/nvim-dap) and [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Code commenting via [ts-comments.nvim](https://github.com/folke/ts-comments.nvim).
 - Code formatting via [conform.nvim](https://github.com/stevearc/conform.nvim).
@@ -60,6 +61,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - LazyGit [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Octo [octo.nvim](https://github.com/pwntester/octo.nvim).
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).
+- Copilot Chat [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim).
 - Tiny inline diagnostics via [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim).
 - Marker Groups via [marker-groups.nvim](https://github.com/rachartier/jameswolensky/marker-groups.nvim).
 - Colorscheme Nightfox [nightfox.nvim](https://github.com/EdenEast/nightfox.nvim).
@@ -182,19 +184,20 @@ return {
 
 ### AI related
 
-#### Copilot
+#### Copilot Chat
 
 ![copilot chat](https://github.com/user-attachments/assets/bbfb6ab6-2f88-4ffe-a7a1-8cd8a39a42a5)
 
-Both Copilot and CopilotChat plugins are enabled by defautl. Copilot integrated into the completion menu via blink-cmp.
+Copilot enabled by defautl.
 
-You can disable Copilot by creating a `copilot.lua` file with the following content:
+You can enable CopilotChat by creating a `copilot.lua` file with the following content:
 
 ```lua
 return {
-    -- Disable Copilot and Copilot Chat
-    { "github/copilot.vim", enabled = false },
-    { "CopilotC-Nvim/CopilotChat.nvim", enabled = false },
+    -- Disable Code Companion
+    { "olimorris/codecompanion.nvim", enabled = false },
+    -- Enable Copilot Chat
+    require("scratch.plugins.optional.ai.copilotchat"),
 }
 ```
 
@@ -204,6 +207,8 @@ Codeium is disabled by default. However, you can enable it by creating a `codeiu
 
 ```lua
 return {
+    -- Disable Code Companion
+    { "olimorris/codecompanion.nvim", enabled = false },
     -- Enable Codeium without the completion menu support,
     -- use mappings instead:
     -- <tab> to accept suggestion

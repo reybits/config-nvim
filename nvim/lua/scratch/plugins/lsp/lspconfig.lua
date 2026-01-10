@@ -186,8 +186,7 @@ return {
                     return
                 end
 
-                local bufnr = vim.api.nvim_win_get_buf(0)
-                on_attach(client, bufnr)
+                on_attach(client, args.buf)
             end,
         })
     end,

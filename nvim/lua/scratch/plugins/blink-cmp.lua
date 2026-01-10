@@ -1,17 +1,3 @@
-local function dismissCopilotSuggetion()
-    if package.loaded["_copilot"] ~= nil then
-        vim.api.nvim_feedkeys(
-            vim.api.nvim_replace_termcodes("<Plug>(copilot-dismiss)", true, true, true),
-            "i",
-            false
-        )
-    end
-
-    -- if package.loaded["copilot.api"] ~= nil then
-    --     require("copilot.suggestion").dismiss()
-    -- end
-end
-
 return {
     "saghen/blink.cmp",
     -- use a release tag to download pre-built binaries
@@ -63,14 +49,7 @@ return {
         -- keymap = { preset = "default" },
         keymap = {
             -- preset = "enter",
-            ["<c-space>"] = {
-                function()
-                    dismissCopilotSuggetion()
-                    return false -- passthrough to the next command
-                end,
-                "show",
-                "hide",
-            },
+            ["<c-space>"] = { "show", "hide" },
 
             ["<c-h>"] = { "show_documentation", "hide_documentation" },
 
@@ -129,11 +108,9 @@ return {
 
                 -- Disable auto show completion menu by default...
                 auto_show = false,
-                -- or Automatically show completion menu and dismiss Copilot suggestion initially.
-                -- auto_show = function(ctx)
-                --     dismissCopilotSuggetion()
-                --     return true
-                -- end,
+                -- or Automatically show completion menu (copilot plugin should
+                -- handle state of completion menu using its own logic)
+                -- auto_show = true,
 
                 draw = {
                     -- We don't need label_description now because label and label_description are already

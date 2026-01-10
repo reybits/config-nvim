@@ -1,7 +1,11 @@
--- Chat window key bindings:
---   Press 'q'      to close the chat window.
---   Press <C-c>    to clear the chat history and close the window.
-
+-- Chat Window Key Bindings:
+--   'q'      : Close only the chat window (does not end the chat session).
+--   <C-c>    : End the chat session and close the chat window.
+--
+-- Chat History Window Key Bindings:
+--   <M-r>    : Rename the selected chat session in the history list.
+--   <M-d>    : Delete the selected chat session from the history list.
+--
 return {
     "olimorris/codecompanion.nvim",
     version = "^18.0.0",
@@ -14,6 +18,9 @@ return {
 
         -- Optional dependency for chat history
         "ravitemer/codecompanion-history.nvim",
+
+        -- Optional dependency for MCP integration
+        -- "ravitemer/mcphub.nvim",
     },
     cmd = {
         "CodeCompanion",
@@ -128,8 +135,10 @@ return {
                 provider = "default", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
             },
             chat = {
-                show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
-                separator = "-·", -- The separator between the different messages in the chat buffer
+                -- Useful when markdown rendering disabled or unavailable.
+                -- show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+                -- separator = "-·", -- The separator between the different messages in the chat buffer
+
                 fold_context = true,
                 show_token_count = true, -- Show the token count for each response?
                 show_tools_processing = true, -- Show the loading message when tools are being executed?
@@ -160,9 +169,24 @@ return {
             },
             history = {
                 opts = {
-                    dir_to_save = vim.fn.stdpath("data") .. "/codecompanion_chats.json",
+                    -- Save all chats by default (disable to save only manually using 'sc')
+                    auto_save = false,
+
+                    -- Summary system
+                    summary = {
+                        -- Keymap to generate summary for current chat (default: "gcs")
+                        create_summary_keymap = "gbm",
+                    },
                 },
             },
+            -- mcphub = {
+            --     callback = "mcphub.extensions.codecompanion",
+            --     opts = {
+            --         make_vars = true,
+            --         make_slash_commands = true,
+            --         show_result_in_chat = true,
+            --     },
+            -- },
         },
         prompt_library = {
             markdown = {

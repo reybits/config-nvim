@@ -2,6 +2,49 @@
 return {
     -- inline preview
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+        ft = {
+            "markdown",
+            "codecompanion",
+        },
+        cmd = {
+            "RenderMarkdown",
+        },
+        keys = {
+            {
+                "<leader>omm",
+                "<cmd>RenderMarkdown toggle<cr>",
+                desc = "Inline Markdown",
+            },
+        },
+        init = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>om", group = "Markdown" },
+            })
+        end,
+        opts = {
+            heading = {
+                position = "inline",
+            },
+            code = {
+                border = "thick",
+            },
+            completions = {
+                lsp = {
+                    enabled = true,
+                },
+            },
+        },
+    },
+
+    -- inline preview
+    --[[
+    {
         "OXY2DEV/markview.nvim",
         ft = {
             "markdown",
@@ -75,6 +118,7 @@ return {
             })
         end,
     },
+    --]]
 
     -- browser preview
     {

@@ -1,66 +1,16 @@
+-- Copilot plugin "github/copilot.vim" is an official plugin from GitHub for integrating GitHub Copilot into Vim/Neovim.
+-- But it vim-plugin and not a lua-plugin, so it has some issues with modern Neovim setups.
+-- Therefore, we use "zbirenbaum/copilot.lua" plugin which is a lua-based implementation for better integration.
+--
+
 return {
-    -- INFO: Suggestion mappings:
-    -- <C-]> - Dismiss the current suggestion.
-    -- <M-]> - Cycle to the next suggestion, if one is available.
-    -- <M-[> - Cycle to the previous suggestion.
-    -- <M-\> - Explicitly request a suggestion, even if Copilot <Plug>(copilot-suggest) is disabled.
-    -- <M-Right> or <M-l> - Accept the next word of the current suggestion.
-    -- <M-C-Right> or <M-j> - Accept the next line of the current suggestion.
-
-    "github/copilot.vim",
-    cmd = {
-        "Copilot",
-    },
-    event = {
-        -- Only "BufWinEnter" is required for Copilot to work when using the blink-cmp plugin.
-        -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
-        -- "BufWinEnter",
-        -- Load copilot when entering insert mode instead of BufWinEnter event.
-        "InsertEnter",
-    },
-    -- init = function()
-    --     -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
-    --     vim.g.copilot_no_maps = true
-    -- end,
-    config = function()
-        --     -- Related to blink-copilot documentation: https://github.com/fang2hou/blink-copilot
-        --     -- Block the normal Copilot suggestions
-        --     vim.api.nvim_create_augroup("github_copilot", { clear = true })
-        --     vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
-        --         group = "github_copilot",
-        --         callback = function(args)
-        --             vim.notify("Event: " .. args.event, vim.log.levels.INFO)
-        --             vim.notify("FileType: " .. vim.bo[args.buf].filetype, vim.log.levels.INFO)
-        --             vim.fn["copilot#On" .. args.event]()
-        --         end,
-        --     })
-
-        -- Alias for <m-right>
-        vim.keymap.set("i", "<m-l>", "copilot#AcceptWord()", {
-            expr = true,
-            silent = true,
-            script = true,
-            desc = "Copilot: Accept next word",
-        })
-
-        -- Alias for <m-c-right>
-        vim.keymap.set("i", "<m-j>", "copilot#AcceptLine()", {
-            expr = true,
-            silent = true,
-            script = true,
-            desc = "Copilot: Accept next Line",
-        })
-
-        -- Attach copilot to the current buffer when entering insert mode.
-        vim.fn["copilot#OnFileType"]()
-    end,
-
-    --[[
-    -- INFO: Suggestion mappings:
-    -- accept = "<M-l>" or <tab>
-    -- next = "<M-]>"
-    -- prev = "<M-[>"
-    -- dismiss = "<C-]>"
+    -- Key mappings for copilot suggestions:
+    -- <tab> - Show/accept the current suggestion.
+    -- <m-]> - Cycle to the next suggestion, if one is available.
+    -- <m-[> - Cycle to the previous suggestion.
+    -- <m-l> - Accept the next word of the current suggestion.
+    -- <m-j> - Accept the next line of the current suggestion.
+    -- <c-e> - Dismiss the current suggestion and disable further suggestions until next navigation.
 
     "zbirenbaum/copilot.lua",
     cmd = {
@@ -71,8 +21,29 @@ return {
     },
     config = function()
         require("copilot").setup({
-            suggestion = { enabled = true },
-            panel = { enabled = false },
+            panel = {
+                enabled = false,
+            },
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+                trigger_on_accept = false,
+                keymap = {
+                    -- NOTE: If <tab> is set as accept, forward the <tab> key
+                    -- isn't working properly in insert mode. Looks like a bug.
+                    -- So disable accept mapping here and handle it manually
+                    -- in the keymaps below.
+                    accept = false, -- <tab>,
+                    -- NOTE: Also disable dismiss, next, and prev mappings here
+                    -- and handle them manually in the keymaps below.
+                    dismiss = false, -- "<c-e>",
+                    next = false, -- "<m-]>",
+                    prev = false, -- "<m-[>",
+
+                    accept_word = "<m-l>",
+                    accept_line = "<m-j>",
+                },
+            },
             filetypes = {
                 c = true,
                 cpp = true,
@@ -85,8 +56,38 @@ return {
             },
         })
 
-        -- HACK: Ugly hack to toggle copilot off and on again to make it work with blink-cmp.
-        vim.cmd("Copilot! attach")
+        -- NOTE: Workaround for the <tab> accept issue described above.
+        -- Super Tab: Accept copilot suggestion with <Tab>, else insert a tab character.
+        vim.keymap.set("i", "<tab>", function()
+            if require("copilot.suggestion").is_visible() then
+                require("copilot.suggestion").accept()
+            else
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes("<tab>", true, false, true),
+                    "n",
+                    false
+                )
+            end
+        end, { desc = "Copilot: Accept Suggestion" })
+
+        -- NOTE: Dismiss copilot suggestion with <C-e> and disable further
+        -- suggestions until next navigation.
+        vim.keymap.set("i", "<c-e>", function()
+            if require("copilot.suggestion").is_visible() then
+                require("copilot.suggestion").dismiss()
+                vim.b.copilot_suggestion_hidden = true
+            end
+        end, { desc = "Copilot: Dismiss Suggestion" })
+
+        -- NOTE: Reenable copilot suggestion when cycling to previous suggestion.
+        vim.keymap.set("i", "<m-]>", function()
+            require("copilot.suggestion").next()
+            vim.b.copilot_suggestion_hidden = false
+        end, { desc = "Copilot: Next Suggestion" })
+        vim.keymap.set("i", "<m-[>", function()
+            require("copilot.suggestion").prev()
+            vim.b.copilot_suggestion_hidden = false
+        end, { desc = "Copilot: Previous Suggestion" })
 
         -- Hide copilot suggestions when blink-cmp menu is open
         vim.api.nvim_create_autocmd("User", {
@@ -104,5 +105,4 @@ return {
             end,
         })
     end,
-    --]]
 }

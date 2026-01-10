@@ -51,7 +51,7 @@ return {
             -- preset = "enter",
             ["<c-space>"] = { "show", "hide" },
 
-            ["<c-h>"] = { "show_documentation", "hide_documentation" },
+            -- ["<c-h>"] = { "show_documentation", "hide_documentation" },
 
             ["<c-e>"] = { "hide", "fallback" },
 
@@ -66,9 +66,6 @@ return {
 
             ["<c-d>"] = { "scroll_documentation_down", "fallback" },
             ["<c-u>"] = { "scroll_documentation_up", "fallback" },
-
-            -- TODO: Remove this mapping and use <tab> instead.
-            ["<cr>"] = { "accept", "fallback" },
 
             -- Use <tab> to accept completion to comply with github-copilot.
             ["<tab>"] = { "accept", "fallback" },
@@ -86,7 +83,7 @@ return {
             documentation = {
                 -- window = { border = "single" },
                 auto_show = true,
-                -- auto_show_delay_ms = 500,
+                auto_show_delay_ms = 500,
                 -- treesitter_highlighting = false, -- disable if high CPU usage or stuttering when opening the documentation
             },
 

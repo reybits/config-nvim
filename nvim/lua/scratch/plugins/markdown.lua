@@ -6,6 +6,7 @@ return {
         ft = {
             "markdown",
             "codecompanion",
+            "Avante",
         },
         cmd = {
             "Markview",
@@ -41,7 +42,7 @@ return {
                 preview = {
                     enable = false,
                     icon_provider = "devicons", -- "internal", -- "mini" or "devicons"
-                    filetypes = { "markdown", "codecompanion" },
+                    filetypes = { "markdown", "codecompanion", "Avante" },
                     ignore_buftypes = {},
                 },
                 markdown = {

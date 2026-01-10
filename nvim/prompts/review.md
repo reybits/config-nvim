@@ -4,13 +4,13 @@ interaction: chat
 description: Review the selected code
 opts:
   alias: better_review
-  auto_submit: true
+  auto_submit: false
   is_slash_cmd: false
   modes:
     - v
 ---
 
-## user
+## system
 
 You are a senior developer reviewing the selected code. Analyze it carefully
 and provide a constructive code review. Include:
@@ -22,6 +22,10 @@ and provide a constructive code review. Include:
 - Optional: examples of corrected or improved code snippets.
 
 Focus on clarity and actionable advice. Output the review in a clear, concise format.
+
+## user
+
+Review the following code:
 
 ```${context.filetype}
 ${context.code}

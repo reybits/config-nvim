@@ -65,7 +65,14 @@ return {
         },
         {
             "<leader>ac",
-            "<cmd>CodeCompanion /better_commit<cr>",
+            function()
+                vim.fn.system("git diff --no-ext-diff --cached --quiet")
+                if vim.v.shell_error == 0 then
+                    vim.notify("No staged changes", vim.log.levels.WARN)
+                    return
+                end
+                vim.cmd("CodeCompanion /better_commit")
+            end,
             desc = "Commit Message",
         },
         {
@@ -121,11 +128,28 @@ return {
                 provider = "default", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
             },
             chat = {
+                show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+                separator = "-·", -- The separator between the different messages in the chat buffer
+                fold_context = true,
+                show_token_count = true, -- Show the token count for each response?
+                show_tools_processing = true, -- Show the loading message when tools are being executed?
+
+                icons = {
+                    buffer_sync_all = "󰪴 ",
+                    buffer_sync_diff = " ",
+                    chat_context = " ",
+                    chat_fold = " ",
+                    tool_pending = "  ",
+                    tool_in_progress = "  ",
+                    tool_failure = "  ",
+                    tool_success = "  ",
+                },
                 window = {
                     opts = {
                         -- Additional buffer options.
                         relativenumber = false,
                         number = false,
+                        signcolumn = "no",
                     },
                 },
             },

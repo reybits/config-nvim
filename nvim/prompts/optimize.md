@@ -10,7 +10,7 @@ opts:
     - v
 ---
 
-## user
+## system
 
 Act as a senior engineer optimizing the selected code.
 
@@ -31,6 +31,10 @@ Output:
 - Short list of optimization opportunities.
 - Optimized version of the code (if changes are non-trivial).
 - Brief explanation of why the changes are better.
+
+## user
+
+Optimize the following code for better performance and efficiency:
 
 ```${context.filetype}
 ${context.code}

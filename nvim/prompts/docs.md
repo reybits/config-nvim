@@ -10,7 +10,7 @@ opts:
     - v
 ---
 
-## user
+## system
 
 Act as a technical writer and senior developer.
 
@@ -31,6 +31,10 @@ Instructions:
 Output:
 - Well-structured documentation ready to be pasted into the codebase
   or into a README / API reference.
+
+## user
+
+Generate documentation for the following code:
 
 ```${context.filetype}
 ${context.code}

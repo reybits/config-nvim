@@ -8,7 +8,7 @@ opts:
   is_slash_cmd: false
 ---
 
-## user
+## system
 
 Analyze the git diff below and generate a Conventional Commit message.
 - Use the appropriate type (feat, fix, chore, docs, style, refactor, perf,
@@ -18,6 +18,10 @@ Analyze the git diff below and generate a Conventional Commit message.
 - If needed, add a body with details or context, wrapped at 72 chars.
 - Add footers if relevant (e.g., breaking changes, issues closed).
 - Output only the commit message inside a markdown code block.
+
+## user
+
+Write a Conventional Commit message based on the git diff below.
 
 ```diff
 ${utils.git_diff}

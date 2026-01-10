@@ -46,7 +46,7 @@ return {
     init = function()
         local wk = require("which-key")
         wk.add({
-            { "<leader>m", group = "Marker Groups", icon = "󰍕" },
+            { "<leader>m", group = "Marker Groups", icon = "󰍕", mode = { "n", "x" } },
             { "<leader>mg", group = "Group" },
         })
     end,

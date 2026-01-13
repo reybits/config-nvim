@@ -10,14 +10,14 @@ return {
         "DiffviewToggleFiles",
     },
     keys = {
-        { "<leader>gvv", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
-        { "<leader>gvh", "<cmd>DiffviewFileHistory %<cr>", desc = "Open History" },
-        { "<leader>gvc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+        { "<leader>gDD", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+        { "<leader>gDh", "<cmd>DiffviewFileHistory %<cr>", desc = "Open History" },
+        { "<leader>gDc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
     },
     init = function()
         local wk = require("which-key")
         wk.add({
-            { "<leader>gv", group = "Diffview" },
+            { "<leader>gD", group = "Diffview" },
         })
     end,
     config = function()

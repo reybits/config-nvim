@@ -4,27 +4,27 @@ return {
     keys = {
         -- Add and remove cursors with control + left click.
         -- Mouse support is required for these mappings to work: `set mouse+=a`
-        -- {
-        --     "<c-leftmouse>",
-        --     function()
-        --         require("multicursor-nvim").handleMouse()
-        --     end,
-        --     desc = "Add/remove cursor",
-        -- },
-        -- {
-        --     "<c-leftdrag>",
-        --     function()
-        --         require("multicursor-nvim").handleMouseDrag()
-        --     end,
-        --     desc = "Add/remove cursor",
-        -- },
-        -- {
-        --     "<c-leftrelease>",
-        --     function()
-        --         require("multicursor-nvim").handleMouseRelease()
-        --     end,
-        --     desc = "Add/remove cursor",
-        -- },
+        {
+            "<c-leftmouse>",
+            function()
+                require("multicursor-nvim").handleMouse()
+            end,
+            desc = "Add/remove cursor",
+        },
+        {
+            "<c-leftdrag>",
+            function()
+                require("multicursor-nvim").handleMouseDrag()
+            end,
+            desc = "Add/remove cursor",
+        },
+        {
+            "<c-leftrelease>",
+            function()
+                require("multicursor-nvim").handleMouseRelease()
+            end,
+            desc = "Add/remove cursor",
+        },
 
         -- Disable and enable cursors.
         {
@@ -37,14 +37,13 @@ return {
         },
 
         -- Bring back cursors if you accidentally clear them.
-        -- INFO: Disabled due to confilcts with other mappings.
-        -- {
-        --     "<leader>gv",
-        --     function()
-        --         require("multicursor-nvim").restoreCursors()
-        --     end,
-        --     desc = "Restore multicursors",
-        -- },
+        {
+            "<leader>gv",
+            function()
+                require("multicursor-nvim").restoreCursors()
+            end,
+            desc = "Restore multicursors",
+        },
 
         -- Add a cursor for all matches of cursor word/selection in the document.
         {
@@ -56,12 +55,16 @@ return {
             desc = "Add cursors to all matches",
         },
     },
-    -- init = function()
-    --     vim.cmd("set mouse+=a")
-    -- end,
     config = function()
         local mc = require("multicursor-nvim")
         mc.setup()
+
+        if not string.find(vim.api.nvim_get_option_value("mouse", {}), "a") then
+            vim.notify(
+                "Mouse support is required for <c-leftmouse> mappings to work. Enable mouse support with ':set mouse+=a'",
+                vim.log.levels.WARN
+            )
+        end
 
         -- Mappings defined in a keymap layer only apply when there are
         -- multiple cursors. This lets you have overlapping mappings.

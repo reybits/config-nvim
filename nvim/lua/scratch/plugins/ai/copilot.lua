@@ -45,6 +45,7 @@ return {
                 },
             },
             filetypes = {
+                sh = true,
                 c = true,
                 cpp = true,
                 gitcommit = true,

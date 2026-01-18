@@ -149,6 +149,14 @@ return {
         require("xcodebuild").setup({
             -- put some options here or leave it empty to use default settings
             show_build_progress_bar = false,
+
+            notification = {
+                window = {
+                    -- list to ensure Fidget continues to avoid xcodebuild.nvim's explorer window.
+                    avoid = { "TestExplorer" },
+                },
+            },
+
             logs = {
                 notify = function(message, severity)
                     local fidget = require("fidget")

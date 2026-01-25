@@ -19,7 +19,7 @@ return {
 
         -- Delay before showing the popup.
         delay = function(ctx)
-            return ctx.plugin and 0 or 500
+            return ctx.plugin and 0 or 800
         end,
         spec = {
             mode = { "n", "v" },

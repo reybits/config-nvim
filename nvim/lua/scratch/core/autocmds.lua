@@ -5,6 +5,45 @@ local function augroup(name, opts)
     return vim.api.nvim_create_augroup("scratch_" .. name, opts)
 end
 
+--- startup handler ------------------------------------------------------------
+-- Currently experimental and disabled.
+-- I really consider using it instad of mini.sessions and dashboard-nvim plugins.
+
+--[[
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+    group = augroup("startup_handler"),
+    once = true,
+    pattern = { "*" },
+    callback = function()
+        -- Always register UiHandleSelect on startup
+        vim.cmd("UiHandleSelect")
+
+        -- If there are files passed as arguments, do nothing.
+        if vim.fn.argc() > 0 then
+            return
+        end
+
+        -- Check for Session.vim in the current working directory.
+        local session = vim.fn.getcwd() .. "/Session.vim"
+        if vim.fn.filereadable(session) ~= 1 then
+            return
+        end
+
+        vim.schedule(function()
+            vim.ui.select(
+                { "Load session", "Skip" },
+                { prompt = "Session found. What do you want to do?" },
+                function(choice)
+                    if choice == "Load session" then
+                        vim.cmd("source " .. vim.fn.fnameescape(session))
+                    end
+                end
+            )
+        end)
+    end,
+})
+--]]
+
 --- enable cursor line for current buffer only ---------------------------------
 
 local grp_cursorline = augroup("cursorline")

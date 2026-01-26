@@ -42,8 +42,8 @@ return {
         { "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue" },
         { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Continue to Cursor" },
         { "<leader>di", "<cmd>DapStepInto<cr>", desc = "Step Into" },
-        { "<leader>do", "<cmd>DapStepOver<cr>", desc = "Step Over" },
-        { "<leader>dO", "<cmd>DapStepOut<cr>", desc = "Step Out" },
+        { "<leader>dn", "<cmd>DapStepOver<cr>", desc = "Step Over" },
+        { "<leader>do", "<cmd>DapStepOut<cr>", desc = "Step Out" },
         { "<leader>dp", "<cmd>DapPause<cr>", desc = "Pause" },
         { "<leader>dx", "<cmd>DapTerminate<cr>", desc = "Terminate" },
 
@@ -70,11 +70,46 @@ return {
             -- detached = false,
         }
 
-        -- vim.api.nvim_set_hl(
-        --     0,
-        --     "DapStoppedLine",
-        --     { default = true, link = "Visual" }
-        -- )
+        -- Configuration for C, C++, and Rust
+        local cwd = vim.fn.getcwd()
+        local name = cwd:match("([^/]+)$")
+        local path = "./" .. name
+        local ask_path = function()
+            path = vim.fn.input("Executable: ", path, "file")
+            name = path:match("([^/]+)$")
+            return path
+        end
+        dap.configurations.cpp = {
+            {
+                name = "Debug '" .. name .. "'",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                    return ask_path()
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false,
+                args = {},
+            },
+            {
+                name = "Debug '" .. name .. "' with args",
+                type = "codelldb",
+                request = "launch",
+                program = function()
+                    return ask_path()
+                end,
+                cwd = "${workspaceFolder}",
+                stopOnEntry = false,
+                args = function()
+                    return vim.fn.input("Args: ")
+                end,
+            },
+        }
+        dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
+
+        -- Highlighting for the current line when stopped
+        vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
         local helpers = require("scratch.core.helpers")
 

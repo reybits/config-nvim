@@ -1,10 +1,8 @@
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        { -- virtual text for the debugger
-            "theHamsta/nvim-dap-virtual-text",
-            opts = {},
-        },
+        -- Virtual text for the debugger
+        { "theHamsta/nvim-dap-virtual-text", opts = {} },
     },
     cmd = {
         -- Session management

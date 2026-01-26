@@ -1,21 +1,21 @@
+--
+-- Mason
+-- Portable package manager for Neovim that runs everywhere Neovim runs.
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+--
+-- I have removed the following plugins in favor of manual installation and configuration:
+-- "mason-org/mason-lspconfig.nvim",
+-- "WhoIsSethDaniel/mason-tool-installer.nvim",
+-- "jay-babu/mason-nvim-dap.nvim",
+--
+-- Mason just install the required tools.
+-- DAP, LSP, and other configurations are done manually.
+--
 return {
     "mason-org/mason.nvim",
-    dependencies = {
-        "mason-org/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
-        "jay-babu/mason-nvim-dap.nvim",
-    },
-    cmd = {
-        "Mason",
-        "MasonUpdate",
-        "MasonInstall",
-        "MasonUninstall",
-        "MasonUninstallAll",
-        "MasonLog",
-    },
+    event = "VeryLazy",
     config = function()
-        local mason = require("mason")
-        mason.setup({
+        require("mason").setup({
             ui = {
                 border = "rounded",
                 icons = {
@@ -26,57 +26,54 @@ return {
             },
         })
 
-        local mason_lspconfig = require("mason-lspconfig")
-        mason_lspconfig.setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "clangd", -- (LSP) C, C++
-                -- "copilot", -- (LSP) GitHub Copilot
-                -- "java_language_server", -- (LSP, DAP) Java
-                "jdtls", -- (LSP) Java
-                "jsonls", -- (LSP) Json
-                "lua_ls", -- (LSP) Lua
-                "neocmake", -- (LSP) CMake
-                -- "tsserver", -- (LSP) TypeScript, JavaScript
-                "quick_lint_js", -- (LSP, Linter) TypeScript, JavaScript
-                -- "lemminx", -- (LSP) Xml
-            },
-        })
+        local ensure_installed = {
+            -- LSP Servers
+            --
+            "clangd", -- (LSP) C, C++
+            "jdtls", -- (LSP) Java
+            "stylua", -- (LSP, Formatter) Lua, Luau
+            "json-lsp", -- "jsonls", -- (LSP) Json
+            "lua-language-server", -- "luals", -- "lua_ls", -- (LSP) Lua
+            "neocmakelsp", -- "neocmake", -- (LSP) CMake
+            "quick-lint-js", -- "quick_lint_js", -- (LSP, Linter) TypeScript, JavaScript
+            -- "copilot", -- (LSP) GitHub Copilot
+            -- "java_language_server", -- (LSP, DAP) Java
+            -- "lemminx", -- (LSP) Xml
+            -- "tsserver", -- (LSP) TypeScript, JavaScript
 
-        local mason_toolinst = require("mason-tool-installer")
-        mason_toolinst.setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "clang-format", -- (Formatter) C, C#, C++, JSON, Java, JavaScript
-                "stylua", -- (Formatter) Lua, Luau
-                -- "google-java-format", --  (Formatter) Java
-                "prettier", -- (Formatter) Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML
-                "shfmt", -- (Formatter) Bash, Mksh, Shell
-                -- "codelldb", -- (DAP) C, C++, Rust
-                -- "cpplint", -- (Linter) C, C++
-                "shellcheck", -- (Linter) BASH
-                -- "luacheck", -- (Linter) Lua
-            },
-        })
+            -- Other tools
+            --
+            "clang-format", -- (Formatter) C, C#, C++, JSON, Java, JavaScript
+            "codelldb", -- (DAP) C, C++, Rust
+            "prettier", -- (Formatter) Angular, CSS, Flow, GraphQL, HTML, JSON, JSX, JavaScript, LESS, Markdown, SCSS, TypeScript, Vue, YAML
+            "shellcheck", -- (Linter) BASH
+            "shfmt", -- (Formatter) Bash, Mksh, Shell
+            "stylua", -- (Formatter) Lua, Luau
+            "tree-sitter-cli", -- (Parser) Treesitter CLI
+            -- "cpplint", -- (Linter) C, C++
+            -- "google-java-format", --  (Formatter) Java
+            -- "luacheck", -- (Linter) Lua
+        }
 
-        -- local codelldb_path = vim.fn.stdpath("data") .. "/mason/bin/codelldb"
-        local mason_dap = require("mason-nvim-dap")
-        mason_dap.setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "codelldb",
-            },
-            handlers = {
-                function(config)
-                    -- all sources with no handler get passed here
+        -- Delay the installation a bit to ensure Mason is fully loaded.
+        vim.defer_fn(function()
+            local mason_registry = require("mason-registry")
 
-                    -- Keep original functionality
-                    mason_dap.default_setup(config)
-                end,
-                codelldb = function(config)
-                    mason_dap.default_setup(config) -- don't forget this!
-                end,
-            },
-        })
+            -- Check is registry is ready to install packages.
+            mason_registry.refresh(vim.schedule_wrap(function()
+                -- Install ensured packages if they are not installed yet.
+                for _, name in ipairs(ensure_installed) do
+                    local ok, result = pcall(mason_registry.is_installed, name)
+                    if ok and not result then
+                        ok, result = pcall(mason_registry.has_package, name)
+                        if ok and result then
+                            vim.cmd("MasonInstall " .. name)
+                        else
+                            vim.notify("Mason: Package not found: " .. name, vim.log.levels.WARN)
+                        end
+                    end
+                end
+            end))
+        end, 500)
     end,
 }

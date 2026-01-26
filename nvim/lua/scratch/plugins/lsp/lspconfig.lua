@@ -4,12 +4,6 @@ return {
         "BufReadPre",
         "BufNewFile",
     },
-    dependencies = {
-        "williamboman/mason.nvim",
-        -- "saghen/blink.cmp",
-
-        -- { "antosha417/nvim-lsp-file-operations", config = true },
-    },
     config = function()
         --
         -- Disable LSP logging
@@ -27,6 +21,37 @@ return {
         end
         vim.diagnostic.config({
             signs = signs,
+        })
+
+        --
+        -- Configure Lua Language Server for Neovim development
+        --
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                        checkThirdParty = false,
+                    },
+                },
+            },
+        })
+
+        --
+        -- Enable specific LSP servers.
+        -- LSP servers installed via mason.nvim and configured via lspconfig.
+        --
+        vim.lsp.enable({
+            "clangd",
+            "jdtls",
+            "jsonls",
+            "lua_ls",
+            "neocmake",
+            "quick_lint_js",
+            "stylua",
         })
 
         --
@@ -152,34 +177,11 @@ return {
             -- end, "List Workspace Folders")
         end
 
-        --[[
         --
-        -- Customize the capabilities to ensure utf-16 encoding is used.
-        --
-        local capabilities = require("blink.cmp").get_lsp_capabilities({
-            general = {
-                positionEncodings = { "utf-16" },
-            },
-            offsetEncoding = { "utf-16" },
-        }, true)
-
-        --
-        -- Apply the above configurations to all LSP clients as they attach to buffers.
-        --
-        local mason_lspconfig = require("mason-lspconfig")
-        for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
-            vim.lsp.config(server, {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
-        end
-        --]]
-
-        --
-        -- Second method using LspAttach autocommand.
+        -- Attach the on_attach function to LSP clients when they connect.
         --
         vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+            group = vim.api.nvim_create_augroup("UserLspConfig", { clear = false }),
             callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client == nil then

@@ -1,75 +1,76 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = {
-        "BufReadPost",
-        "BufNewFile",
-    },
     build = ":TSUpdate",
-    cmd = {
-        "TSUpdateSync",
-        "TSUpdate",
-        "TSInstall",
-    },
+    -- API has changed, and not supported for lazy loading anymore.
+    -- So, disable lazy loading here and commented out the event and cmd fields.
+    lazy = false,
+    -- event = {
+    --     "BufReadPost",
+    --     "BufNewFile",
+    -- },
+    -- cmd = {
+    --     "TSUpdateSync",
+    --     "TSUpdate",
+    --     "TSInstall",
+    -- },
     config = function()
-        local treesitter = require("nvim-treesitter.configs")
+        local treesitter = require("nvim-treesitter")
         treesitter.setup({
-            highlight = {
-                enable = true,
-                disable = function(_, bufnr)
-                    local max_size = 1024 * 100
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-                    if ok and stats and stats.size > max_size then
-                        return true
-                    end
+            install_dir = vim.fn.stdpath("data") .. "/site",
+        })
 
-                    local max_lines = 5000
-                    return vim.api.nvim_buf_line_count(bufnr) > max_lines
-                end,
-            },
-            -- Indentation based on treesitter for the = operator.
-            -- This is an experimental feature.
-            -- Therefore I disable it at all.
-            indent = {
-                enable = false,
-                -- disable = { "c", "cpp" },
-            },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<c-space>",
-                    node_incremental = "<c-space>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
-                },
-            },
-            ignore_install = {},
-            modules = {},
-            auto_install = true,
-            sync_install = false,
-            ensure_installed = {
-                "bash",
-                "c",
-                "cpp",
-                "cmake",
-                "make",
-                "css",
-                "html",
-                "javascript",
-                "java",
-                "json",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "python",
-                "query",
-                "regex",
-                "tsx",
-                "typescript",
-                "gitignore",
-                "vim",
-                "vimdoc",
-                "yaml",
-            },
+        treesitter.install({
+            "bash",
+            "c",
+            "cpp",
+            "cmake",
+            "make",
+            "css",
+            "html",
+            "javascript",
+            "java",
+            "json",
+            "lua",
+            "markdown",
+            "markdown_inline",
+            "python",
+            "query",
+            "regex",
+            "tsx",
+            "typescript",
+            "gitignore",
+            "vim",
+            "vimdoc",
+            "yaml",
+        })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "*",
+            callback = function(args)
+                local buf = args.buf
+
+                -- Enable folding
+                -- vim.wo[0][0].foldmethod = "expr"
+                -- vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+                -- Enable highlighting
+                pcall(vim.treesitter.start, buf)
+
+                --[[
+                -- Disable for large files
+                local max_size = 1024 * 100
+                local ok, stats = pcall(vim.fs.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_size then
+                    vim.treesitter.stop(buf)
+                    return
+                end
+
+                local max_lines = 5000
+                if vim.api.nvim_buf_line_count(buf) > max_lines then
+                    vim.treesitter.stop(buf)
+                end
+                --]]
+            end,
         })
     end,
 }

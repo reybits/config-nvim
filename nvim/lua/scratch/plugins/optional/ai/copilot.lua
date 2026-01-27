@@ -57,6 +57,9 @@ return {
             },
         })
 
+        -- HACK: Ugly hack to toggle copilot off and on again to make it work with blink-cmp.
+        -- vim.cmd("Copilot! attach")
+
         -- NOTE: Workaround for the <tab> accept issue described above.
         -- Super Tab: Accept copilot suggestion with <Tab>, else insert a tab character.
         vim.keymap.set("i", "<tab>", function()

@@ -36,7 +36,7 @@ return {
             "lua-language-server", -- "luals", -- "lua_ls", -- (LSP) Lua
             "neocmakelsp", -- "neocmake", -- (LSP) CMake
             "quick-lint-js", -- "quick_lint_js", -- (LSP, Linter) TypeScript, JavaScript
-            -- "copilot", -- (LSP) GitHub Copilot
+            "copilot-language-server", -- "copilot", -- (LSP) GitHub Copilot
             -- "java_language_server", -- (LSP, DAP) Java
             -- "lemminx", -- (LSP) Xml
             -- "tsserver", -- (LSP) TypeScript, JavaScript

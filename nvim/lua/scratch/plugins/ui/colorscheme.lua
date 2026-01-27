@@ -24,6 +24,7 @@ return {
         build = ":KanagawaCompile",
     },
 
+    --[[
     {
         "EdenEast/nightfox.nvim",
         enabled = false,
@@ -34,7 +35,6 @@ return {
         end,
     },
 
-    --[[
     {
         -- "ellisonleao/gruvbox.nvim", -- doesn't support 16/256 colors terminal
         "morhetz/gruvbox",

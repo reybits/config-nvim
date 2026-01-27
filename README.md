@@ -33,15 +33,16 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Sessions support via [mini.sessions](https://github.com/echasnovski/mini.sessions).
 - Colorscheme via [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim).
 - Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
-- Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), and [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim).
+- Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim), [diffview.lua](https://github.com/sindrets/diffview.nvim), [mergetool.lua](https://github.com/samoshkin/vim-mergetool).
 - File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
-- LLM via [copilot.vim](https://github.com/github/copilot.vim) and [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim).
+- Copilot Chat via [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) and `copilot-language-server` (managed by Mason).
 - Code debugging via [nvim-dap](https://github.com/mfussenegger/nvim-dap) and [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Code commenting via [ts-comments.nvim](https://github.com/folke/ts-comments.nvim).
 - Code formatting via [conform.nvim](https://github.com/stevearc/conform.nvim).
 - Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
+- Multicursor support via [multicursor.nvim](https://github.com/jake-stewart/multicursor.nvim).
 - TMUX support via [smart-splits.nvim](https://github.com/mrjones2014/smart-splits.nvim).
 - Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
@@ -53,7 +54,6 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 ### Optional
 
 - FZF [fzf-lua](https://github.com/ibhagwan/fzf-lua).
-- Multicursor [multicursor.nvim](https://github.com/jake-stewart/multicursor.nvim).
 - File tree explorer via [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua).
 - File tree explorer via [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim).
 - Buffer navigation via [flash.nvim](https://github.com/folke/flash.nvim).

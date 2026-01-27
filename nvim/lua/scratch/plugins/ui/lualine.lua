@@ -177,6 +177,11 @@ return {
             return vim.bo.buftype ~= "acwrite"
         end
 
+        local function not_filetypes()
+            return vim.bo.filetype:match("^Telescope") ~= "Telescope"
+                and vim.bo.filetype:match("^Neogit") ~= "Neogit"
+        end
+
         lualine.setup({
             options = {
                 theme = "material",
@@ -184,9 +189,9 @@ return {
                 component_separators = { left = "", right = "" },
                 globalstatus = true,
                 disabled_filetypes = {
-                    "NeogitStatus",
+                    -- "NeogitStatus",
                     "NvimTree",
-                    "TelescopePrompt",
+                    -- "TelescopePrompt",
                     "dashboard",
                     "neo-tree",
                     "starter",
@@ -229,6 +234,7 @@ return {
                             end
                             return "-= close with <q> =-"
                         end,
+                        cond = not_filetypes
                     },
                     --[[
                     {
@@ -248,14 +254,18 @@ return {
                             modified = '*', -- ',
                             removed = '-', --  '
                         },
-                        cond = not_acwrite
+                        cond = function()
+                            return not_acwrite() and not_filetypes()
+                        end
                     },
                     { "diagnostics",
-                        cond = not_acwrite
+                        cond = function()
+                            return not_acwrite() and not_filetypes()
+                        end
                     },
                     { lazy_status.updates,
                         cond = function()
-                            return not_acwrite() and lazy_status.has_updates()
+                            return not_acwrite() and not_filetypes() and lazy_status.has_updates()
                         end,
                         on_click = function()
                             vim.cmd("Lazy")
@@ -264,7 +274,7 @@ return {
                     },
                     { mason_status,
                         cond = function()
-                            return not_acwrite()
+                            return not_acwrite() and not_filetypes()
                         end,
                         icon = "󱌢",
                         on_click = function()
@@ -283,6 +293,7 @@ return {
                         end,
                         separator = "",
                         padding = { left = 0, right = 1 },
+                        cond = not_filetypes
                     },
                     {
                         function()

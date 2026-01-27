@@ -88,12 +88,12 @@ return {
         cli = {
             mux = {
                 -- backend = "tmux",
-                enabled = true,
+                enabled = false,
             },
             -- Does nothing, unfortunately
-            -- prompts = {
-            --     commit = "Write a concise git commit message for the following changes:\n\n{selection}\n\nCommit message:",
-            -- },
+            prompts = {
+                commit = "Write a concise git commit message for the staged changes using commit message convention.",
+            },
         },
         nes = {
             diff = {

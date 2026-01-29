@@ -203,7 +203,11 @@ return {
                         vim.lsp.util.make_text_document_params(),
                         function(err, result)
                             if err then
-                                vim.notify("Error: " .. vim.inspect(err), vim.log.levels.WARN)
+                                -- Sometimes lsp asks clangd twice and the second time
+                                -- clangd responds with an error like:
+                                -- { code = -32601, message = "unimplemented" }
+                                -- So we just ignore it.
+                                -- vim.notify("Error: " .. vim.inspect(err), vim.log.levels.WARN)
                                 return
                             end
 

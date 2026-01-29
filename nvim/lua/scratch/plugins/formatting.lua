@@ -33,17 +33,18 @@ return {
     config = function()
         local conform = require("conform")
 
-        local formatOpts = function()
-            return {
+        local formatOpts = {
+            {
                 lsp_format = "fallback",
                 async = false,
                 quiet = true,
-            }, function(err)
+            },
+            function(err)
                 if err then
                     vim.notify(err, vim.log.levels.ERROR)
                 end
-            end
-        end
+            end,
+        }
 
         conform.setup({
             notify_on_error = true,
@@ -126,12 +127,12 @@ return {
                     return nil
                 end
 
-                return { formatOpts() }
+                return formatOpts
             end,
         })
 
         vim.api.nvim_create_user_command("FormatBuffer", function()
-            conform.format(formatOpts())
+            conform.format(formatOpts)
         end, {
             desc = "Format Buffer/Range",
         })

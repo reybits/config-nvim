@@ -90,7 +90,11 @@ return {
                     on_exit = function(code, o)
                         if code == 0 then
                             vim.notify(o.title .. " completed successfully.", vim.log.levels.INFO)
-                            vim.cmd("LspRestart")
+                            if vim.lsp.inline_completion ~= nil then
+                                vim.cmd("lsp restart")
+                            else
+                                vim.cmd("LspRestart")
+                            end
                         else
                             vim.notify(
                                 o.title .. " failed with exit code: " .. code,

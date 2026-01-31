@@ -182,11 +182,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 --- show buffer path after switching buffer ------------------------------------
 
 local last_buf_path = nil
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufNew" }, {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "BufEnter" }, {
     group = augroup("show_buffer_path"),
     callback = function()
         vim.defer_fn(function()
-            local buf = 0
+            if vim.api.nvim_get_mode().mode ~= "n" then
+                return
+            end
+
+            local buf = vim.api.nvim_get_current_buf()
 
             if not vim.api.nvim_buf_is_valid(buf) or not vim.bo[buf].buflisted then
                 last_buf_path = nil

@@ -54,7 +54,7 @@ return {
         require("marker-groups").setup({
             -- Default picker is 'vim' (built-in vim.ui)
             -- Accepted values: 'vim' | 'snacks' | 'fzf-lua' | 'mini.pick' | 'telescope'
-            picker = "fzf-lua",
+            picker = "telescope",
         })
     end,
 }

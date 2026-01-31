@@ -84,10 +84,12 @@ vim.api.nvim_create_autocmd("FileType", {
         "PlenaryTestPopup",
         "acwrite",
         "checkhealth",
+        "codecompanion",
         "git",
         "gitsigns-blame",
         "help",
         "lspinfo",
+        "marker-groups",
         "neotest-output",
         "neotest-output-panel",
         "neotest-summary",
@@ -97,7 +99,6 @@ vim.api.nvim_create_autocmd("FileType", {
         "spectre_panel",
         "startuptime",
         "tsplayground",
-        "codecompanion",
     },
     callback = function(event)
         -- Defer keymap setting to before buffer is fully ready.

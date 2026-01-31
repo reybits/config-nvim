@@ -1,3 +1,4 @@
+--
 -- Ghost text bookmarks for Neovim
 --
 return {
@@ -44,9 +45,9 @@ return {
         end, { desc = "Next bookmark" })
 
         -- picker
-        -- map("n", prefix .. "l", function()
-        --     require("haunt.picker").show()
-        -- end, { desc = "Show Picker" })
+        map("n", prefix .. "l", function()
+            require("haunt.picker").show()
+        end, { desc = "Show Hauntings" })
 
         -- quickfix
         map("n", prefix .. "q", function()

@@ -33,7 +33,8 @@ return {
             },
 
             window = {
-                winblend = 80,
+                winblend = 0,
+                border = "rounded",
                 zindex = 9999,
                 align = "top",
                 avoid = {

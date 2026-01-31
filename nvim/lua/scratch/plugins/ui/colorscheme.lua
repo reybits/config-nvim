@@ -20,6 +20,10 @@ return {
             })
 
             setupscheme("kanagawa-wave", "vim")
+
+            -- Set custom highlight for window separator.
+            -- It improves visibility of split windows.
+            vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#aaaa00" })
         end,
         build = ":KanagawaCompile",
     },

@@ -282,9 +282,25 @@ return {
                         end,
                         color = { fg = "#ff9e64" },
                     },
+                    { -- Show Copilot status.
+                        function()
+                            return ""
+                        end,
+                        separator = "",
+                        padding = { left = 0, right = 1 },
+                        cond = function()
+                            local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+                            for _, client in ipairs(clients) do
+                                if client.name == "copilot" then
+                                    return true
+                                end
+                            end
+                            return false
+                        end
+                    },
                 },
                 lualine_y = {
-                    {
+                    { -- Show autoformat status.
                         function()
                             if vim.g.autoformat_toggle == nil or vim.g.autoformat_toggle then
                                 return "󰗴"
@@ -295,7 +311,7 @@ return {
                         padding = { left = 0, right = 1 },
                         cond = not_filetypes
                     },
-                    {
+                    { -- Show wrap status.
                         function()
                             if vim.wo.wrap then
                                 return "󰖶"

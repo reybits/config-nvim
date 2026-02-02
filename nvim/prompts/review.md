@@ -27,8 +27,8 @@ Focus on clarity and actionable advice. Output the review in a clear, concise fo
 
 Review the following code:
 
-```${context.filetype}
+````${context.filetype}
 ${context.code}
-```
+````
 
 

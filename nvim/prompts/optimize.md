@@ -36,8 +36,8 @@ Output:
 
 Optimize the following code for better performance and efficiency:
 
-```${context.filetype}
+````${context.filetype}
 ${context.code}
-```
+````
 
 

@@ -23,8 +23,8 @@ Analyze the git diff below and generate a Conventional Commit message.
 
 Write a Conventional Commit message based on the git diff below.
 
-```diff
+````diff
 ${utils.git_diff}
-```
+````
 
-
+Respond with the commit message only in a `commit` code block.

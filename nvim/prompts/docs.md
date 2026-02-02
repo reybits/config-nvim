@@ -36,8 +36,8 @@ Output:
 
 Generate documentation for the following code:
 
-```${context.filetype}
+````${context.filetype}
 ${context.code}
-```
+````
 
 

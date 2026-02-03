@@ -203,6 +203,13 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "BufEnter" }, {
             if last_buf_path ~= bufname then
                 last_buf_path = bufname
                 local relpath = vim.fn.fnamemodify(bufname, ":.")
+                local width = vim.o.columns - 2
+                if #relpath > width then
+                    local keep = math.floor((width - 1) / 2)
+                    local left = relpath:sub(1, keep)
+                    local right = relpath:sub(-keep)
+                    relpath = left .. "…" .. right
+                end
                 vim.api.nvim_echo({ { relpath, "Normal" } }, false, {})
             end
         end, 50)

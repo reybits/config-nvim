@@ -7,7 +7,6 @@ return {
             function()
                 require("anvil").run("make android", {
                     title = "Android Release",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make android'",
@@ -18,7 +17,6 @@ return {
             function()
                 require("anvil").run("make .android", {
                     title = "Android Debug",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make .android'",
@@ -29,7 +27,6 @@ return {
             function()
                 require("anvil").run("make release", {
                     title = "Build Release",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make release'",
@@ -40,7 +37,6 @@ return {
             function()
                 require("anvil").run("make .debug", {
                     title = "Build Debug",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make .debug'",
@@ -51,7 +47,6 @@ return {
             function()
                 require("anvil").run("make web", {
                     title = "Web Release",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make web'",
@@ -62,7 +57,6 @@ return {
             function()
                 require("anvil").run("make .web", {
                     title = "Web Debug",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make .web'",
@@ -74,7 +68,6 @@ return {
             function()
                 require("anvil").run("make resources", {
                     title = "Resources",
-                    close_on_success = true,
                 })
             end,
             desc = "Do 'make resources'",
@@ -86,7 +79,6 @@ return {
             function()
                 require("anvil").run("make build_compile_commands", {
                     title = "Compile Commands",
-                    close_on_success = true,
                     on_exit = function(code, o)
                         if code == 0 then
                             vim.notify(o.title .. " completed successfully.", vim.log.levels.INFO)
@@ -113,5 +105,9 @@ return {
     opts = {
         -- mode = "term", -- Use internal terminal to run commands.
         log_to_qf = true,
+        open_qf_on_success = false,
+        open_qf_on_error = true,
+        close_on_success = true,
+        close_on_error = true,
     },
 }

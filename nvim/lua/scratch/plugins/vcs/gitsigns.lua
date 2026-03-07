@@ -8,6 +8,7 @@ return {
         current_line_blame_opts = {
             virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
         },
+        attach_to_untracked = true,
         current_line_blame_formatter = "<author_time:%Y-%m-%d> <author>: <summary>",
         signs = {
             -- add = { text = "┃" },

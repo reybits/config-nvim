@@ -1,7 +1,7 @@
 return {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
-        { "github/copilot.vim" },
+        -- { "github/copilot.vim" },
         -- { "zbirenbaum/copilot.lua" },
         { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
@@ -116,6 +116,7 @@ return {
                 Review = "Please review the following code and provide suggestions for improvement.",
                 Summarize = "Please summarize the following text.",
                 Wording = "Please improve the grammar and wording of the following text.",
+                Commit = "Analyze the git diff below and generate a Conventional Commit message.\n- Use the appropriate type (feat, fix, chore, docs, style, refactor, perf, test, build, ci, etc.).\n- Include a scope if relevant: <type>(<scope>): <description>.\n- Write a short, imperative description, max 72 characters per line.\n- If needed, add a body with details or context, wrapped at 72 chars.\n- Add footers if relevant (e.g., breaking changes, issues closed).\n- Output only the commit message inside a markdown code block.\n\n#gitdiff",
             },
 
             -- auto_insert_mode = true,

@@ -37,6 +37,8 @@ return {
             "neocmakelsp", -- "neocmake", -- (LSP) CMake
             "quick-lint-js", -- "quick_lint_js", -- (LSP, Linter) TypeScript, JavaScript
             "copilot-language-server", -- "copilot", -- (LSP) GitHub Copilot
+            -- "groovy-language-server", -- "groovyls", -- (LSP) Groovy
+            -- "kotlin-language-server", -- "kotlinls", -- (LSP) Kotlin
             -- "java_language_server", -- (LSP, DAP) Java
             -- "lemminx", -- (LSP) Xml
             -- "tsserver", -- (LSP) TypeScript, JavaScript
@@ -49,7 +51,7 @@ return {
             "shellcheck", -- (Linter) BASH
             "shfmt", -- (Formatter) Bash, Mksh, Shell
             "stylua", -- (Formatter) Lua, Luau
-            "tree-sitter-cli", -- (Parser) Treesitter CLI
+            -- "tree-sitter-cli", -- (Parser) Treesitter CLI
             -- "cpplint", -- (Linter) C, C++
             -- "google-java-format", --  (Formatter) Java
             -- "luacheck", -- (Linter) Lua

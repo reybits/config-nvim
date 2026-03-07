@@ -10,7 +10,7 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
+        -- "nvim-treesitter/nvim-treesitter",
 
         -- Optional dependency for spinner UI
         "franco-ruggeri/codecompanion-spinner.nvim",

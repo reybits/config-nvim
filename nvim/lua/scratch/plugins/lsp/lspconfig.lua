@@ -95,8 +95,10 @@ return {
         vim.lsp.enable({
             "clangd",
             "copilot",
+            -- "groovyls",
             "jdtls",
             "jsonls",
+            -- "kotlin_language_server",
             "lua_ls",
             "neocmake",
             "quick_lint_js",

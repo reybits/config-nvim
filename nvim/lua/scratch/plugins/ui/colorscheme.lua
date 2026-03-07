@@ -9,6 +9,12 @@ local setupscheme = function(theme, fallback)
     end
 end
 
+local setupWinSeparator = function()
+    -- Set custom highlight for window separator.
+    -- It improves visibility of split windows.
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#aaaa00" })
+end
+
 return {
     {
         "catppuccin/nvim",
@@ -16,6 +22,7 @@ return {
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             vim.cmd("colorscheme catppuccin-mocha")
+            setupWinSeparator()
         end,
     },
 
@@ -30,10 +37,7 @@ return {
             })
 
             setupscheme("kanagawa-wave", "vim")
-
-            -- Set custom highlight for window separator.
-            -- It improves visibility of split windows.
-            vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#aaaa00" })
+            setupWinSeparator()
         end,
         build = ":KanagawaCompile",
     },

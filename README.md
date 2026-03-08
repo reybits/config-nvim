@@ -34,7 +34,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Colorscheme via [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim).
 - Mapping hint via [which-key.nvim](https://github.com/folke/which-key.nvim).
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim), [diffview.lua](https://github.com/sindrets/diffview.nvim), [mergetool.lua](https://github.com/samoshkin/vim-mergetool).
-- File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim), [vifm.vim](https://github.com/vifm/vifm.vim).
+- File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim), [vifm](https://github.com/vifm/vifm).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
 - Copilot Chat via [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) and `copilot-language-server` (managed by Mason).

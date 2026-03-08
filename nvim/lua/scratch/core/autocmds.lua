@@ -5,6 +5,50 @@ local function augroup(name, opts)
     return vim.api.nvim_create_augroup("scratch_" .. name, opts)
 end
 
+--- vifm in the terminal -------------------------------------------------------
+
+local vifm_term = nil
+
+local function toggle_vifm_terminal()
+    if vifm_term and vim.api.nvim_buf_is_valid(vifm_term) then
+        -- Switch all windows showing this buffer to an alternate buffer
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_buf(win) == vifm_term then
+                local alt = vim.fn.bufnr("#")
+                if alt > 0 and vim.api.nvim_buf_is_valid(alt) and alt ~= vifm_term then
+                    vim.api.nvim_win_set_buf(win, alt)
+                else
+                    vim.api.nvim_win_set_buf(win, vim.api.nvim_create_buf(false, true))
+                end
+            end
+        end
+        vim.api.nvim_buf_delete(vifm_term, { force = true })
+        vifm_term = nil
+    else
+        vim.cmd("enew")
+        vim.cmd("terminal vifm")
+        -- Capture the actual terminal buffer after :terminal runs
+        local buf = vim.api.nvim_get_current_buf()
+        vim.cmd("startinsert")
+        vifm_term = buf
+
+        vim.api.nvim_create_autocmd("TermClose", {
+            buffer = buf,
+            once = true,
+            callback = function()
+                vifm_term = nil
+                vim.schedule(function()
+                    if vim.api.nvim_buf_is_valid(buf) then
+                        vim.api.nvim_buf_delete(buf, { force = true })
+                    end
+                end)
+            end,
+        })
+    end
+end
+
+vim.keymap.set("n", "<leader>e", toggle_vifm_terminal, { desc = "Toggle Vifm" })
+
 --- startup handler ------------------------------------------------------------
 -- Currently experimental and disabled.
 -- I really consider using it instad of mini.sessions and dashboard-nvim plugins.

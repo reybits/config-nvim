@@ -51,7 +51,7 @@ return {
             pattern = { "*" },
             callback = function()
                 local file = vim.fn.expand("%:p")
-                local ok, stats = pcall(vim.loop.fs_stat, file)
+                local ok, stats = pcall((vim.uv or vim.loop).fs_stat, file)
 
                 local max_size = 1024 * 100
                 if not ok or not stats or stats.size > max_size then

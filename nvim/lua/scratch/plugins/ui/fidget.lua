@@ -3,6 +3,7 @@
 --
 
 local ToggleOption = require("scratch.core.toggleopt")
+local helpers = require("scratch.core.helpers")
 
 local toggle_truncte = ToggleOption:new("<leader>ot", function(state)
     vim.g.fidget_truncate_notifications = state
@@ -26,7 +27,7 @@ return {
                     local message = cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
                     if toggle_truncte:getState() then
                         local width = math.floor(vim.o.columns / 2)
-                        return require("scratch.core.helpers").truncate(message, width)
+                        return helpers.truncate(message, width)
                     end
                     return message
                 end,

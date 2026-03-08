@@ -28,15 +28,27 @@ return {
             end,
         })
 
-        -- check for Mason package upgrades
+        -- check for Mason package upgrades (cached, refreshes every 10 min)
+        local mason_cached_result = ""
+        local mason_last_check = 0
+        local mason_cache_ttl = 600 -- seconds
+
         local function mason_status()
+            local now = os.time()
+            if now - mason_last_check < mason_cache_ttl then
+                return mason_cached_result
+            end
+            mason_last_check = now
+
             if package.loaded["mason"] == nil then
-                return ""
+                mason_cached_result = ""
+                return mason_cached_result
             end
 
             local registry = require("mason-registry")
             if registry == nil then
-                return ""
+                mason_cached_result = ""
+                return mason_cached_result
             end
 
             local installed = registry.get_installed_package_names()
@@ -48,13 +60,13 @@ return {
                     local new = p:get_latest_version()
                     local old = p:get_installed_version()
                     if new ~= old then
-                        -- vim.print(old .. " -> " .. new)
                         outdated = outdated + 1
                     end
                 end
             end
 
-            return outdated ~= 0 and outdated or ""
+            mason_cached_result = outdated ~= 0 and outdated or ""
+            return mason_cached_result
         end
 
         --[[
@@ -178,8 +190,8 @@ return {
         end
 
         local function not_filetypes()
-            return vim.bo.filetype:match("^Telescope") ~= "Telescope"
-                and vim.bo.filetype:match("^Neogit") ~= "Neogit"
+            return not vim.bo.filetype:match("^Telescope")
+                and not vim.bo.filetype:match("^Neogit")
         end
 
         lualine.setup({

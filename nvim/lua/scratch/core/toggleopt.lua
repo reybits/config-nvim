@@ -42,23 +42,44 @@
 
 local ToggleOption = {}
 
+--- All registered instances, updated via a single shared autocmd.
+local instances = {}
+
 --- Updates mapping and its description.
+--- Returns false if the mapping target (buffer) is no longer valid.
 local function updateMapping(instance)
+    -- Skip buffer-local mappings whose buffer has been closed.
+    local bufnr = instance.opts.buffer
+    if bufnr and not vim.api.nvim_buf_is_valid(bufnr) then
+        return false
+    end
+
     instance.opts.desc = instance:getCurrentDescription()
 
     -- Update the key mapping with a new description.
     vim.keymap.set("n", instance:getMapping(), function()
         instance:toggle()
     end, instance.opts)
+    return true
 end
 
--- TODO: Add support for different modes (normal, visual, etc.)
+-- Register a single autocmd to refresh all toggle descriptions on window/buffer switch.
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+    group = vim.api.nvim_create_augroup("scratch_toggle_option", { clear = true }),
+    callback = function()
+        for i = #instances, 1, -1 do
+            if not updateMapping(instances[i]) then
+                table.remove(instances, i)
+            end
+        end
+    end,
+})
 
 --- Creates a new ToggleOption object.
 --- @param map string Key mapping for the toggle.
---- @param title string Title used as description and notification.
 --- @param on_set function Callback function triggered on state change.
 --- @param on_get function Callback function that holds the current state.
+--- @param title string Title used as description and notification.
 --- @return table New ToggleOption instance.
 function ToggleOption:new(map, on_set, on_get, title)
     local o = {
@@ -71,22 +92,13 @@ function ToggleOption:new(map, on_set, on_get, title)
     setmetatable(o, self)
     self.__index = self
 
-    -- TODO: Investigate how to properly update key mappings on buffer/window enter
-    -- and prevent redundant autocommands.
-    --[[
-    -- Update mapping on buffer enter and window enter
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-        callback = function()
-            updateMapping(o)
-        end,
-    })
-    --]]
+    table.insert(instances, o)
 
     return o
 end
 
 --- Sets custom options that are forwarded to the mapping function.
---- @param opts? table Custom options.
+--- @param opts? table Custom options (e.g. { buffer = bufnr }).
 function ToggleOption:setOpts(opts)
     self.opts = opts
 end

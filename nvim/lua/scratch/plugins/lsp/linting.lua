@@ -21,13 +21,13 @@ return {
             bash = { "shellcheck" },
             lua = { "luacheck" },
             javascript = { "quick_lint_js" },
-            typecript = { "quick_lint_js" },
+            typescript = { "quick_lint_js" },
         }
 
         vim.api.nvim_create_user_command("LinterHide", function()
             vim.diagnostic.reset(nil, 0)
         end, {
-            desc = "Hide Linger Diagnostics",
+            desc = "Hide Linter Diagnostics",
         })
     end,
 }

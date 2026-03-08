@@ -1,5 +1,4 @@
----@diagnostic disable-next-line: undefined-field
-if vim.loop.os_uname().sysname ~= "Darwin" then
+if (vim.uv or vim.loop).os_uname().sysname ~= "Darwin" then
     return {}
 end
 

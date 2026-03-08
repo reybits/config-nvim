@@ -1,6 +1,5 @@
 return {
     "reybits/anvil.nvim",
-    lazy = true,
     keys = {
         {
             "<leader>ra",
@@ -101,6 +100,7 @@ return {
     },
     cmd = {
         "Anvil",
+        "AnvilStop",
     },
     opts = {
         -- mode = "term", -- Use internal terminal to run commands.

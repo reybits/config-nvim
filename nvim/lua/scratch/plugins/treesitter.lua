@@ -45,6 +45,7 @@ return {
         })
 
         vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("scratch_treesitter", { clear = true }),
             pattern = "*",
             callback = function(args)
                 local buf = args.buf

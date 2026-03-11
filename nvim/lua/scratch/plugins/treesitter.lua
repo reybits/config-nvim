@@ -60,7 +60,7 @@ return {
                 --[[
                 -- Disable for large files
                 local max_size = 1024 * 100
-                local ok, stats = pcall(vim.fs.fs_stat, vim.api.nvim_buf_get_name(buf))
+                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                 if ok and stats and stats.size > max_size then
                     vim.treesitter.stop(buf)
                     return

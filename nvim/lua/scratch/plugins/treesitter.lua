@@ -57,7 +57,6 @@ return {
                 -- Enable highlighting
                 pcall(vim.treesitter.start, buf)
 
-                --[[
                 -- Disable for large files
                 local max_size = 1024 * 100
                 local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -70,7 +69,6 @@ return {
                 if vim.api.nvim_buf_line_count(buf) > max_lines then
                     vim.treesitter.stop(buf)
                 end
-                --]]
             end,
         })
     end,

@@ -39,7 +39,7 @@ return {
         },
         {
             "<leader>aa",
-            "<cmd>CodeCompanionChat Add<cr>",
+            ":CodeCompanionChat Add<cr>",
             desc = "Add Selection to Chat",
             mode = "x",
         },

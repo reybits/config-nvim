@@ -192,40 +192,35 @@ return {
                 inline_completion:setState(inline_completion:getState(), false)
             end
 
-            -- Switch Source/Header for C/C++
+            -- Switch Source/Header for C/C++ (clangd extension)
             if client.name == "clangd" then
                 map("gs", function()
-                    vim.lsp.buf_request(
-                        0,
-                        "textDocument/switchSourceHeader",
-                        vim.lsp.util.make_text_document_params(),
-                        function(err, result)
-                            if err then
-                                -- Sometimes lsp asks clangd twice and the second time
-                                -- clangd responds with an error like:
-                                -- { code = -32601, message = "unimplemented" }
-                                -- So we just ignore it.
-                                -- vim.notify("Error: " .. vim.inspect(err), vim.log.levels.WARN)
-                                return
-                            end
+                    local buf = vim.api.nvim_get_current_buf()
+                    local clangd = vim.lsp.get_clients({ bufnr = buf, name = "clangd" })[1]
+                    if not clangd then
+                        vim.notify("clangd is not attached", vim.log.levels.WARN)
+                        return
+                    end
 
-                            if not result or #result == 0 then
-                                vim.notify(
-                                    "No matching header/source file found",
-                                    vim.log.levels.WARN
-                                )
-                                return
-                            end
-
-                            -- result can be a string or a table of strings
-                            local target = type(result) == "table" and result[1] or result
-                            if target then
-                                vim.cmd("edit " .. vim.uri_to_fname(target))
-                            else
-                                vim.notify("No valid target file found", vim.log.levels.WARN)
-                            end
+                    -- clangd expects TextDocumentIdentifier (uri at root)
+                    local params = { uri = vim.uri_from_bufnr(buf) }
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    clangd:request("textDocument/switchSourceHeader", params, function(err, result)
+                        if err then
+                            vim.notify("switchSourceHeader: " .. err.message, vim.log.levels.WARN)
+                            return
                         end
-                    )
+
+                        if not result or result == "" then
+                            vim.notify("No matching header/source file found", vim.log.levels.WARN)
+                            return
+                        end
+
+                        local target = type(result) == "table" and result[1] or result
+                        if target then
+                            vim.cmd("edit " .. vim.uri_to_fname(target))
+                        end
+                    end, buf)
                 end, "Switch Source/Header")
             end
 

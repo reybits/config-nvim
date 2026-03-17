@@ -126,7 +126,7 @@ return {
     end,
     opts = {
         opts = {
-            log_level = "DEBUG",
+            log_level = "WARN",
         },
         display = {
             action_palette = {

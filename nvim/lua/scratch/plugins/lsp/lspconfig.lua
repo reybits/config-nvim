@@ -247,19 +247,19 @@ return {
 
             if client.server_capabilities.hoverProvider then
                 map("K", function()
-                    return vim.lsp.buf.hover(vim.tbl_deep_extend("force", {}, {
+                    return vim.lsp.buf.hover({
                         border = "rounded",
                         title = "Symbol Info",
-                    }))
+                    })
                 end, "Symbol Info")
             end
 
             if client.server_capabilities.signatureHelpProvider then
                 map("<leader>ck", function()
-                    return vim.lsp.buf.signature_help(vim.tbl_deep_extend("force", {}, {
+                    return vim.lsp.buf.signature_help({
                         border = "rounded",
                         title = "Signature Info",
-                    }))
+                    })
                 end, "Signature Info")
             end
 

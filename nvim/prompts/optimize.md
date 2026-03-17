@@ -4,7 +4,7 @@ interaction: chat
 description: Make the selected code more efficient
 opts:
   alias: better_optimize
-  auto_submit: false
+  auto_submit: true
   is_slash_cmd: false
   modes:
     - v
@@ -34,10 +34,5 @@ Output:
 
 ## user
 
-Optimize the following code for better performance and efficiency:
-
-````${context.filetype}
-${context.code}
-````
-
+Optimize the selected code for better performance and efficiency.
 

@@ -34,10 +34,5 @@ Output:
 
 ## user
 
-Generate documentation for the following code:
-
-````${context.filetype}
-${context.code}
-````
-
+Generate documentation for the selected code.
 

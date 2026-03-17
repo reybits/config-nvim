@@ -1,10 +1,10 @@
 ---
-name: Better Reveiw
+name: Better Review
 interaction: chat
 description: Review the selected code
 opts:
   alias: better_review
-  auto_submit: false
+  auto_submit: true
   is_slash_cmd: false
   modes:
     - v
@@ -25,10 +25,5 @@ Focus on clarity and actionable advice. Output the review in a clear, concise fo
 
 ## user
 
-Review the following code:
-
-````${context.filetype}
-${context.code}
-````
-
+Review the selected code.
 

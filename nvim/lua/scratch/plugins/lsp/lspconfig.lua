@@ -127,16 +127,6 @@ return {
                 vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc, silent = true })
             end
 
-            -- Because of Neovim function Client:supports_method(method, bufnr)
-            -- always returns true for unknown off-spec methods, we need to
-            -- check it more carefully.
-            local is_supported = function(method)
-                if client.server_capabilities == nil then
-                    return false
-                end
-                return client.server_capabilities[method .. "Provider"] == true
-            end
-
             local ToggleOption = require("scratch.core.toggleopt")
 
             -- Instead of "stevearc/conform.nvim" plugin

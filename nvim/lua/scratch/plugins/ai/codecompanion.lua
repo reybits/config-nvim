@@ -125,7 +125,6 @@ return {
         })
     end,
     opts = {
-        -- NOTE: The log_level is in `opts.opts`
         opts = {
             log_level = "DEBUG",
         },
@@ -196,20 +195,4 @@ return {
             },
         },
     },
-    -- config = function(_, opts)
-    --     vim.api.nvim_create_autocmd("FileType", {
-    --         pattern = "codecompanion",
-    --         callback = function(args)
-    --             -- Defer keymap setting to before buffer is fully ready.
-    --             vim.schedule(function()
-    --                 if vim.api.nvim_buf_is_valid(args.buf) then
-    --                     -- Enable Markview for the buffer
-    --                     vim.cmd("Markview enable")
-    --                 end
-    --             end)
-    --         end,
-    --     })
-    --
-    --     require("codecompanion").setup(opts)
-    -- end,
 }

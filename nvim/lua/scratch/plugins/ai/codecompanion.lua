@@ -129,9 +129,11 @@ return {
             log_level = "WARN",
         },
         display = {
+            --[[
             action_palette = {
                 provider = "default", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks". If not specified, the plugin will autodetect installed providers.
             },
+            --]]
             chat = {
                 -- Useful when markdown rendering disabled or unavailable.
                 -- show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin

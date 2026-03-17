@@ -310,7 +310,7 @@ return {
         -- Attach the on_attach function to LSP clients when they connect.
         --
         vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+            group = vim.api.nvim_create_augroup("scratch_lsp_attach", { clear = true }),
             callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client == nil then

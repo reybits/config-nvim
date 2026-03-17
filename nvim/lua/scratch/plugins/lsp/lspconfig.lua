@@ -13,14 +13,17 @@ return {
     },
     config = function()
         --
-        -- Disable LSP logging
+        -- Disable LSP logging. Neovim's RPC layer logs all LSP server stderr
+        -- output (e.g., clangd info messages) as ERROR, causing the log file
+        -- (~/.local/state/nvim/lsp.log) to grow unboundedly. Real LSP issues
+        -- are still surfaced via vim.notify and diagnostics.
         --
         if vim.lsp.log ~= nil then
-            vim.lsp.log.set_level(vim.log.levels.ERROR)
+            vim.lsp.log.set_level(vim.log.levels.OFF)
         else
             -- TODO: Remove else part once Neovim 0.12+ is released.
             ---@diagnostic disable-next-line: deprecated
-            vim.lsp.set_log_level(vim.log.levels.ERROR)
+            vim.lsp.set_log_level(vim.log.levels.OFF)
         end
 
         --

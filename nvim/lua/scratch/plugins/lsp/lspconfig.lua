@@ -109,7 +109,6 @@ return {
             "lua_ls",
             "neocmake",
             "quick_lint_js",
-            "stylua",
         })
 
         -- TODO: Remove once Neovim 0.12+ is released.

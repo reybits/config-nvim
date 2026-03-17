@@ -81,6 +81,10 @@ return {
             },
         })
 
+        vim.lsp.config("clangd", {
+            cmd = { "clangd", "--offset-encoding=utf-16" },
+        })
+
         vim.lsp.config("copilot", {
             cmd = { "copilot-language-server", "--stdio" },
             root_markers = { ".git" },

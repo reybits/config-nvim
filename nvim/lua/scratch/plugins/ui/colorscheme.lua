@@ -17,34 +17,25 @@ end
 
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            vim.cmd("colorscheme catppuccin-mocha")
-            setupWinSeparator()
-        end,
-    },
-
-    --[[
-    {
         "rebelot/kanagawa.nvim",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             require("kanagawa").setup({
                 compile = false,
+                transparent = true,
+                -- dimInactive = true,
             })
 
-            setupscheme("kanagawa-wave", "vim")
+            vim.cmd("colorscheme kanagawa-dragon")
             setupWinSeparator()
         end,
         build = ":KanagawaCompile",
     },
 
+    --[[
     {
         "EdenEast/nightfox.nvim",
-        enabled = false,
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
@@ -55,7 +46,6 @@ return {
     {
         -- "ellisonleao/gruvbox.nvim", -- doesn't support 16/256 colors terminal
         "morhetz/gruvbox",
-        lazy = true,
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             setupscheme("gruvbox", "vim")
@@ -65,17 +55,16 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = true,
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-            setupscheme("catppuccin", "vim")
+            vim.cmd("colorscheme catppuccin-mocha")
+            setupWinSeparator()
         end,
     },
 
     -- ansi colors (clone of Vim’s default colorscheme)
     {
         "jeffkreeftmeijer/vim-dim",
-        lazy = true,
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             setupscheme("dim", "vim")
@@ -85,7 +74,6 @@ return {
     --  for 16-color terminals
     {
         "noahfrederick/vim-noctu",
-        lazy = true,
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             setupscheme("noctu", "vim")
@@ -95,7 +83,6 @@ return {
     --  for 16-color terminals
     {
         "nickcharlton/vim-materia",
-        lazy = true,
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             setupscheme("interrobang", "vim")

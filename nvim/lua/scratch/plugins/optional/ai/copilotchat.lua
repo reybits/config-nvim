@@ -65,7 +65,16 @@ return {
         },
         {
             "<leader>ac",
-            "<cmd>CopilotChatCommit<cr>",
+            function()
+                local result = vim.system({ "git", "diff", "--staged", "--quiet" }):wait()
+                if result.code == 0 then
+                    vim.notify("No staged changes", vim.log.levels.WARN)
+                    return
+                end
+                local chat = require("CopilotChat")
+                chat.reset()
+                chat.ask("/Commit")
+            end,
             desc = "Copilot Commit Message",
             mode = { "n", "v" },
         },
@@ -116,7 +125,7 @@ return {
                 Review = "Please review the following code and provide suggestions for improvement.",
                 Summarize = "Please summarize the following text.",
                 Wording = "Please improve the grammar and wording of the following text.",
-                Commit = "Analyze the git diff below and generate a Conventional Commit message.\n- Use the appropriate type (feat, fix, chore, docs, style, refactor, perf, test, build, ci, etc.).\n- Include a scope if relevant: <type>(<scope>): <description>.\n- Write a short, imperative description, max 72 characters per line.\n- If needed, add a body with details or context, wrapped at 72 chars.\n- Add footers if relevant (e.g., breaking changes, issues closed).\n- Output only the commit message inside a markdown code block.\n\n#gitdiff",
+                Commit = "Analyze the git diff below and generate a Conventional Commit message.\n- Use the appropriate type (feat, fix, chore, docs, style, refactor, perf, test, build, ci, etc.).\n- Include a scope if relevant: <type>(<scope>): <description>.\n- Write a short, imperative description, max 72 characters per line.\n- If needed, add a body with details or context, wrapped at 72 chars.\n- Add footers if relevant (e.g., breaking changes, issues closed).\n- Output only the commit message inside a markdown code block.\n\n#gitdiff:staged",
             },
 
             -- auto_insert_mode = true,

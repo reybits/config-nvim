@@ -37,11 +37,12 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim), [vifm](https://github.com/vifm/vifm).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
-- Copilot Chat via [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) and `copilot-language-server` (managed by Mason).
+- AI chat via [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim).
+- Inline code completion via `copilot-language-server` (managed by Mason).
 - Code debugging via [nvim-dap](https://github.com/mfussenegger/nvim-dap) and [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
 - Code commenting via [ts-comments.nvim](https://github.com/folke/ts-comments.nvim).
 - Code formatting via [conform.nvim](https://github.com/stevearc/conform.nvim).
-- Code highlighting via [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
+- Code highlighting via [ts-forge.nvim](https://github.com/reybits/ts-forge.nvim).
 - Multicursor support via [multicursor.nvim](https://github.com/jake-stewart/multicursor.nvim).
 - TMUX support via [smart-splits.nvim](https://github.com/mrjones2014/smart-splits.nvim).
 - Fast navigation, lookup, and more via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
@@ -61,7 +62,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - LazyGit [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim).
 - Octo [octo.nvim](https://github.com/pwntester/octo.nvim).
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).
-- Copilot Chat [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim).
+- Copilot Chat [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) with blink-cmp integration.
 - Tiny inline diagnostics via [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim).
 - Marker Groups via [marker-groups.nvim](https://github.com/rachartier/jameswolensky/marker-groups.nvim).
 - Colorscheme Nightfox [nightfox.nvim](https://github.com/EdenEast/nightfox.nvim).
@@ -75,15 +76,15 @@ To customize plugins, enable, or disable integration with other tools, inside th
 
 ![fzf-lua](https://github.com/user-attachments/assets/b075a508-b0d1-4fc4-b3ee-2686fb94d756)
 
-By default, fzf-lua and oil.nvim used as the navigation plugins.
+By default, telescope.nvim and oil.nvim used as the navigation plugins.
 
 #### Fzf-lua
 
-You can use Telescope as main plugin by creating a `fzf-lua.lua` file with the following content:
+You can use fzf-lua as main plugin by creating a `fzf-lua.lua` file with the following content:
 
 ```lua
 return {
-    -- Use telescope instead of fzf-lua
+    -- Use fzf-lua instead of telescope
     require("scratch.plugins.optional.nav.fzf-lua"),
     { "nvim-telescope/telescope.nvim", enabled = false },
 }
@@ -188,15 +189,15 @@ return {
 
 ![copilot chat](https://github.com/user-attachments/assets/bbfb6ab6-2f88-4ffe-a7a1-8cd8a39a42a5)
 
-Copilot enabled by defautl.
+Copilot inline completion is enabled by default via `copilot-language-server`, and [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) is the default AI chat plugin.
 
-You can enable CopilotChat by creating a `copilot.lua` file with the following content:
+You can switch to CopilotChat by creating a `copilot.lua` file with the following content:
 
 ```lua
 return {
-    -- Disable Code Companion
+    -- Disable CodeCompanion
     { "olimorris/codecompanion.nvim", enabled = false },
-    -- Enable Copilot Chat
+    -- Enable CopilotChat (with blink-cmp completion support)
     require("scratch.plugins.optional.ai.copilotchat"),
 }
 ```

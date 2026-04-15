@@ -31,7 +31,7 @@ return {
         -- Disable blink-cmp for some filetype
         enabled = function()
             return not vim.tbl_contains(
-                { "typr", "DressingInput", "copilot-chat" },
+                { "typr", "DressingInput" },
                 vim.bo.filetype
             ) and vim.bo.buftype ~= "prompt" and vim.b.completion ~= false
         end,
@@ -173,6 +173,10 @@ return {
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
         sources = {
+            per_filetype = {
+                ["copilot-chat"] = { "copilot_chat" },
+            },
+
             -- Setup sources according to enabled AI related plugins
             default = function()
                 local sources = { "lazydev", "lsp", "path", "snippets", "buffer", "emoji" }
@@ -251,6 +255,13 @@ return {
                         -- Enable emoji completion only for git commits, markdown, and plain-text.
                         return vim.tbl_contains({ "gitcommit", "markdown", "text" }, vim.o.filetype)
                     end,
+                },
+
+                copilot_chat = {
+                    name = "CopilotChat",
+                    module = "scratch.core.blink-copilot-chat",
+                    score_offset = 100,
+                    async = true,
                 },
             },
         },

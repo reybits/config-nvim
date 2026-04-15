@@ -129,11 +129,12 @@ return {
             },
 
             -- auto_insert_mode = true,
+            chat_autocomplete = false, -- handled in BufEnter autocmd below
             separator = "·", -- "━━",
             -- auto_fold = true, -- Automatically folds non-assistant messages
 
             mappings = {
-                complete = false, -- disable default complete mapping due to conflict with copilot.vim
+                complete = false, -- handled via Tab in BufEnter autocmd below
                 show_help = {
                     normal = "g?",
                 },

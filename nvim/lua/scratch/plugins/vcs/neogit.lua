@@ -3,7 +3,6 @@ return {
     "NeogitOrg/neogit",
     dependencies = {
         "nvim-lua/plenary.nvim", -- required
-        "sindrets/diffview.nvim", -- optional (personally I use gitsigns instead)
         -- "nvim-telescope/telescope.nvim", -- optional (personally I don't use it in this case)
     },
     cmd = {

@@ -118,6 +118,9 @@ return {
             vim.print(msg .. " Update to Neovim 0.12+ to use this feature.")
         end
 
+        local _blink_autocmds_created = false
+        local _inline_was_enabled = true
+
         --
         -- Function to run when the LSP server attaches to a buffer.
         --
@@ -156,32 +159,102 @@ return {
             --]]
 
             -- Inline Completion. Requires nvim 0.12 and above.
+            -- Key mappings:
+            -- <Tab>   - Accept the current suggestion.
+            -- <m-]>   - Cycle to the next suggestion.
+            -- <m-[>   - Cycle to the previous suggestion.
+            -- <m-l>   - Accept the next word of the current suggestion.
+            -- <m-j>   - Accept the next line of the current suggestion.
+            -- <C-e>   - Dismiss the current suggestion.
             if client.name == "copilot" and vim.lsp.inline_completion ~= nil then
                 -- Enable inline completion globally by default.
                 vim.lsp.inline_completion.enable(true)
-                -- vim.notify("Inline Completion Enabled", vim.log.levels.INFO)
+
+                -- Coordinate with blink-cmp: suppress inline completions
+                -- while the completion menu is open.
+                if not _blink_autocmds_created then
+                    _blink_autocmds_created = true
+                    local blink_group = vim.api.nvim_create_augroup("scratch_inline_blink", { clear = true })
+
+                    vim.api.nvim_create_autocmd("User", {
+                        group = blink_group,
+                        pattern = "BlinkCmpMenuOpen",
+                        callback = function()
+                            _inline_was_enabled = vim.lsp.inline_completion.is_enabled()
+                            vim.lsp.inline_completion.enable(false)
+                        end,
+                    })
+
+                    vim.api.nvim_create_autocmd("User", {
+                        group = blink_group,
+                        pattern = "BlinkCmpMenuClose",
+                        callback = function()
+                            vim.lsp.inline_completion.enable(_inline_was_enabled)
+                        end,
+                    })
+                end
 
                 vim.keymap.set("i", "<Tab>", function()
                     if not vim.lsp.inline_completion.get() then
                         return "<Tab>"
                     end
-                end, { expr = true, desc = "Accept the current inline completion" })
+                end, { buffer = bufnr, expr = true, desc = "Accept inline completion" })
 
                 vim.keymap.set("i", "<m-]>", function()
                     vim.lsp.inline_completion.select()
-                end, { expr = true, desc = "Select the next inline completion" })
+                end, { buffer = bufnr, desc = "Next inline completion" })
 
                 vim.keymap.set("i", "<m-[>", function()
                     vim.lsp.inline_completion.select({ count = -1 })
-                end, { expr = true, desc = "Select the previous inline completion" })
+                end, { buffer = bufnr, desc = "Previous inline completion" })
+
+                -- Resolve insert_text to plain text (handles snippet StringValue).
+                local function resolve_text(insert_text)
+                    if type(insert_text) == "string" then
+                        return insert_text
+                    end
+                    return tostring(require("vim.lsp._snippet_grammar").parse(insert_text.value))
+                end
+
+                -- Truncate item.insert_text with a pattern, used for partial accept.
+                local function partial_accept(pattern)
+                    return {
+                        on_accept = function(item)
+                            item.insert_text = resolve_text(item.insert_text):match(pattern)
+                            item.command = nil
+                            return item
+                        end,
+                    }
+                end
 
                 vim.keymap.set("i", "<C-e>", function()
+                    if not vim.lsp.inline_completion.get({ on_accept = function() end }) then
+                        return "<C-e>"
+                    end
+                end, { buffer = bufnr, expr = true, desc = "Dismiss inline completion" })
+
+                vim.keymap.set("i", "<m-l>", function()
                     vim.lsp.inline_completion.get({
-                        on_accept = function(_)
-                            return nil
+                        on_accept = function(item)
+                            local text = resolve_text(item.insert_text)
+                            -- Skip the already-typed prefix so the match
+                            -- starts at the ghost text boundary.
+                            local pl = 0
+                            if item.range then
+                                local _, sc = item.range:to_extmark()
+                                pl = math.max(0, vim.api.nvim_win_get_cursor(0)[2] - sc)
+                            end
+                            local word = text:sub(pl + 1):match("^(%s*%S+)") or text:sub(pl + 1)
+                            item.insert_text = text:sub(1, pl) .. word
+                            item.command = nil
+                            return item
                         end,
                     })
-                end, { expr = true, desc = "Dismiss the current inline completion" })
+                end, { buffer = bufnr, desc = "Accept word of inline completion" })
+
+                vim.keymap.set("i", "<m-j>", function()
+                    vim.lsp.inline_completion.get(partial_accept("^([^\n]*\n?)"))
+                end, { buffer = bufnr, desc = "Accept line of inline completion" })
 
                 local inline_completion = ToggleOption:new("<leader>oi", function(state)
                     vim.lsp.inline_completion.enable(state)

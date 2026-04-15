@@ -14,6 +14,20 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
+--- enable ui2 -----------------------------------------------------------------
+if vim.fn.has("nvim-0.12") == 1 then
+    require("vim._core.ui2").enable({
+        msg = {
+            targets = "msg",
+            msg = {
+                height = 2,
+                timeout = 4000,
+            },
+        },
+    })
+    vim.opt.cmdheight = 0
+end
+
 --- common options -------------------------------------------------------------
 
 vim.opt.scrolloff = 10
@@ -118,14 +132,6 @@ vim.opt.fillchars = {
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false -- vim.cmd([[ set noswapfile ]])
-
--- WARNING: `cmdheight=0` is considered experimental. Expect some unwanted behaviour.
--- Some 'shortmess' flags and similar mechanism might fail to take effect,
--- causing unwanted hit-enter prompts.
--- Some informative messages, both from Nvim itself and plugins, will not be displayed.
--- INFO: The option `cmdheight = 0` is disabled due to incorrect Neovim behavior
--- in some cases, such as mappings for <m-j> and <m-k>.
--- vim.opt.cmdheight = 0 -- hide cmdline by default
 
 --- fold via tree sitter, opened by default ------------------------------------
 -- vim.o.foldenable = false

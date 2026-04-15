@@ -16,7 +16,7 @@ return {
         { "<leader>gG", "<cmd>Neogit cwd=%:p:h<cr>", desc = "Neogit (cwd)" },
         { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit (project)" },
         { "<leader>gl", "<cmd>NeogitLog .<cr>", desc = "Neogit Log (project)" },
-        { "<leader>gL", "<cmd>NeogitLog<cr>", desc = "Neogit Log (file)" },
+        { "<leader>gL", "<cmd>NeogitLog<cr>", desc = "Neogit Log (buffer)" },
     },
     opts = {
         graph_style = "unicode",

@@ -10,5 +10,8 @@ return {
     opts = {
         width = 0.8,
         height = 0.8,
+        win_opts = {
+            cursorline = true,
+        },
     },
 }

@@ -113,7 +113,7 @@ return {
         local user = vim.env.USER or "User"
         user = user:sub(1, 1):upper() .. user:sub(2)
         return {
-            model = "gpt-4.1", -- AI model to use
+            model = "auto", -- AI model to use
             temperature = 0.1, -- Lower = focused, higher = creative
 
             prompts = {

@@ -48,6 +48,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Undo tree explorer via [undotree](https://github.com/mbbill/undotree).
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - Hide passwords/keys via [cloak.nvim](https://github.com/laytan/cloak.nvim).
+- Commit message generation via [commit-msg.nvim](https://github.com/reybits/commit-msg.nvim) (Anthropic API).
 - Blind typing trainer via [typr](https://github.com/nvzone/typr).
 - And more...
 
@@ -235,6 +236,36 @@ Here’s a detailed guide on enabling and extending folding with nvim-ufo in Neo
 return {
     -- Enable nvim-ufo
     require("scratch.plugins.optional.nvim-ufo"),
+}
+```
+
+## 🤖 Commit message generation
+
+Provided by [commit-msg.nvim](https://github.com/reybits/commit-msg.nvim) — a small plugin that drafts a Conventional Commits message from the staged diff via the [Anthropic API](https://docs.anthropic.com/) when a `gitcommit` buffer opens. Spec lives in [`nvim/lua/scratch/plugins/commit-msg.lua`](nvim/lua/scratch/plugins/commit-msg.lua); model, `max_tokens`, system prompt, env-var lookup order, and extended thinking are all configurable from there.
+
+The API key is read from the environment (default lookup order):
+
+```sh
+# A dedicated key, isolated to this plugin (recommended):
+export ANTHROPIC_API_KEY_COMMIT_MSG=sk-ant-...
+
+# Falls back to the standard Anthropic key:
+export ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Run `:CommitMsgGen` in an open commit buffer to regenerate (overwrites the current draft above the git template comments).
+
+### Local development
+
+To hack on the plugin against a local clone, add an override to your gitignored `nvim/lua/scratch/custom/custom.lua`:
+
+```lua
+return {
+    {
+        "reybits/commit-msg.nvim",
+        dir = "~/projects/plugins/commit-msg.nvim",
+        dev = true,
+    },
 }
 ```
 

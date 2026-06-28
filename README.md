@@ -36,6 +36,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Git integration via [neogit](https://github.com/NeogitOrg/neogit), [vim-fugitive](https://github.com/tpope/vim-fugitive), [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim), [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim), [diffview.lua](https://github.com/sindrets/diffview.nvim), [mergetool.lua](https://github.com/samoshkin/vim-mergetool).
 - File explorer via [oil.nvim](https://github.com/stevearc/oil.nvim), [vifm](https://github.com/vifm/vifm).
 - Language server protocol (LSP) support via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig).
+- Compact inline diagnostics via [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim).
 - Code auto-completion via [blink-cmp](https://github.com/Saghen/blink.cmp).
 - Inline code completion via `copilot-language-server` (managed by Mason).
 - Code debugging via [nvim-dap](https://github.com/mfussenegger/nvim-dap) and [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui).
@@ -49,6 +50,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Markdown writing and previewing via [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) and [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 - Hide passwords/keys via [cloak.nvim](https://github.com/laytan/cloak.nvim).
 - Commit message generation via [commit-msg.nvim](https://github.com/reybits/commit-msg.nvim) (Anthropic API).
+- Buffer name as ghost text in the top-right corner via [wisp.nvim](https://github.com/reybits/wisp.nvim).
 - Blind typing trainer via [typr](https://github.com/nvzone/typr).
 - And more...
 
@@ -64,9 +66,7 @@ git clone https://github.com/reybits/config-nvim.git ~/.config/nvim
 - Codeium [neocodeium](https://github.com/monkoose/neocodeium).
 - Copilot Chat [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) with blink-cmp integration.
 - AI chat via [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim).
-- Tiny inline diagnostics via [tiny-inline-diagnostic.nvim](https://github.com/rachartier/tiny-inline-diagnostic.nvim).
 - Marker Groups via [marker-groups.nvim](https://github.com/rachartier/jameswolensky/marker-groups.nvim).
-- Colorscheme Nightfox [nightfox.nvim](https://github.com/EdenEast/nightfox.nvim).
 - Folding nvim-ufo [nvim-ufo](https://github.com/kevinhwang91/nvim-ufo).
 
 ## ⚙️ Customization
@@ -190,7 +190,7 @@ return {
 
 ![copilot chat](https://github.com/user-attachments/assets/bbfb6ab6-2f88-4ffe-a7a1-8cd8a39a42a5)
 
-Copilot inline completion is enabled by default via `copilot-language-server`, and [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) is the default AI chat plugin.
+Copilot inline completion is enabled by default via `copilot-language-server`. No AI chat plugin is enabled by default; [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) and [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) are available as opt-in alternatives.
 
 You can switch to CopilotChat by creating a `copilot.lua` file with the following content:
 
@@ -264,6 +264,24 @@ return {
     {
         "reybits/commit-msg.nvim",
         dir = "~/projects/plugins/commit-msg.nvim",
+        dev = true,
+    },
+}
+```
+
+## 👻 Buffer name ghost text
+
+Provided by [wisp.nvim](https://github.com/reybits/wisp.nvim) — a small plugin that renders the buffer name as right-aligned virtual text in the top-right corner of every window, via a persistent buffer-scoped extmark refreshed on autocommand events. Spec lives in [`nvim/lua/scratch/plugins/wisp.lua`](nvim/lua/scratch/plugins/wisp.lua); `max_width`, prefix, suffix, highlight groups, skip-list, and a custom `format` callback are all configurable from there.
+
+### Local development
+
+To hack on the plugin against a local clone, add an override to your gitignored `nvim/lua/scratch/custom/custom.lua`:
+
+```lua
+return {
+    {
+        "reybits/wisp.nvim",
+        dir = "~/projects/plugins/wisp.nvim",
         dev = true,
     },
 }

@@ -225,7 +225,11 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 -- })
 
 --- show buffer path after switching buffer ------------------------------------
+-- Superseded by wisp.nvim, which renders the buffer name as right-aligned
+-- ghost text in the top-right corner of every window. Kept here commented out
+-- in case wisp is disabled or the cmdline-echo behaviour is preferred again.
 
+--[[
 local last_buf_path = nil
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "BufEnter" }, {
     group = augroup("show_buffer_path"),
@@ -259,6 +263,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "BufEnter" }, {
         end, 50)
     end,
 })
+--]]
 
 --- clear colorcolumn for some filetypes ---------------------------------------
 

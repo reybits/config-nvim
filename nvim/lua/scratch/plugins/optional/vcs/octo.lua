@@ -17,7 +17,7 @@ return {
         require("octo").setup({
             enable_builtin = true, -- shows a list of builtin actions when no action is provided
 
-            picker = "fzf-lua", -- or "telescope", "fzf-lua" or "snacks"
+            picker = "telescope", -- or "telescope", "fzf-lua" or "snacks"
         })
     end,
 }

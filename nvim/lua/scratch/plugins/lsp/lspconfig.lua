@@ -135,13 +135,18 @@ return {
             -- Instead of "stevearc/conform.nvim" plugin
             --[[
             if client.server_capabilities.documentFormattingProvider then
-                local toggle_autoformat = ToggleOption:new("<leader>oef", function(state)
-                    vim.g.autoformat_toggle = state
-                end, function()
-                    return vim.g.autoformat_toggle ~= false
-                end, "Autoformat")
-                toggle_autoformat:setOpts({ buffer = bufnr, silent = true })
-                toggle_autoformat:setState(toggle_autoformat:getState(), false)
+                ToggleOption.new({
+                    map = "<leader>oef",
+                    title = "Autoformat",
+                    buffer = bufnr,
+                    silent = true,
+                    get = function()
+                        return vim.g.autoformat_toggle ~= false
+                    end,
+                    set = function(state)
+                        vim.g.autoformat_toggle = state
+                    end,
+                })
 
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     group = vim.api.nvim_create_augroup("lsp-buffer-format", { clear = false }),
@@ -256,13 +261,18 @@ return {
                     vim.lsp.inline_completion.get(partial_accept("^([^\n]*\n?)"))
                 end, { buffer = bufnr, desc = "Accept line of inline completion" })
 
-                local inline_completion = ToggleOption:new("<leader>oi", function(state)
-                    vim.lsp.inline_completion.enable(state)
-                end, function()
-                    return vim.lsp.inline_completion.is_enabled()
-                end, "Inline Completion")
-                inline_completion:setOpts({ buffer = bufnr, silent = true })
-                inline_completion:setState(inline_completion:getState(), false)
+                ToggleOption.new({
+                    map = "<leader>oi",
+                    title = "Inline Completion",
+                    buffer = bufnr,
+                    silent = true,
+                    get = function()
+                        return vim.lsp.inline_completion.is_enabled()
+                    end,
+                    set = function(state)
+                        vim.lsp.inline_completion.enable(state)
+                    end,
+                })
             end
 
             -- Switch Source/Header for C/C++ (clangd extension)
@@ -357,13 +367,18 @@ return {
             -- end
 
             if client.server_capabilities.inlayHintProvider then
-                local toggle_inlineHint = ToggleOption:new("<leader>coh", function(state)
-                    vim.lsp.inlay_hint.enable(state)
-                end, function()
-                    return vim.lsp.inlay_hint.is_enabled({})
-                end, "Inline Hint")
-                toggle_inlineHint:setOpts({ buffer = bufnr, silent = true })
-                toggle_inlineHint:setState(toggle_inlineHint:getState(), false)
+                ToggleOption.new({
+                    map = "<leader>coh",
+                    title = "Inline Hint",
+                    buffer = bufnr,
+                    silent = true,
+                    get = function()
+                        return vim.lsp.inlay_hint.is_enabled({})
+                    end,
+                    set = function(state)
+                        vim.lsp.inlay_hint.enable(state)
+                    end,
+                })
             end
 
             -- map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace Folder")

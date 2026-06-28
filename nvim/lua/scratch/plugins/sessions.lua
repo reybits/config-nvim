@@ -1,10 +1,15 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_session = ToggleOption:new("<leader>os", function(state)
-    vim.g.minisessions_disable = not state
-end, function()
-    return vim.g.minisessions_disable ~= true
-end, "Session Save")
+ToggleOption.new({
+    map = "<leader>os",
+    title = "Session Save",
+    get = function()
+        return vim.g.minisessions_disable ~= true
+    end,
+    set = function(state)
+        vim.g.minisessions_disable = not state
+    end,
+})
 
 return {
     "nvim-mini/mini.sessions",
@@ -14,9 +19,6 @@ return {
         "SessionRead",
         "SessionReadLast",
         "SessionWrite",
-    },
-    keys = {
-        toggle_session:getMappingTable(),
     },
     config = function()
         local session = require("mini.sessions")

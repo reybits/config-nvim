@@ -1,11 +1,16 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
 -- Autoformat enabled by default.
-local toggle_autoformat = ToggleOption:new("<leader>oef", function(state)
-    vim.g.autoformat_toggle = state
-end, function()
-    return vim.g.autoformat_toggle ~= false
-end, "Autoformat")
+local toggle_autoformat = ToggleOption.new({
+    map = "<leader>oef",
+    title = "Autoformat",
+    get = function()
+        return vim.g.autoformat_toggle ~= false
+    end,
+    set = function(state)
+        vim.g.autoformat_toggle = state
+    end,
+})
 
 return {
     "stevearc/conform.nvim",
@@ -28,7 +33,6 @@ return {
             "<cmd>FormatBuffer<cr>",
             desc = "Format Buffer/Range",
         },
-        toggle_autoformat:getMappingTable(),
     },
     config = function()
         local conform = require("conform")
@@ -123,7 +127,7 @@ return {
                 },
             },
             format_on_save = function()
-                if toggle_autoformat:getState() == false then
+                if toggle_autoformat:get() == false then
                     return nil
                 end
 
@@ -138,13 +142,13 @@ return {
         })
 
         vim.api.nvim_create_user_command("FormatDisable", function()
-            toggle_autoformat:setState(false)
+            toggle_autoformat:set(false)
         end, {
             desc = "Disable Autoformat-on-save",
         })
 
         vim.api.nvim_create_user_command("FormatEnable", function()
-            toggle_autoformat:setState(true)
+            toggle_autoformat:set(true)
         end, {
             desc = "Enable Autoformat-on-save",
         })

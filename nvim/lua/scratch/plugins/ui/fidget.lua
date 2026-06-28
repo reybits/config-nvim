@@ -5,18 +5,20 @@
 local ToggleOption = require("scratch.core.toggleopt")
 local helpers = require("scratch.core.helpers")
 
-local toggle_truncte = ToggleOption:new("<leader>ot", function(state)
-    vim.g.fidget_truncate_notifications = state
-end, function()
-    return vim.g.fidget_truncate_notifications ~= false
-end, "Truncate Notifications")
+local toggle_truncate = ToggleOption.new({
+    map = "<leader>ot",
+    title = "Truncate Notifications",
+    get = function()
+        return vim.g.fidget_truncate_notifications ~= false
+    end,
+    set = function(state)
+        vim.g.fidget_truncate_notifications = state
+    end,
+})
 
 return {
     "j-hui/fidget.nvim",
     event = "VeryLazy",
-    keys = {
-        toggle_truncte:getMappingTable(),
-    },
     opts = {
         notification = {
             override_vim_notify = true, -- override vim.notify() with Fidget
@@ -25,7 +27,7 @@ return {
                 stack_upwards = false, -- if true, set `notification.window.align` to "bottom"
                 render_message = function(msg, cnt)
                     local message = cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
-                    if toggle_truncte:getState() then
+                    if toggle_truncate:get() then
                         local width = math.floor(vim.o.columns / 2)
                         return helpers.truncate(message, width)
                     end

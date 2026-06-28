@@ -19,22 +19,23 @@ local exclude_filetypes = {
 
 local ToggleOption = require("scratch.core.toggleopt")
 
-local indent_toggle = ToggleOption:new("<leader>oeg", function(state)
-    vim.g.blink_indent_enabled = state
-    local indent = require("blink.indent")
-    indent.enable(state)
-end, function()
-    return vim.g.blink_indent_enabled ~= false
-end, "Indent Guides")
+ToggleOption.new({
+    map = "<leader>oeg",
+    title = "Indent Guides",
+    get = function()
+        return vim.g.blink_indent_enabled ~= false
+    end,
+    set = function(state)
+        vim.g.blink_indent_enabled = state
+        require("blink.indent").enable(state)
+    end,
+})
 
 return {
     "saghen/blink.indent",
     event = {
         "BufReadPost",
         "BufNewFile",
-    },
-    keys = {
-        indent_toggle:getMappingTable(),
     },
     config = function()
         local indent = require("blink.indent")

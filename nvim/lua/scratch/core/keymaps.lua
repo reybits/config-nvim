@@ -48,26 +48,41 @@ map("t", "<c-k>", "<C-\\><C-N><C-w>k", desc("Switch to Top Window"))
 map("t", "<c-l>", "<C-\\><C-N><C-w>l", desc("Switch to Right Window"))
 
 --- toggle wrap ----------------------------------------------------------------
-local toggle_wrap = ToggleOption:new("<leader>oew", function(state)
-    vim.wo.wrap = state
-    vim.wo.linebreak = state
-end, function()
-    return vim.wo.wrap
-end, "Wrap")
+ToggleOption.new({
+    map = "<leader>oew",
+    title = "Wrap",
+    get = function()
+        return vim.wo.wrap
+    end,
+    set = function(state)
+        vim.wo.wrap = state
+        vim.wo.linebreak = state
+    end,
+})
 
 --- toggle numbers -------------------------------------------------------------
-local toggle_numbers = ToggleOption:new("<leader>oen", function(state)
-    vim.wo.number = state
-end, function()
-    return vim.wo.number
-end, "Numbers")
+ToggleOption.new({
+    map = "<leader>oen",
+    title = "Numbers",
+    get = function()
+        return vim.wo.number
+    end,
+    set = function(state)
+        vim.wo.number = state
+    end,
+})
 
 --- toggle relative numbers ----------------------------------------------------
-local toggle_relative = ToggleOption:new("<leader>oer", function(state)
-    vim.wo.relativenumber = state
-end, function()
-    return vim.wo.relativenumber
-end, "Relative Numbers")
+ToggleOption.new({
+    map = "<leader>oer",
+    title = "Relative Numbers",
+    get = function()
+        return vim.wo.relativenumber
+    end,
+    set = function(state)
+        vim.wo.relativenumber = state
+    end,
+})
 
 --- move selected line / block of text in visual mode --------------------------
 map("x", "<m-j>", ":m '>+1<cr>gv=gv", desc("Move Selected Down"))

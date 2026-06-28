@@ -1,15 +1,20 @@
 local ToggleOption = require("scratch.core.toggleopt")
 
-local toggle_illuminate = ToggleOption:new("<leader>oei", function(state)
-    vim.g.illuminate_enabled = state
-    if state then
-        vim.cmd("IlluminateResume")
-    else
-        vim.cmd("IlluminatePause")
-    end
-end, function()
-    return vim.g.illuminate_enabled ~= false
-end, "Illuminate")
+ToggleOption.new({
+    map = "<leader>oei",
+    title = "Illuminate",
+    get = function()
+        return vim.g.illuminate_enabled ~= false
+    end,
+    set = function(state)
+        vim.g.illuminate_enabled = state
+        if state then
+            vim.cmd("IlluminateResume")
+        else
+            vim.cmd("IlluminatePause")
+        end
+    end,
+})
 
 return {
     "RRethy/vim-illuminate",
@@ -27,8 +32,6 @@ return {
         "IlluminateToggleBuf",
     },
     keys = {
-        toggle_illuminate:getMappingTable(),
-
         {
             "]]",
             function()

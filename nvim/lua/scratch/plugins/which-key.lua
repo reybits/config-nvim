@@ -21,6 +21,29 @@ return {
         delay = function(ctx)
             return ctx.plugin and 0 or 800
         end,
+
+        -- Inside gitcommit / Neogit-managed buffers, hide global <leader>g…
+        -- entries from the popup so it only surfaces buffer-local actions
+        -- (e.g. commit-msg's gc / gC). The block_git_globals autocmd installs
+        -- buffer-local <Nop> shadows tagged `which_key_ignore`; drop those too
+        -- so the popup isn't littered with shadow rows.
+        filter = function(mapping)
+            local ft = vim.bo.filetype
+            if ft ~= "gitcommit" and not ft:find("^Neogit") then
+                return true
+            end
+            if mapping.desc == "which_key_ignore" then
+                return false
+            end
+            if mapping.buffer and mapping.buffer > 0 then
+                return true
+            end
+            local leader = vim.g.mapleader or "\\"
+            if mapping.lhs and mapping.lhs:sub(1, #leader + 1) == leader .. "g" then
+                return false
+            end
+            return true
+        end,
         spec = {
             mode = { "n", "v" },
 

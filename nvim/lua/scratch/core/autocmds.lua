@@ -295,3 +295,33 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank()
     end,
 })
+
+--- block global <leader>g… entry-points in git-managed buffers ----------------
+
+-- Opening Neogit / Fugitive / Diffview / Mergetool / gitlinker on top of a
+-- buffer that is itself a git workflow is noise. Shadow each entry-point with
+-- a buffer-local <Nop>; the `which_key_ignore` desc also keeps the shadows
+-- out of the which-key popup.
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Block global <leader>g… in git-managed buffers",
+    group = augroup("block_git_globals"),
+    pattern = { "gitcommit", "Neogit*" },
+    callback = function(ev)
+        local suffixes = {
+            "gg", "gG",                 -- neogit
+            "gl", "gL",                 -- neogit log / vim-flog
+            "gf",                       -- fugitive
+            "gmm", "gmn", "gmp",        -- mergetool
+            "gDD", "gDh", "gDc", "gDH", -- diffview / codediff
+            "gy",                       -- gitlinker
+        }
+        for _, suffix in ipairs(suffixes) do
+            for _, mode in ipairs({ "n", "v" }) do
+                vim.keymap.set(mode, "<leader>" .. suffix, "<Nop>", {
+                    buffer = ev.buf,
+                    desc = "which_key_ignore",
+                })
+            end
+        end
+    end,
+})

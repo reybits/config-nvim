@@ -19,9 +19,17 @@ return {
             -- untracked = { text = "┆" },
         },
         -- stylua: ignore
-        on_attach = function(_)
+        on_attach = function(bufnr)
+            -- Skip the commit-message buffer: signs/blame are meaningless there
+            -- and we don't want gitsigns keymaps shadowing commit-msg bindings.
+            if vim.bo[bufnr].filetype == "gitcommit" then
+                return false
+            end
+
             local gitsigns = require("gitsigns")
-            local map = vim.keymap.set
+            local function map(mode, lhs, rhs, desc)
+                vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+            end
 
             -- Navigation
             map("n", "]c", function()
@@ -31,7 +39,7 @@ return {
                     ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("next")
                 end
-            end, { desc = "Next Hunk" })
+            end, "Next Hunk")
 
             map("n", "[c", function()
                 if vim.wo.diff then
@@ -40,12 +48,11 @@ return {
                     ---@diagnostic disable-next-line: param-type-mismatch
                     gitsigns.nav_hunk("prev")
                 end
-            end, { desc = "Prev Hunk" })
+            end, "Prev Hunk")
 
-            map("n", "<leader>gbb", gitsigns.blame, { desc = "Blame Buffer" })
-
-            map("n", "<leader>gbl", gitsigns.blame_line, { desc = "Blame Line" })
-            map("n", "<leader>gbi", gitsigns.toggle_current_line_blame, { desc = "Toggle Blame Inline" })
+            map("n", "<leader>gbb", gitsigns.blame, "Blame Buffer")
+            map("n", "<leader>gbl", gitsigns.blame_line, "Blame Line")
+            map("n", "<leader>gbi", gitsigns.toggle_current_line_blame, "Toggle Blame Inline")
 
             -- Diff Buffer
             map("n", "<leader>gd", function()
@@ -55,22 +62,22 @@ return {
                 end
                 ---@diagnostic disable-next-line: param-type-mismatch
                 gitsigns.diffthis(nil, { split="botright" })
-            end, { desc = "Diff Buffer" })
+            end, "Diff Buffer")
 
             -- Preview Hunk
-            map("n", "<leader>ghp", gitsigns.preview_hunk_inline, { desc = "Preview Hunk" })
+            map("n", "<leader>ghp", gitsigns.preview_hunk_inline, "Preview Hunk")
 
             -- Stage/Unstage Hunk
-            map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "Stage/Unstage Hunk" })
+            map("n", "<leader>ghs", gitsigns.stage_hunk, "Stage/Unstage Hunk")
             map("v", "<leader>ghs", function()
                 gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-            end, { desc = "Stage/Unstage Hunk" })
+            end, "Stage/Unstage Hunk")
 
             -- Reset Hunk
-            map("n", "<leader>ghr", gitsigns.reset_hunk, { desc = "Reset Hunk" })
+            map("n", "<leader>ghr", gitsigns.reset_hunk, "Reset Hunk")
             map("v", "<leader>ghr", function()
                 gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-            end, { desc = "Reset Hunk" })
+            end, "Reset Hunk")
         end,
     },
 }

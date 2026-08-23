@@ -219,13 +219,13 @@ return {
                     vim.api.nvim_feedkeys(table.concat(parts), "nt", false)
                 end
 
-                vim.keymap.set("i", "<Tab>", function()
-                    -- Return nil from on_accept to skip the built-in
-                    -- nvim_buf_set_text insertion; feed the delta instead so
-                    -- the `.` register captures the change and dot-repeat
-                    -- replays the whole accepted suggestion, not just the
-                    -- user's typed prefix.
-                    if not vim.lsp.inline_completion.get({
+                -- Build the opts for inline_completion.get() that skip the
+                -- built-in nvim_buf_set_text and instead feedkeys the delta,
+                -- so `.` in normal mode replays the whole accepted change.
+                -- `truncate`, if given, trims the delta to a word or line for
+                -- partial accepts.
+                local function accept(truncate)
+                    return {
                         on_accept = function(item)
                             if type(item.insert_text) ~= "string" then
                                 return item -- snippet: fall back to built-in
@@ -241,6 +241,12 @@ return {
                                     return item -- unusual range: keep built-in
                                 end
                             end
+                            if truncate then
+                                delta = truncate(delta) or ""
+                            end
+                            if delta == "" then
+                                return nil
+                            end
                             feed_delta(delta)
                             if item.command then
                                 local client = vim.lsp.get_client_by_id(item.client_id)
@@ -250,7 +256,11 @@ return {
                             end
                             return nil
                         end,
-                    }) then
+                    }
+                end
+
+                vim.keymap.set("i", "<Tab>", function()
+                    if not vim.lsp.inline_completion.get(accept()) then
                         return "<Tab>"
                     end
                 end, { buffer = bufnr, expr = true, desc = "Accept inline completion" })
@@ -263,25 +273,6 @@ return {
                     vim.lsp.inline_completion.select({ count = -1 })
                 end, { buffer = bufnr, desc = "Previous inline completion" })
 
-                -- Resolve insert_text to plain text (handles snippet StringValue).
-                local function resolve_text(insert_text)
-                    if type(insert_text) == "string" then
-                        return insert_text
-                    end
-                    return tostring(require("vim.lsp._snippet_grammar").parse(insert_text.value))
-                end
-
-                -- Truncate item.insert_text with a pattern, used for partial accept.
-                local function partial_accept(pattern)
-                    return {
-                        on_accept = function(item)
-                            item.insert_text = resolve_text(item.insert_text):match(pattern)
-                            item.command = nil
-                            return item
-                        end,
-                    }
-                end
-
                 vim.keymap.set("i", "<C-e>", function()
                     if not vim.lsp.inline_completion.get({ on_accept = function() end }) then
                         return "<C-e>"
@@ -289,26 +280,18 @@ return {
                 end, { buffer = bufnr, expr = true, desc = "Dismiss inline completion" })
 
                 vim.keymap.set("i", "<m-l>", function()
-                    vim.lsp.inline_completion.get({
-                        on_accept = function(item)
-                            local text = resolve_text(item.insert_text)
-                            -- Skip the already-typed prefix so the match
-                            -- starts at the ghost text boundary.
-                            local pl = 0
-                            if item.range then
-                                local _, sc = item.range:to_extmark()
-                                pl = math.max(0, vim.api.nvim_win_get_cursor(0)[2] - sc)
-                            end
-                            local word = text:sub(pl + 1):match("^(%s*%S+)") or text:sub(pl + 1)
-                            item.insert_text = text:sub(1, pl) .. word
-                            item.command = nil
-                            return item
-                        end,
-                    })
+                    vim.lsp.inline_completion.get(accept(function(delta)
+                        -- First word beyond the ghost-text boundary, with any
+                        -- leading whitespace; fall back to the whole delta so
+                        -- <m-l> at end-of-suggestion behaves like a full accept.
+                        return delta:match("^(%s*%S+)") or delta
+                    end))
                 end, { buffer = bufnr, desc = "Accept word of inline completion" })
 
                 vim.keymap.set("i", "<m-j>", function()
-                    vim.lsp.inline_completion.get(partial_accept("^([^\n]*\n?)"))
+                    vim.lsp.inline_completion.get(accept(function(delta)
+                        return delta:match("^([^\n]*\n?)")
+                    end))
                 end, { buffer = bufnr, desc = "Accept line of inline completion" })
 
                 ToggleOption.new({

@@ -199,8 +199,58 @@ return {
                     })
                 end
 
+                -- Feed `delta` as typed so `.` in normal mode replays it.
+                -- For multi-line text the raw \n between lines would trigger
+                -- autoindent on Enter and shift the suggestion's own leading
+                -- whitespace; <CR><C-u> clears the auto-inserted indent so
+                -- what actually gets typed matches the suggestion byte-for-byte.
+                local cr_ctrlu = vim.api.nvim_replace_termcodes("<CR><C-u>", true, false, true)
+                local function feed_delta(delta)
+                    if not delta:find("\n", 1, true) then
+                        vim.api.nvim_feedkeys(delta, "nt", false)
+                        return
+                    end
+                    local lines = vim.split(delta, "\n", { plain = true })
+                    local parts = { lines[1] }
+                    for i = 2, #lines do
+                        parts[#parts + 1] = cr_ctrlu
+                        parts[#parts + 1] = lines[i]
+                    end
+                    vim.api.nvim_feedkeys(table.concat(parts), "nt", false)
+                end
+
                 vim.keymap.set("i", "<Tab>", function()
-                    if not vim.lsp.inline_completion.get() then
+                    -- Return nil from on_accept to skip the built-in
+                    -- nvim_buf_set_text insertion; feed the delta instead so
+                    -- the `.` register captures the change and dot-repeat
+                    -- replays the whole accepted suggestion, not just the
+                    -- user's typed prefix.
+                    if not vim.lsp.inline_completion.get({
+                        on_accept = function(item)
+                            if type(item.insert_text) ~= "string" then
+                                return item -- snippet: fall back to built-in
+                            end
+                            local text = item.insert_text
+                            local delta = text
+                            if item.range then
+                                local sr, sc, er, ec = item.range:to_extmark()
+                                local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+                                if sr == row - 1 and er == row - 1 and ec == col then
+                                    delta = text:sub(math.max(0, col - sc) + 1)
+                                else
+                                    return item -- unusual range: keep built-in
+                                end
+                            end
+                            feed_delta(delta)
+                            if item.command then
+                                local client = vim.lsp.get_client_by_id(item.client_id)
+                                if client then
+                                    client:exec_cmd(item.command, { bufnr = 0 })
+                                end
+                            end
+                            return nil
+                        end,
+                    }) then
                         return "<Tab>"
                     end
                 end, { buffer = bufnr, expr = true, desc = "Accept inline completion" })

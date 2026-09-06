@@ -28,44 +28,52 @@ return {
             end,
         })
 
-        -- check for Mason package upgrades (cached, refreshes every 10 min)
+        -- check for Mason package upgrades (recomputed only when mason emits
+        -- an event that could actually change the count)
         local mason_cached_result = ""
-        local mason_last_check = 0
-        local mason_cache_ttl = 600 -- seconds
+        local mason_dirty = true
+        local mason_subscribed = false
 
         local function mason_status()
-            local now = os.time()
-            if now - mason_last_check < mason_cache_ttl then
+            if not mason_dirty then
                 return mason_cached_result
             end
-            mason_last_check = now
-
             if package.loaded["mason"] == nil then
-                mason_cached_result = ""
+                return mason_cached_result
+            end
+            local ok, registry = pcall(require, "mason-registry")
+            if not ok or registry == nil then
                 return mason_cached_result
             end
 
-            local registry = require("mason-registry")
-            if registry == nil then
-                mason_cached_result = ""
-                return mason_cached_result
+            -- One-time subscription: recompute only when something changes
+            -- upstream (registry refresh) or in the installed set. Replaces
+            -- the old TTL that polled the same cached registry on a timer.
+            if not mason_subscribed then
+                mason_subscribed = true
+                local invalidate = function()
+                    mason_dirty = true
+                end
+                registry:on("update:success", invalidate)
+                registry:on("package:install:success", invalidate)
+                registry:on("package:uninstall:success", invalidate)
             end
 
-            local installed = registry.get_installed_package_names()
             local outdated = 0
-
-            for _, pkg in pairs(installed) do
-                local p = registry.get_package(pkg)
-                if p then
+            for _, pkg in ipairs(registry.get_installed_package_names()) do
+                -- registry.get_package errors when the package left the index,
+                -- so pcall it before touching the returned value.
+                local got, p = pcall(registry.get_package, pkg)
+                if got and p then
                     local new = p:get_latest_version()
                     local old = p:get_installed_version()
-                    if new ~= old then
+                    if new and old and new ~= old then
                         outdated = outdated + 1
                     end
                 end
             end
-
-            mason_cached_result = outdated ~= 0 and outdated or ""
+            mason_cached_result = outdated > 0 and tostring(outdated) or ""
+            mason_dirty = false
             return mason_cached_result
         end
 
@@ -190,8 +198,7 @@ return {
         end
 
         local function not_filetypes()
-            return not vim.bo.filetype:match("^Telescope")
-                and not vim.bo.filetype:match("^Neogit")
+            return not vim.bo.filetype:match("^Telescope") and not vim.bo.filetype:match("^Neogit")
         end
 
         lualine.setup({

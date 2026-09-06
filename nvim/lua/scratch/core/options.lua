@@ -15,14 +15,23 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 --- enable ui2 -----------------------------------------------------------------
+-- ui2 + cmdheight=0 hide the command line when idle and show it as a floating
+-- overlay only while a command is being typed. Both are marked EXPERIMENTAL
+-- in `:h 'cmdheight'` (0.12.5); the same doc recommends enabling ui2 alongside
+-- cmdheight=0, so this pair is the intended combo.
+--
+-- Known bug: entering command-line from visual (`:` after v / V / <C-v>) clears
+-- the visual highlight in the buffer. The '< / '> marks and the auto-inserted
+-- '<,'> range still work, and `gv` restores the selection after the command.
+-- Waiting for an upstream fix; revisit on each nvim release.
 if vim.fn.has("nvim-0.12") == 1 then
     require("vim._core.ui2").enable({
         msg = {
-            targets = "msg",
-            msg = {
-                height = 2,
-                timeout = 4000,
-            },
+            -- targets = "msg",
+            -- msg = {
+            --     height = 2,
+            --     timeout = 4000,
+            -- },
         },
     })
     vim.opt.cmdheight = 0

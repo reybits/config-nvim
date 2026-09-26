@@ -11,6 +11,7 @@ return {
                 "make",
                 "css",
                 "html",
+                "xml",
                 "javascript",
                 "java",
                 "json",

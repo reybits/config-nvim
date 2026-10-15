@@ -1,12 +1,17 @@
 -- Enable seamless navigation between Neovim splits
 -- and multiplexer panes (such as TMUX and WezTerm).
--- TMUX support:
--- https://github.com/mrjones2014/smart-splits.nvim#tmux
--- WezTerm support:
--- https://github.com/mrjones2014/smart-splits.nvim#wezterm
+--
+-- smart-splits.nvim v3 moved multiplexer support out of the core plugin into
+-- per-backend dependencies. For tmux we pull in `backend-tmux`, which also
+-- ships the matching tmux-side plugin (loaded by TPM from tmux.conf).
+-- https://github.com/smart-splits-nvim/smart-splits.nvim
+-- https://github.com/smart-splits-nvim/backend-tmux
 
 return {
-    "mrjones2014/smart-splits.nvim",
+    "smart-splits-nvim/smart-splits.nvim",
+    dependencies = {
+        { "smart-splits-nvim/backend-tmux", main = "smart-splits-backend-tmux" },
+    },
     -- stylua: ignore
     init = function()
         vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left, { desc = "Goto Left Window" })
@@ -15,6 +20,9 @@ return {
         vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right , { desc = "Goto Right Window" })
     end,
     opts = {
+        mux = {
+            backend = "smart-splits-backend-tmux",
+        },
         move = {
             at_edge = "stop",
         },

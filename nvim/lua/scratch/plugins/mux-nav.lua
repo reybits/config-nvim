@@ -13,13 +13,16 @@ return {
         vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down, { desc = "Goto Down Window" })
         vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up, { desc = "Goto Up Window" })
         vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right , { desc = "Goto Right Window" })
-        vim.keymap.set("n", "<C-\\>", require("smart-splits").move_cursor_previous, { desc = "Previous Window" })
     end,
     opts = {
-        float_win_behavior = "mux",
-        at_edge = "stop",
-
-        -- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
-        log_level = "error",
+        move = {
+            at_edge = "stop",
+        },
+        log = {
+            -- default logging level, one of: 'trace'|'debug'|'info'|'warn'|'error'|'fatal'
+            level = "error",
+            -- `true` for the default path, a string for a custom one, `false` to disable
+            file = false,
+        },
     },
 }

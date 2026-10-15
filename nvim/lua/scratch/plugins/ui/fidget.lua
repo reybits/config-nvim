@@ -37,9 +37,9 @@ return {
 
             window = {
                 winblend = 0,
-                border = "rounded",
-                zindex = 9999,
-                align = "top",
+                border = "none",
+                zindex = 1,
+                align = "bottom",
                 avoid = {
                     "TestExplorer",
                 },

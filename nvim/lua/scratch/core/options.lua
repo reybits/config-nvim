@@ -24,18 +24,18 @@ vim.g.loaded_node_provider = 0
 -- the visual highlight in the buffer. The '< / '> marks and the auto-inserted
 -- '<,'> range still work, and `gv` restores the selection after the command.
 -- Waiting for an upstream fix; revisit on each nvim release.
-if vim.fn.has("nvim-0.12") == 1 then
-    require("vim._core.ui2").enable({
-        msg = {
-            -- targets = "msg",
-            -- msg = {
-            --     height = 2,
-            --     timeout = 4000,
-            -- },
-        },
-    })
-    vim.opt.cmdheight = 0
-end
+-- if vim.fn.has("nvim-0.12") == 1 then
+--     require("vim._core.ui2").enable({
+--         msg = {
+--             -- targets = "msg",
+--             -- msg = {
+--             --     height = 2,
+--             --     timeout = 4000,
+--             -- },
+--         },
+--     })
+--     vim.opt.cmdheight = 0
+-- end
 
 --- common options -------------------------------------------------------------
 

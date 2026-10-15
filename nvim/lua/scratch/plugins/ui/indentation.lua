@@ -45,7 +45,7 @@ return {
             },
             scope = {
                 char = "╎",
-                highlights = { "BlinkIndentYellow" },
+                -- highlights = { "BlinkIndentYellow" },
             },
         })
         indent.enable(vim.g.blink_indent_enabled ~= false)

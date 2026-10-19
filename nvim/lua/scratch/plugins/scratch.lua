@@ -5,6 +5,7 @@ return {
         { "<leader>tsb", "<cmd>ScratchToggle<cr>", desc = "Toggle Buffer" },
         { "<leader>tsi", "<cmd>ScratchIssues<cr>", desc = "Toggle Issues" },
         { "<leader>tst", "<cmd>ScratchTask<cr>", desc = "Add Task" },
+        { "<leader>tsT", "<cmd>ScratchTask!<cr>", desc = "Add Global Task" },
     },
     cmd = {
         "ScratchToggle",

@@ -201,6 +201,27 @@ return {
             return not vim.bo.filetype:match("^Telescope") and not vim.bo.filetype:match("^Neogit")
         end
 
+        -- Visual selection size with an explicit unit. Counts characters and
+        -- screen columns: the builtin selectioncount counts bytes.
+        local function selection_size()
+            local mode = vim.fn.mode()
+            local lines = math.abs(vim.fn.line("v") - vim.fn.line(".")) + 1
+            if mode == "\22" then
+                local first = vim.fn.virtcol("v", true)
+                local last = vim.fn.virtcol(".", true)
+                local columns = math.max(first[2], last[2]) - math.min(first[1], last[1]) + 1
+                return string.format("%dx%d", lines, columns)
+            end
+            if mode == "v" and lines == 1 then
+                local chars = math.abs(vim.fn.charcol("v") - vim.fn.charcol(".")) + 1
+                return chars == 1 and "1 char" or string.format("%d chars", chars)
+            end
+            if mode == "v" or mode == "V" then
+                return lines == 1 and "1 line" or string.format("%d lines", lines)
+            end
+            return ""
+        end
+
         lualine.setup({
             options = {
                 theme = "material",
@@ -222,7 +243,9 @@ return {
                 lualine_a = {
                     { "mode",
                         fmt = function(str)
-                            return str:sub(1, 1)
+                            -- first letter of every word keeps V-LINE (VL) and
+                            -- V-BLOCK (VB) apart from VISUAL (V)
+                            return (str:gsub("(%a)%a*%-?", "%1"))
                         end,
                         padding = { left = 1, right = 0 }
                     },
@@ -354,18 +377,18 @@ return {
                 lualine_z = {
                     { "searchcount",
                         maxcount = 999999,
-                        separator = "|",
-                        padding = { left = 0, right = 0 },
+                        separator = "",
+                        padding = { left = 0, right = 1 },
                     },
-                    { "selectioncount",
-                        separator = "|",
-                        padding = { left = 0, right = 0 },
+                    { selection_size,
+                        separator = "",
+                        padding = { left = 0, right = 1 },
                     },
                     { "location",
                         fmt = function(str)
                             return str:gsub("%s+", "")
                         end,
-                        separator = "|",
+                        separator = "",
                         padding = { left = 0, right = 1 },
                     },
                     -- { "progress",

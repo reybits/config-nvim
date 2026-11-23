@@ -22,6 +22,14 @@ return {
             return ctx.plugin and 0 or 800
         end,
 
+        -- Auto triggers in visual mode make which-key wait for a key inside its
+        -- ModeChanged handler, so later handlers (lualine) run only after that
+        -- key. Keep only the leader popup in visual mode.
+        triggers = {
+            { "<auto>", mode = "nso" },
+            { "<leader>", mode = "x" },
+        },
+
         -- Inside gitcommit / Neogit-managed buffers, hide global <leader>g…
         -- entries from the popup so it only surfaces buffer-local actions
         -- (e.g. commit-msg's gc / gC). The block_git_globals autocmd installs
